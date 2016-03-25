@@ -1,6 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var User = require(path.join(__dirname,'../models/studentDataModel')).user;
+var Attendence = require(path.join(__dirname,'../models/studentDataModel')).attendence;
+var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
+var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
+var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
