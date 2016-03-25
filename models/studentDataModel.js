@@ -13,10 +13,10 @@ var studentSchema = mongoose.Schema({
 	id: Number,
 	name: String,
 	program: String,
-	attendance: [{type: Schema.ObjectId, required: false, ref: 'attendance'}],
-	grades: [{type: Schema.ObjectId, required: false, ref: 'grades'}],
-	data: [{type: Schema.ObjectId, required: false, ref: 'data'}],
-	archived: {type: Boolean, required: false}
+	attendance: [{type: Schema.ObjectId, ref: 'Attendance'}],
+	grades: [{type: Schema.ObjectId, ref: 'Grades'}],
+	data: [{type: Schema.ObjectId, ref: 'Data'}],
+	archived: Boolean
 });
 
 var userSchema = mongoose.Schema({
@@ -24,15 +24,8 @@ var userSchema = mongoose.Schema({
 	password: String
 });
 ​
-/*
-{
-	type: 'attendace'
-	date: 'Jul 01 2016'
-}
-*/
-​
-module.exports.attendace = mongoose.model('attendace', dataSchema); 
-module.exports.grades = mongoose.model('grades', dataSchema); 
-module.exports.data = mongoose.model('data', dataSchema); 
-module.exports.student = mongoose.model('student', studentSchema);
-module.exports.student = mongoose.model('user', userSchema);
+module.exports.attendace = mongoose.model('Attendace', dataSchema); 
+module.exports.grades = mongoose.model('Grades', dataSchema); 
+module.exports.data = mongoose.model('Data', dataSchema); 
+module.exports.student = mongoose.model('Student', studentSchema);
+module.exports.student = mongoose.model('User', userSchema);
