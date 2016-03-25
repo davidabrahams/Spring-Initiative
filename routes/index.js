@@ -14,9 +14,9 @@ router.get('/', function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
-router.post('/login', function(req, res){
+router.get('/login', function(req, res){
   //POST login
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  res.sendFile('login.html', { root: path.join(__dirname, '../views') });
 });
 
 router.post('/register', function(req, res){
@@ -27,7 +27,6 @@ router.post('/register', function(req, res){
 router.get('/index', function(req, res){
   //GET index
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-
 });
 
 router.get('/program', function(req, res){
