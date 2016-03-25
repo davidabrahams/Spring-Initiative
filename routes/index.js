@@ -1,17 +1,13 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-<<<<<<< HEAD
-var User = require('../models/model');
-=======
 var path = require('path');
+
 var User = require(path.join(__dirname,'../models/studentDataModel')).user;
 var Attendence = require(path.join(__dirname,'../models/studentDataModel')).attendence;
 var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
 var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
-
->>>>>>> 0b968a3be7f4a41b676179641233e9d68fc6593c
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
