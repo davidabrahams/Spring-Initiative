@@ -15,7 +15,8 @@ var studentSchema = mongoose.Schema({
 	program: String,
 	attendance: [{type: Schema.ObjectId, required: false, ref: 'attendance'}],
 	grades: [{type: Schema.ObjectId, required: false, ref: 'grades'}],
-	data: [{type: Schema.ObjectId, required: false, ref: 'data'}]
+	data: [{type: Schema.ObjectId, required: false, ref: 'data'}],
+	archiver: {type: Boolean, required: false}
 });
 
 var userSchema = mongoose.Schema({
