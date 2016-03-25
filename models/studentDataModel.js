@@ -1,6 +1,3 @@
-/* dataModel.js
-*/
-​
 var mongoose = require('mongoose');   
 ​
 var dataSchema = mongoose.Schema({
