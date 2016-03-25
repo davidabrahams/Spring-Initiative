@@ -33,12 +33,12 @@ router.get('/student', function(req, res){
 
 });
 
-router.get('/student/add', function(req, res){
+router.post('/student/add', function(req, res){
 	//Add new student
 	res.sendfile('./public/index.html');
 });
 
-router.get('/student/edit', function(req, res){
+router.post('/student/edit', function(req, res){
 	//Edit existing student
 	res.sendfile('./public/index.html');
 });
