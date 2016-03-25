@@ -17,6 +17,11 @@ var studentSchema = mongoose.Schema({
 	grades: [{type: Schema.ObjectId, required: false, ref: 'grades'}],
 	data: [{type: Schema.ObjectId, required: false, ref: 'data'}]
 });
+
+var userSchema = mongoose.Schema({
+	username: String,
+	password: String
+});
 ​
 /*
 {
@@ -28,4 +33,5 @@ var studentSchema = mongoose.Schema({
 module.exports.attendace = mongoose.model('attendace', dataSchema); 
 module.exports.grades = mongoose.model('grades', dataSchema); 
 module.exports.data = mongoose.model('data', dataSchema); 
-module.exports.user = mongoose.model('student', studentSchema);
+module.exports.student = mongoose.model('student', studentSchema);
+module.exports.student = mongoose.model('user', userSchema);
