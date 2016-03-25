@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var dataSchema = mongoose.Schema({
 	type: String,
 	date: Date,
-	data: Array
+	data: Array,
+	student: String
 });
 
 var studentSchema = mongoose.Schema({
-	id: Number,
 	name: String,
 	program: String,
 	attendance: Array,

@@ -35,24 +35,124 @@ router.get('/program', function(req, res){
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
-router.get('/student', function(req, res){
+router.get('/student/:_id', function(req, res){
   //GET student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+   Student.find({_id: req.params._id}, function(err, currentStudent){
+   	res.json(currentStudent);
+   })
 });
 
 router.post('/student/add', function(req, res){
   //Add new student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+
+  var studentName = req.body.name;
+  var studentProgram = req.body.program;
+  var studentArchived = req.body.archived;
+
+  Student.create({
+	name: studentName,
+	program: studentProgram,
+	archived: studentArchived
+  }, function(err, newStudent){
+  	if(err){res.send(err)}
+  	Student.find({}, function(err, allStudents){
+  		res.json(allStudents);
+  	})
+  })
+
+
+
 });
 
-router.post('/student/edit', function(req, res){
+router.post('/student/edit/:_id', function(req, res){
   //Edit existing student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+
+
+  var studentName = req.body.name;
+  var studentProgram = req.body.program;
+  var studentArchived = req.body.archived;
+  var studentID = req.params._id;
+
+
+  Student.update({_id:studentID}, {
+	name: studentName,
+	program: studentProgram,
+	archived: studentArchived
+  }, function(err, record){
+  	Student.find({}, function(err, allStudents){
+  		if(err){res.send(err)}
+  		res.json(allStudents)
+  	})
+  })
 });
+
+router.post('/student/newEntry/:_id', function(req,res){
+  //POST new Student entry
+  var currentDate = new Date();
+  var studentID = req.params._id;
+  var studentAttendence = req.body.attendence;
+  var studentData = req.body.data;
+  var studentGrades = req.body.data;
+
+  var attendID;
+  var dataID;
+  var gradeID;
+
+  Attendence.create({
+  	student: studentID,
+  	type: 'attendence',
+  	data: studentAttendence,
+  	date: currentDate
+  }, function(err, newAttendence){
+  	  	if(err){res.send(err)}
+  	  	attendID = newAttendence._id;
+  	  	console.log('new attendence logged')
+  })
+
+   Data.create({
+  	student: studentID,
+  	type: 'data',
+  	data: studentData,
+  	date: currentDate
+  }, function(err, newData){
+  	  	if(err){res.send(err)}
+  	  	dataID = newData._id;
+  	  	console.log('new data logged')
+
+  })
+
+   Grades.create({
+  	student: studentID,
+  	type: 'data',
+  	data: studentGrades,
+  	date: currentDate
+  }, function(err, newGrade){
+  	  	if(err){res.send(err)}
+  	  	gradeID = newGrade._id;
+  	  	console.log('new grade logged')
+
+  })
+
+   Student.update({_id: studentID},{
+   	$addToSet: {attendence: attendID},
+   	$addToSet: {grades: gradeID},
+   	$addToSet: {data: dataID}
+   }, function(err, record){
+   	if(err){res.send(err)}
+   })
+
+   Student.find({}, function(err, allStudents){
+   	res.json(allStudents);
+   })
+  
+});
+
 
 router.get('/student/archive', function(req,res){
   //GET archived students
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  Student.find({archived: true}, function(err, archivedStudents){
+  	res.json(archivedStudents);
+  })
 });
 
 module.exports = router;
