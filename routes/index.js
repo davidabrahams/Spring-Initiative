@@ -16,7 +16,7 @@ router.post('/register', function(req, res){
 	res.sendfile('./public/index.html');
 });
 
-router.get('/index', function(req.res){
+router.get('/index', function(req, res){
 	//GET index
 	res.sendfile('./public/index.html');
 
