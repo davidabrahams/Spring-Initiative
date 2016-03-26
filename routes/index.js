@@ -24,6 +24,9 @@ routes.POSTregister = function(req, res, next) {
 routes.GETindex = function(req, res){
 	// Student.find
 	// res.JSON({students: allStudents});
+	Student.find({}, function(err, allStudents){
+		res.json(allStudents);
+	}) 
 }
 
 routes.GETprogram = function(req, res, next) {
