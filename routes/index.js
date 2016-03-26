@@ -10,15 +10,15 @@ var Student = require(path.join(__dirname,'../models/studentDataModel')).student
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
 routes.GEThome = function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.POSTlogin = function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.POSTregister = function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.GETindex = function(req, res){
@@ -30,7 +30,7 @@ routes.GETindex = function(req, res){
 }
 
 routes.GETprogram = function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.GETstudent = function(req, res, next) {

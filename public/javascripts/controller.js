@@ -1,14 +1,24 @@
-springInitiative = angular.module('springInitiative', ['ngMaterial', 'ngRoute']);
-springInitiative.config(function($routeProvider){
-	$routeProvider
-	.when('/', {
-		templateURL: 'html/student.html'
-		controller: 'mainController'
-	})
+var springInitiative = angular.module('springInitiative', ['ngRoute']);
+
+// springInitiative.config(function($routeProvider){
+// 	$routeProvider
+// 	.when('/', {
+// 		templateURL: '../views/student.html'
+// 		controller: 'mainController'
+// 	})
+// });
+
+springInitiative.config(function($routeProvider) {
+    $routeProvider
+    .when('/student',{
+        templateUrl: '../views/student.html',
+        controller: 'mainController'
+    })
 });
 
 
-springInitiative.controller('mainController', function($scope, $http
+
+springInitiative.controller('mainController', function($scope, $http){
 
 	$scope.getIndex = function(){
 		$http.get('api/index')

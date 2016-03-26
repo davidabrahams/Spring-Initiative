@@ -29,8 +29,13 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', routes);
-app.use('/users', users);
+app.get('/', function(req, res){
+     res.sendFile('index.html', { root: path.join(__dirname, './views') });
+    })
+
+app.get('/student', function(req, res){
+    res.sendFile('student.html', { root: path.join(__dirname, './views') });
+    })
 
 app.get('/', index.GEThome);
 app.post('/login', index.POSTlogin);
