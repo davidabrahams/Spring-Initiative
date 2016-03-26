@@ -46,8 +46,8 @@ db.once('open', function() {
 });
 
 // use static authenticate method of model in LocalStrategy
+// passport.use(User.createStrategy());
 passport.use(new LocalStrategy(User.authenticate()));
-
 // use static serialize and deserialize of model for passport session support
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
