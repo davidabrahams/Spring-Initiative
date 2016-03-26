@@ -15,16 +15,8 @@ router.get('/', function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
-router.post('/login', function(req, res) {
-  passport.authenticate('local', function(err, user, info) {
-  if (err) { return res.status(500).send(err.message); }
-  if (!user) { return res.status(401)
-    .send("A user with that password could not be found.");}
-  req.logIn(user, function(err) {
-    if (err) { return next(err); }
-    return res.send({redirect: '/'});
-  });
-  })(req, res, next);
+router.post('/login', passport.authenticate('local'), function(req, res) {
+  console.log('logged in!');
 });
 
 router.get('/login', function(req, res){
@@ -32,20 +24,14 @@ router.get('/login', function(req, res){
   res.sendFile('login.html', { root: path.join(__dirname, '../views') });
 });
 
-
-router.post('/register', function(req, res) {
-  console.log(JSON.stringify(req.body));
-  // User.register(new User({ username : req.body.username }), req.body.password, function(err, user) {
-  //   console.log('here');
-  //   console.log(err);
-  //   if (err) {
-  //     return res.status(500).send(err.message);
-  //   }
-
-  //   passport.authenticate('local')(req, res, function () {
-  //     res.send({redirect: '/'});
-  //   });
-  // });
+router.post('/register', function(req, res, next) {
+  User.register(new User({ email: req.body.username }), req.body.password,
+                function(err) {
+    if (err) {
+      console.log('error while user register!', err); return next(err);
+    }
+    console.log('user registered!');
+  });
 });
 
 router.get('/index', function(req, res){
