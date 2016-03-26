@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
@@ -29,8 +29,18 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
+// app.use('/', routes);
 app.use('/users', users);
+
+app.get('/', index.GEThome);
+app.post('/login', index.POSTlogin);
+app.post('/register', index.POSTregister);
+app.get('/index', index.GETindex);
+app.get('/program', index.GETprogram);
+app.get('/student', index.GETstudent);
+app.post('/student/add', index.POSTaddstudent);
+app.post('/student/edit', index.POSTeditstudent);
+app.get('/student/archive', index.GETarchive);
 
 var mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI);

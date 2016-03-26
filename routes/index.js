@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var router = express.Router();
+var routes = {};
 var path = require('path');
 
 var User = require(path.join(__dirname,'../models/studentDataModel')).user;
@@ -9,65 +9,35 @@ var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
 var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+routes.GEThome = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/login', function(req, res){
-  //POST login
+routes.POSTlogin = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/register', function(req, res){
-  //POST register
+routes.POSTregister = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.get('/index', function(req, res){
-  //GET index
+routes.GETindex = function(req, res){
+	// Student.find
+	// res.JSON({students: allStudents});
+}
+
+routes.GETprogram = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
 
-});
-
-router.get('/program', function(req, res){
-  //GET program
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.get('/student/:_id', function(req, res){
-  //GET student
-   Student.find({_id: req.params._id}, function(err, currentStudent){
+routes.GETstudent = function(req, res, next) {
+     Student.find({_id: req.params._id}, function(err, currentStudent){
    	res.json(currentStudent);
    })
-});
+}
 
-router.post('/student/add', function(req, res){
-  //Add new student
-
-  var studentName = req.body.name;
-  var studentProgram = req.body.program;
-  var studentArchived = req.body.archived;
-
-  Student.create({
-	name: studentName,
-	program: studentProgram,
-	archived: studentArchived
-  }, function(err, newStudent){
-  	if(err){res.send(err)}
-  	Student.find({}, function(err, allStudents){
-  		res.json(allStudents);
-  	})
-  })
-
-
-
-});
-
-router.post('/student/edit/:_id', function(req, res){
-  //Edit existing student
-
-
+routes.POSTeditstudent = function(req, res, next) {
+  
   var studentName = req.body.name;
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
@@ -84,11 +54,27 @@ router.post('/student/edit/:_id', function(req, res){
   		res.json(allStudents)
   	})
   })
-});
+}
 
-router.post('/student/newEntry/:_id', function(req,res){
-  //POST new Student entry
-  var currentDate = new Date();
+routes.POSTaddstudent = function(req, res, next) {
+  var studentName = req.body.name;
+  var studentProgram = req.body.program;
+  var studentArchived = req.body.archived;
+
+  Student.create({
+	name: studentName,
+	program: studentProgram,
+	archived: studentArchived
+  }, function(err, newStudent){
+  	if(err){res.send(err)}
+  	Student.find({}, function(err, allStudents){
+  		res.json(allStudents);
+  	})
+  })
+}
+
+routes.POSTnewEntry = function(req, res, next){
+	var currentDate = new Date();
   var studentID = req.params._id;
   var studentAttendence = req.body.attendence;
   var studentData = req.body.data;
@@ -144,15 +130,12 @@ router.post('/student/newEntry/:_id', function(req,res){
    Student.find({}, function(err, allStudents){
    	res.json(allStudents);
    })
-  
-});
+}
 
-
-router.get('/student/archive', function(req,res){
-  //GET archived students
+routes.GETarchive = function(req, res, next) {
   Student.find({archived: true}, function(err, archivedStudents){
   	res.json(archivedStudents);
   })
-});
+}
 
-module.exports = router;
+module.exports = routes;
