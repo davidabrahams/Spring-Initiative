@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var router = express.Router();
+var routes = {};
 var path = require('path');
 
 var User = require(path.join(__dirname,'../models/studentDataModel')).user;
@@ -9,50 +9,41 @@ var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
 var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+routes.GEThome = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/login', function(req, res){
-  //POST login
+routes.POSTlogin = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/register', function(req, res){
-  //POST register
+routes.POSTregister = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.get('/index', function(req, res){
-  //GET index
+routes.GETindex = function(req, res){
+	// Student.find
+	// res.JSON({students: allStudents});
+}
+
+routes.GETprogram = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
 
-});
-
-router.get('/program', function(req, res){
-  //GET program
+routes.GETstudent = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.get('/student', function(req, res){
-  //GET student
+routes.POSTeditstudent = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/student/add', function(req, res){
-  //Add new student
+routes.POSTaddstudent = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.post('/student/edit', function(req, res){
-  //Edit existing student
+routes.GETarchive = function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
+}
 
-router.get('/student/archive', function(req,res){
-  //GET archived students
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-module.exports = router;
+module.exports = routes;
