@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var router = express.Router();
+var routes = {};
 var path = require('path');
 var passport = require('passport');
 
@@ -10,12 +10,7 @@ var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
 var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
-/* GET home page. */
-router.get('/', isLoggedIn, function(req, res, next) {
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.post('/login', function(req, res, next) {
+routes.POSTlogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) { return res.status(500).send(err.message); }
     if (!user) {
@@ -26,14 +21,9 @@ router.post('/login', function(req, res, next) {
       return res.send({redirect: '/'});
     });
   })(req, res, next);
-});
+}
 
-router.get('/login', function(req, res){
-  //POST login
-  res.sendFile('login.html', { root: path.join(__dirname, '../views') });
-});
-
-router.post('/register', function(req, res, next) {
+routes.POSTregister = function(req, res, next) {
   User.register(new User({ email: req.body.username }), req.body.password,
                 function(err, user) {
     if (err) {
@@ -45,48 +35,34 @@ router.post('/register', function(req, res, next) {
       res.send({redirect: '/'});
     });
   });
-});
-
-router.get('/index', function(req, res){
-  //GET index
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.get('/program', function(req, res){
-  //GET program
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.get('/student', function(req, res){
-  //GET student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.post('/student/add', function(req, res){
-  //Add new student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.post('/student/edit', function(req, res){
-  //Edit existing student
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-router.get('/student/archive', function(req,res){
-  //GET archived students
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-});
-
-function isLoggedIn(req, res, next) {
-
-    // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
-    {
-        return next();
-    }
-
-    // if they aren't redirect them to the home page
-    res.redirect('/login');
 }
 
-module.exports = router;
+routes.GETindex = function(req, res){
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.GETlogin = function(req, res){
+  res.sendFile('login.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.GETprogram = function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.GETstudent = function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.POSTeditstudent = function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.POSTaddstudent = function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+routes.GETarchive = function(req, res, next) {
+  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+}
+
+module.exports = routes;

@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var routes = require('./routes/index');
+var index = require('./routes/index');
 var users = require('./routes/users');
 // requires the model with Passport-Email plugged in
 var User = require('./models/user');
@@ -43,8 +43,20 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', routes);
 app.use('/users', users);
+
+app.get('/', isLoggedIn, index.GETindex);
+app.get('/login', index.GETlogin);
+app.post('/login', index.POSTlogin);
+app.post('/register', index.POSTregister);
+
+// TODO: Add logged in middleware to these routes to ensure the user is
+// authenticated.
+app.get('/program', index.GETprogram);
+app.get('/student', index.GETstudent);
+app.post('/student/add', index.POSTaddstudent);
+app.post('/student/edit', index.POSTeditstudent);
+app.get('/student/archive', index.GETarchive);
 
 var mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI);
@@ -92,6 +104,18 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+function isLoggedIn(req, res, next) {
+
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+  {
+    return next();
+  }
+
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}
 
 
 module.exports = app;
