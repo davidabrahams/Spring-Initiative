@@ -11,12 +11,21 @@ var Student = require(path.join(__dirname,'../models/studentDataModel')).student
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
-  console.log('logged in!');
+router.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return res.status(500).send(err.message); }
+    if (!user) {
+      return res.status(401)
+      .send(info.message);}
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.send({redirect: '/'});
+    });
+  })(req, res, next);
 });
 
 router.get('/login', function(req, res){
@@ -26,11 +35,15 @@ router.get('/login', function(req, res){
 
 router.post('/register', function(req, res, next) {
   User.register(new User({ email: req.body.username }), req.body.password,
-                function(err) {
+                function(err, user) {
     if (err) {
       console.log('error while user register!', err); return next(err);
     }
     console.log('user registered!');
+
+    passport.authenticate('local')(req, res, function () {
+      res.send({redirect: '/'});
+    });
   });
 });
 
@@ -68,7 +81,9 @@ function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
+    {
         return next();
+    }
 
     // if they aren't redirect them to the home page
     res.redirect('/login');
