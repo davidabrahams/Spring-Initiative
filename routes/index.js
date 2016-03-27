@@ -38,6 +38,8 @@ routes.POSTregister = function(req, res, next) {
 }
 
 routes.GETindex = function(req, res){
+  // Student.find
+  // res.JSON({students: allStudents});
   res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
