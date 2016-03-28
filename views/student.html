@@ -1,0 +1,77 @@
+<!-- index.html -->
+<!-- The DOM. Defines the layout of the page. Creates two tabs - a "New Page" tab and a "View/Edit" tab. Prevents submission of empty forms. -->
+
+
+<!-- <!doctype html> -->
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="springInitiative">
+   <head>
+      <!-- META -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <!-- Optimize mobile viewport -->
+      <title>Title</title>
+      <!-- SCROLLS PUT THIS BACK IN PLS-->
+      <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
+      <!--     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css"> -->
+      <!-- <link rel="stylesheet" type = "text/css" href = "./public/views/style.css"> -->
+<!--       <link rel="stylesheet" href="//cdn.gitcdn.link/cdn/angular/bower-material/v1.0.6/angular-material.css">
+      <link rel="stylesheet" href="//material.angularjs.org/1.0.6/docs.css"> -->
+      
+      <style>
+         /*        .tabsdemoDynamicHeight md-content {background-color: transparent !important; }*/
+         .tabsdemoDynamicHeight {
+         margin:0 auto;
+         }
+         .tabsdemoDynamicHeight md-content md-tabs {
+         background: #f6f6f6;
+         border: 1px solid #e1e1e1; 
+         }
+         .tabsdemoDynamicHeight md-content md-tabs md-tabs-wrapper {
+         background: white; 
+         }
+         .tabsdemoDynamicHeight md-content h1:first-child {
+         margin-top: 0; 
+         }
+      </style>
+      <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script> <!-- load ngRoute -->
+    <script type="text/javascript" src="/javascripts/controller.js"></script>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+   </head>
+   <!-- SET THE CONTROLLER AND GET ALL PAGES -->
+   <body ng-controller="mainController">
+      <div class="container">
+         <!-- HEADER AND PAGE COUNT -->
+         <div style=" margin-top: 30px; padding-right:0; margin-right: 0px; width: 100%; background-color: #e9e9e9" class="jumbotron text-center header">
+            <h1>HELLO WORLD</h1> <br> <h3>
+         </div>
+         <!-- PAGE LIST -->
+         </div>
+      <div class="wrapper">
+         {{allStudents}}
+      <form class="studentform">
+        <center>
+        <h2>Add a New Student</h2>
+        <br>
+
+        Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
+        Program: <input list="programs" ng-model = "newStudent.program">
+            <datalist id="programs">
+             <option value="Little Spring">
+             <option value="Big Spring">
+             <option value="Baby Spring">
+           </datalist> 
+           <br>
+        </input>
+        Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
+        <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
+      </center>
+      </form>
+    </div>
+      <!--         </div>
+         </div> -->
+   </body>
+</html>

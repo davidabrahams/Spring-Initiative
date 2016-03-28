@@ -29,18 +29,24 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', routes);
-app.use('/users', users);
+app.get('/', function(req, res){
+     res.sendFile('index.html', { root: path.join(__dirname, './views') });
+    })
+
+app.get('/student', function(req, res){
+    res.sendFile('student.html', { root: path.join(__dirname, './views') });
+    })
 
 app.get('/', index.GEThome);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
-app.get('/index', index.GETindex);
+app.get('/api/index', index.GETindex);
 app.get('/program', index.GETprogram);
-app.get('/student', index.GETstudent);
-app.post('/student/add', index.POSTaddstudent);
-app.post('/student/edit', index.POSTeditstudent);
-app.get('/student/archive', index.GETarchive);
+app.get('/api/student/:_id', index.GETstudent);
+app.post('/api/student/add', index.POSTaddstudent);
+app.post('/api/student/edit/:_id', index.POSTeditstudent);
+app.get('/api/index/archive', index.GETarchive);
+app.post('api/student/newEntry/:_id', index.POSTnewEntry);
 
 var mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI);
