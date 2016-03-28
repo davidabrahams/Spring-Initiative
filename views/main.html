@@ -1,0 +1,30 @@
+<!-- index.html -->
+<!-- <!doctype html> -->
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html lang="en" ng-app="app">
+   <head>
+      <!-- META -->
+      <meta charset="utf-8">
+      <title>Spring Initiative</title>
+	  
+	  <!-- CSS -->
+	  <link rel="stylesheet" type="text/css" href = "/stylesheets/style.css">
+
+      <!-- D3 scripts -->
+      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <script src="http://d3js.org/topojson.v1.min.js"></script>
+
+      <!-- SPELLS -->
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.js"></script>
+      <script src="http://code.angularjs.org/1.2.0-rc.2/angular-route.min.js"></script>
+   </head>
+
+   <!-- SET THE CONTROLLER AND GET ALL PAGES -->
+   <body ng-controller="mainController">
+      <div ng-view> </div>
+   </body>
+
+   <script src="/javascripts/main.js"></script>
+</html>
