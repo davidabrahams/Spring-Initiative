@@ -11,16 +11,11 @@ loginApp.controller('loginCtrl', function($scope, $http) {
 
 
   $scope.register = function() {
-    console.log($scope.email);
     var data = {username: $scope.email, password: $scope.password};
-    console.log(data)
     $http.post("register", data).then(function (response) {
-      console.log('success!');
-      console.log(response.data);
       window.location.href = response.data.redirect;
     }, function (response) {
-      console.log('error!');
-      console.log(response.data);
+      console.log('error: %s', response.data);
     });
   }
 });
