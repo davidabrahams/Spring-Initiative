@@ -81,16 +81,41 @@
         <br>
         
         Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
-        Program: <input list="programs" ng-model = "newStudent.program">
-            <datalist id="programs">
-             <option value="Little Spring">
-             <option value="Big Spring">
-             <option value="Baby Spring">
-           </datalist> 
+        Program: 
+             <select id="programs" ng-model = "newStudent.program">
+             <option value="Little Spring">Little Spring</option>
+             <option value="Big Spring">Big Spring</option>
+             <option value="Baby Spring">Baby Spring</option>
+           </select> 
            <br>
         </input>
         Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
         <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
+      </center>
+      </form>
+
+
+            <form class="studentform">
+        <center>
+
+      <h5> ---------------------------------------------------- </h5>
+        <h2>Edit a Current Student</h2>
+        <br>
+        
+        Name:
+            <select ng-model = "editStudent" ng-options = "student.name for student in allStudents">
+           </select>
+           <br>
+        Program:
+            <select id="programs" ng-model = "editStudent.program">
+             <option value="Little Spring">Little Spring</option>
+             <option value="Big Spring">Big Spring</option>
+             <option value="Baby Spring">Baby Spring</option>
+           </select> 
+           <br>
+        </input>
+        Archived: <input type="radio" ng-model = "editStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "editStudent.archived" name="radAnswer" value = "false"> No </input>
+        <button class="btn btn-lg btn-primary btn-block" ng-click = "editStudentFunc(editStudent)" type="submit">Submit</button>
       </center>
       </form>
     </div>

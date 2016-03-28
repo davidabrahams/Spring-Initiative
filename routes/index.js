@@ -34,14 +34,13 @@ routes.GETprogram = function(req, res, next) {
 }
 
 routes.GETstudent = function(req, res, next) {
-    var currentStudent
-    Student.findOne({_id: req.params._id}, function(err, currentStudent){
-    	currentStudent = currentStudent
-    	Student.find({}, function(err, allStudents){
-  		res.json({allStudents: allStudents, currentStudent: currentStudent});
-  	})
+     Student.findOne({_id: req.params._id}, function(err, currentStudent){
+      if(err){res.send(err)}
+      Student.find({}, function(err, allStudents){
+        if(err){res.send(err)}
+            res.json({currentStudent: currentStudent, allStudents:allStudents});
+      })
    })
-    
 }
 
 routes.POSTeditstudent = function(req, res, next) {
@@ -50,7 +49,7 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-
+  console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({_id:studentID}, {
 	name: studentName,
