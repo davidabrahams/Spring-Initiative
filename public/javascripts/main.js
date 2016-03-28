@@ -10,37 +10,42 @@ app.config(function($routeProvider) {
     //of the website
     $routeProvider
         .when('/index', {
-            templateUrl: '../views/index.html',
+            templateUrl: '/views/index.html',
             controller: 'indexController'
         })
 
-        .when('/', {
-            templateUrl: '../views/login.html',
+        .when('/login', {
+            templateUrl: '/views/login.html',
             controller: 'loginController'
-        })
+        })      
+
+        .otherwise({
+        redirectTo: '/'
+      });
 });
 
 app.controller('indexController', function($scope, $http){
     $scope.students = [];
+    $scope.contentTitle = 'Welcome';
+    $scope.contentText = 'Here you can see such and such information.';
 
     $http({
           method: 'GET',
           url: '/student'
         })
-         .success(function(data){
-            console.log('test');
-             $scope.students = data;
+        .success(function(data){
+            console.log(data.students);
+            $scope.students = data.students;
          })
-         .error(function(err){
+        .error(function(err){
              console.log('Error: in GET \'/student\'', err);
-         });
+        });
 
-    $scope.showStudents=function(){
-        // var ourSVG = angular.element( document.querySelector('#sentimentMap'));
-        // ourSVG.empty(); // prevents multiple maps being appended to this element of the document
-        // $scope.getData('senti', '#sentimentMap');
-    }; 
- });
+    $scope.showStudent = function(student){
+        $scope.contentTitle = student.email;
+        $scope.contentText = 'Here you can see ' + student.email + '\'s information.';
+    }
+});
 
 app.controller('loginController', function($scope, $http){
 });

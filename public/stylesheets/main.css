@@ -1,11 +1,4 @@
-body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
-
-a
-  color: #00B7FF
-
-// Containers
+/*Containers*/
 #main-container{
 	display: flex;
 	position:fixed;
@@ -19,22 +12,34 @@ a
 #sidebar-container{
 	flex-grow: 1;
 	padding: 20px;
+	background-color: #eeeeee;
 }
 #content-container{
-	flex-grow: 7;
-	flex-shrink: 2;
+	flex-grow: 8;
+	flex-shrink: 3;
 	padding: 20px;
 }
-// Sidebar
-#searchbar{}
 
-#settings{}
+#search-container{
+	display: flex;
+}
+
+/*Sidebar*/
+#searchbar{}
+.form-control{
+    width: 100%;
+}
+
+#settings{
+	padding: 5px;
+	font-size: 20px;
+}
 
 #sidebar-items{}
 
 #student-item{}
 
-// Content
+/*Content*/
 #content-title{}
 
 #content-text{}

@@ -9,7 +9,7 @@ var Student = require(path.join(__dirname,'../models/studentDataModel')).student
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
 
 routes.GEThome = function (req, res, next) {
-  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  res.sendFile('main.html', { root: path.join(__dirname, '../public') });
 }
 
 routes.POSTlogin = function (req, res, next) {
@@ -21,7 +21,7 @@ routes.POSTregister = function (req, res, next) {
 }
 
 routes.GETindex = function (req, res, next){
-  res.sendFile('main.html', { root: path.join(__dirname, '../views') });
+  res.sendFile('main.html', { root: path.join(__dirname, '../public') });
   // res.json({message: 'test'});
 }
 
