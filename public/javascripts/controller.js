@@ -44,7 +44,8 @@ springInitiative.controller('mainController', function($scope, $http){
     $scope.addStudent=function(){
     	$http.post('api/student/add', $scope.newStudent)
     		.success(function(data){
-    			$scope.allStudents = data
+    			$scope.allStudents = data.allStudents;
+                $scope.newStudent = data.newStudent;
                 console.log($scope.newStudent);
     		})
     		.error(function(data){
