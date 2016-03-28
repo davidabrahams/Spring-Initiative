@@ -34,7 +34,7 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('express-session')({
-  secret: 'Brenna is Bae',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
