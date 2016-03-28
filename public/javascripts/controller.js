@@ -65,7 +65,7 @@ springInitiative.controller('mainController', function($scope, $http){
 
 
     $scope.newEntry=function(student){
-    	$http.post('api/student/newEntry/' + student)
+    	$http.post('api/student/newEntry/' + student._id)
     		.success(function(data){
     			$scope.currentStudent = data
     		})

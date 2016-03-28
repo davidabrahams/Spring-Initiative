@@ -66,6 +66,7 @@
             Attendance:<input type="radio" ng-model = "newStudent.attendance" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" value = "false"> No </input><br> 
             grades: <input type ="text" ng-model = "currentStudent.grades" placeholder = "Class, Grade" required = "" /> <br>
             data: <input type="text" ng-model = "currentStudent.data" placeholder = "Input more data" required = "" /> <br>
+            <button class="btn btn-lg btn-primary btn-block" ng-click = "newEntry(currentStudent)" type="submit">Submit</button>
 
             </form>
          </center>
