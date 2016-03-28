@@ -3,13 +3,11 @@
 *    to facilitate the GET/POST requests.
 */
 
-var app = angular.module('app', ['ngRoute']);
-
 app.config(function($routeProvider) {
     //Changes what will be displayed in the main box
     //of the website
     $routeProvider
-        .when('/index', {
+        .when('/', {
             templateUrl: '/views/index.html',
             controller: 'indexController'
         })
@@ -17,7 +15,7 @@ app.config(function($routeProvider) {
         .when('/login', {
             templateUrl: '/views/login.html',
             controller: 'loginController'
-        })      
+        }) 
 
         .otherwise({
         redirectTo: '/'
@@ -45,7 +43,4 @@ app.controller('indexController', function($scope, $http){
         $scope.contentTitle = student.email;
         $scope.contentText = 'Here you can see ' + student.email + '\'s information.';
     }
-});
-
-app.controller('loginController', function($scope, $http){
 });
