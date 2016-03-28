@@ -49,7 +49,28 @@
             <h1>HELLO WORLD</h1> <br> <h3>
          </div>
          <!-- PAGE LIST -->
-         
+         </div>
+      <div class="wrapper">
+         {{allStudents}}
+      <form class="studentform">
+        <center>
+        <h2>Add a New Student</h2>
+        <br>
+
+        Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
+        Program: <input list="programs" ng-model = "newStudent.program">
+            <datalist id="programs">
+             <option value="Little Spring">
+             <option value="Big Spring">
+             <option value="Baby Spring">
+           </datalist> 
+           <br>
+        </input>
+        Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
+        <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
+      </center>
+      </form>
+    </div>
       <!--         </div>
          </div> -->
    </body>
