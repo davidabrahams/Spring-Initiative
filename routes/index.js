@@ -71,7 +71,7 @@ routes.POSTaddstudent = function(req, res, next) {
   }, function(err, newStudent){
   	if(err){res.send(err)}
   	Student.find({}, function(err, allStudents){
-  		res.json(allStudents);
+  		res.json({allStudents: allStudents, newStudent: newStudent});
   	})
   })
 }

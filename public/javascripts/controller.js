@@ -42,9 +42,11 @@ springInitiative.controller('mainController', function($scope, $http){
 
 
     $scope.addStudent=function(){
-    	$http.get('api/student/add')
+    	$http.post('api/student/add', $scope.newStudent)
     		.success(function(data){
-    			$scope.newStudent = data
+    			$scope.allStudents = data.allStudents;
+                $scope.newStudent = data.newStudent;
+                console.log($scope.newStudent);
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
@@ -52,7 +54,7 @@ springInitiative.controller('mainController', function($scope, $http){
     };
 
     $scope.editStudent=function(student){
-    	$http.get('api/student/edit/' + student)
+    	$http.post('api/student/edit/' + student)
     		.success(function(data){
     			$scope.currentStudent = data
     		})
@@ -63,7 +65,7 @@ springInitiative.controller('mainController', function($scope, $http){
 
 
     $scope.newEntry=function(student){
-    	$http.get('api/student/newEntry/' + student)
+    	$http.post('api/student/newEntry/' + student)
     		.success(function(data){
     			$scope.currentStudent = data
     		})
