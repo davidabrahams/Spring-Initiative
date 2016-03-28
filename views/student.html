@@ -51,22 +51,31 @@
          <!-- PAGE LIST -->
          </div>
       <div class="wrapper">
-      <ul ng-repeat = "student in allStudents">
-      <li> <a ng-click= "getStudent(student)" href = ''  >{{student.name}} </a> </li>
+      <ul class="students" ng-repeat = "student in allStudents">
+      <li> <a ng-click= "getStudent(student); show = !show" href = ''  >{{student.name}} </a> </li>
       
-      </ul>
+      </ul >
+
+
       <div> 
          <center>
-            <h1>{{currentStudent.name}}</h1>
+            <h2> Add a new entry for</h2> <h1>{{currentStudent.name}}</h1>
             <h2>{{currentStudent.program}}</h2>
             <form class = "entryform">
-            <h2> Add a new entry</h2>
+            Date: <input type="text" ng-model = "date" placeholder = "date-now='MM/dd/yyyy'" required = "" /> <br>
+            Attendance:<input type="radio" ng-model = "newStudent.attendance" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" value = "false"> No </input><br> 
+            grades: <input type ="text" ng-model = "currentStudent.grades" placeholder = "Class, Grade" required = "" /> <br>
+            data: <input type="text" ng-model = "currentStudent.data" placeholder = "Input more data" required = "" /> <br>
+
             </form>
          </center>
       </div>
 
+
       <form class="studentform">
         <center>
+
+      <h5> ---------------------------------------------------- </h5>
         <h2>Add a New Student</h2>
         <br>
         
