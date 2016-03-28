@@ -56,16 +56,21 @@
       
       </ul >
 
-
-      <div> 
+      <div class="currentStudentInfo" ng-show="showStudent">
          <center>
-            <h2> Add a new entry for</h2> <h1>{{currentStudent.name}}</h1>
-            <h2>{{currentStudent.program}}</h2>
+            <h1>{{currentStudent.name}}</h1>
+            <img src="http://farm4.static.flickr.com/3289/2847918653_7e30ae3737.jpg" height ='200px'> <br><p>^Filler image for where data will go</p>
+            {{currentStudent}}
+         </center>
+      </div>
+      <div class="currentStudentEntryForm" ng-show="showStudent"> 
+         <center>
+            <h2> Add a new entry </h2> 
             <form class = "entryform">
-            Date: <input type="text" ng-model = "date" placeholder = "date-now='MM/dd/yyyy'" required = "" /> <br>
-            Attendance:<input type="radio" ng-model = "newStudent.attendance" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" value = "false"> No </input><br> 
-            grades: <input type ="text" ng-model = "currentStudent.grades" placeholder = "Class, Grade" required = "" /> <br>
-            data: <input type="text" ng-model = "currentStudent.data" placeholder = "Input more data" required = "" /> <br>
+            Date: <input type="date" ng-model="date" value="{{ date | date: 'yyyy-MM-dd' }}" /> <br>
+            Attendance: <input type="radio" ng-model = "newStudent.attendance" value = "true"> Present </input><input type="radio" ng-model = "newStudent.archived" value = "false"> Absent </input><br> 
+            GPA: <input type ="text" ng-model = "currentStudent.grades" placeholder = "3.5" required = "" /> <br>
+            Additional Info: <input type="text" ng-model = "currentStudent.data" placeholder = "Input more data" required = "" /> <br>
             <button class="btn btn-lg btn-primary btn-block" ng-click = "newEntry(currentStudent)" type="submit">Submit</button>
 
             </form>
@@ -73,52 +78,53 @@
       </div>
 
 
+
+
+      <div class="currentStudentEditForm" ng-show="showStudent">
+         <form class="studentform">
+           <center>
+
+            <h5> ---------------------------------------------------- </h5>
+              <h2>Edit {{currentStudent.name}}'s Info</h2>
+              <br>
+              
+              Name:
+                  <input type ="text" ng-model = "currentStudent.name" placeholder = "currentStudent.name" required = "" /> <br>
+                 <br>
+              Program:
+                  <select  id="programs" ng-model = "currentStudent.program" ng-init="currentStudent.program = currentStudent.program">
+                   <option value="Little Spring">Little Spring</option>
+                   <option value="Big Spring">Big Spring</option>
+                   <option value="Baby Spring">Baby Spring</option>
+                 </select> 
+                 <br>
+              </input>
+              Archived: <input type="radio" ng-model = "currentStudent.archived" ng-init="currentStudent.archived = currentStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "currentStudent.archived" name="radAnswer" value = "false"> No </input>
+              <button class="btn btn-lg btn-primary btn-block" ng-click = "editStudentFunc(currentStudent)" type="submit">Submit</button>
+            </center>
+         </form>
+      </div>
+    </div>
+
+   <div class="newStudentForm">
       <form class="studentform">
         <center>
 
-      <h5> ---------------------------------------------------- </h5>
-        <h2>Add a New Student</h2>
-        <br>
-        
-        Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
-        Program: 
-             <select id="programs" ng-model = "newStudent.program">
-             <option value="Little Spring">Little Spring</option>
-             <option value="Big Spring">Big Spring</option>
-             <option value="Baby Spring">Baby Spring</option>
-           </select> 
-           <br>
-        </input>
-        Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
-        <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
-      </center>
-      </form>
-
-
-            <form class="studentform">
-        <center>
-
-      <h5> ---------------------------------------------------- </h5>
-        <h2>Edit a Current Student</h2>
-        <br>
-        
-        Name:
-            <select ng-model = "editStudent" ng-options = "student.name for student in allStudents">
-           </select>
-           <br>
-        Program:
-            <select id="programs" ng-model = "editStudent.program">
-             <option value="Little Spring">Little Spring</option>
-             <option value="Big Spring">Big Spring</option>
-             <option value="Baby Spring">Baby Spring</option>
-           </select> 
-           <br>
-        </input>
-        Archived: <input type="radio" ng-model = "editStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "editStudent.archived" name="radAnswer" value = "false"> No </input>
-        <button class="btn btn-lg btn-primary btn-block" ng-click = "editStudentFunc(editStudent)" type="submit">Submit</button>
-      </center>
+            <h5> ---------------------------------------------------- </h5>
+            <h2>Add a New Student</h2><br>
+            Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
+               Program: <select id="programs" ng-model = "newStudent.program">
+                  <option value="Little Spring">Little Spring</option>
+                  <option value="Big Spring">Big Spring</option>
+                  <option value="Baby Spring">Baby Spring</option>
+               </select> <br>
+            </input>
+            Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
+            <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
+         </center>
       </form>
     </div>
+
       <!--         </div>
          </div> -->
    </body>

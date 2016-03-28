@@ -4,7 +4,7 @@ var routes = {};
 var path = require('path');
 
 var User = require(path.join(__dirname,'../models/studentDataModel')).user;
-var Attendence = require(path.join(__dirname,'../models/studentDataModel')).attendence;
+var Attendance = require(path.join(__dirname,'../models/studentDataModel')).attendance;
 var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
 var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
 var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
@@ -81,25 +81,27 @@ routes.POSTaddstudent = function(req, res, next) {
 }
 
 routes.POSTnewEntry = function(req, res, next){
-	var currentDate = new Date();
+var currentDate = new Date();
   var studentID = req.params._id;
-  var studentAttendence = req.body.attendence;
+  var studentAttendance = req.body.attendance;
   var studentData = req.body.data;
   var studentGrades = req.body.data;
+  console.log("formdata", studentAttendance, studentGrades, studentData)
+
 
   var attendID;
   var dataID;
   var gradeID;
 
-  Attendence.create({
+  Attendance.create({
   	student: studentID,
-  	type: 'attendence',
-  	data: studentAttendence,
+  	type: 'attendance',
+  	data: studentAttendance,
   	date: currentDate
-  }, function(err, newAttendence){
+  }, function(err, newAttendance){
   	  	if(err){res.send(err)}
-  	  	attendID = newAttendence._id;
-  	  	console.log('new attendence logged')
+  	  	attendID = newAttendance._id;
+  	  	console.log('new attendance logged')
   })
 
    Data.create({
@@ -127,7 +129,7 @@ routes.POSTnewEntry = function(req, res, next){
   })
 
    Student.update({_id: studentID},{
-   	$addToSet: {attendence: attendID},
+   	$addToSet: {attendance: attendID},
    	$addToSet: {grades: gradeID},
    	$addToSet: {data: dataID}
    }, function(err, record){
@@ -138,6 +140,9 @@ routes.POSTnewEntry = function(req, res, next){
    	res.json(allStudents);
    })
 }
+
+
+
 
 routes.GETarchive = function(req, res, next) {
   Student.find({archived: true}, function(err, archivedStudents){

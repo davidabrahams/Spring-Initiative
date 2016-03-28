@@ -22,7 +22,8 @@ springInitiative.controller('mainController', function($scope, $http){
 
 		$http.get('api/index')
 			.success(function(data){
-				$scope.allStudents = data
+				$scope.allStudents = data;
+                $scope.showStudent = false;
 			})
 			.error(function(data){
 				console.log('Error:' + data)
@@ -33,6 +34,7 @@ springInitiative.controller('mainController', function($scope, $http){
     		.success(function(data){
     			$scope.currentStudent = data.currentStudent;
                 $scope.allStudents = data.allStudents;
+                $scope.showStudent = !$scope.showStudent;
                 
     		})
     		.error(function(data){
@@ -66,9 +68,10 @@ springInitiative.controller('mainController', function($scope, $http){
 
 
     $scope.newEntry=function(student){
-    	$http.post('api/student/newEntry/' + student._id)
+    	$http.post('api/student/newEntry/' + student._id, student)
     		.success(function(data){
-    			$scope.currentStudent = data;
+                $scope.selected = $scope.allStudents[0];
+    			$scope.allStudents = data;
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
