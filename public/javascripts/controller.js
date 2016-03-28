@@ -31,8 +31,8 @@ springInitiative.controller('mainController', function($scope, $http){
     $scope.getStudent=function(student){
     	$http.get('api/student/'+ student._id)
     		.success(function(data){
-    			$scope.currentStudent = data.currentStudent
-                $scope.allStudents = data.allStudents
+    			$scope.currentStudent = data.currentStudent;
+                $scope.allStudents = data.allStudents;
                 
     		})
     		.error(function(data){
@@ -53,10 +53,11 @@ springInitiative.controller('mainController', function($scope, $http){
     		})
     };
 
-    $scope.editStudent=function(student){
-    	$http.post('api/student/edit/' + student)
+    $scope.editStudentFunc=function(student){
+    	$http.post('api/student/edit/' + student._id, student)
     		.success(function(data){
-    			$scope.currentStudent = data
+                $scope.selected = $scope.allStudents[0];
+                $scope.allStudents = data;
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
@@ -67,7 +68,7 @@ springInitiative.controller('mainController', function($scope, $http){
     $scope.newEntry=function(student){
     	$http.post('api/student/newEntry/' + student)
     		.success(function(data){
-    			$scope.currentStudent = data
+    			$scope.currentStudent = data;
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
