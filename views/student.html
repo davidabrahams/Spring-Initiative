@@ -10,7 +10,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Optimize mobile viewport -->
-      <title>Title</title>
+      <title>SpringInitiative</title>
       <!-- SCROLLS PUT THIS BACK IN PLS-->
       <link rel="stylesheet" href="//bootswatch.com/flatly/bootstrap.min.css">
       <!--     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css"> -->
@@ -46,17 +46,30 @@
       <div class="container">
          <!-- HEADER AND PAGE COUNT -->
          <div style=" margin-top: 30px; padding-right:0; margin-right: 0px; width: 100%; background-color: #e9e9e9" class="jumbotron text-center header">
-            <h1>HELLO WORLD</h1> <br> <h3>
+            <h1>SPRING INITIATIVE</h1> <br> <h3>
          </div>
          <!-- PAGE LIST -->
          </div>
       <div class="wrapper">
-         {{allStudents}}
+      <ul ng-repeat = "student in allStudents">
+      <li> <a ng-click= "getStudent(student)" href = ''  >{{student.name}} </a> </li>
+      
+      </ul>
+      <div> 
+         <center>
+            <h1>{{currentStudent.name}}</h1>
+            <h2>{{currentStudent.program}}</h2>
+            <form class = "entryform">
+            <h2> Add a new entry</h2>
+            </form>
+         </center>
+      </div>
+
       <form class="studentform">
         <center>
         <h2>Add a New Student</h2>
         <br>
-
+        
         Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
         Program: <input list="programs" ng-model = "newStudent.program">
             <datalist id="programs">

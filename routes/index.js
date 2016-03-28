@@ -34,9 +34,14 @@ routes.GETprogram = function(req, res, next) {
 }
 
 routes.GETstudent = function(req, res, next) {
-     Student.find({_id: req.params._id}, function(err, currentStudent){
-   	res.json(currentStudent);
+    var currentStudent
+    Student.findOne({_id: req.params._id}, function(err, currentStudent){
+    	currentStudent = currentStudent
+    	Student.find({}, function(err, allStudents){
+  		res.json({allStudents: allStudents, currentStudent: currentStudent});
+  	})
    })
+    
 }
 
 routes.POSTeditstudent = function(req, res, next) {

@@ -20,7 +20,6 @@ springInitiative.config(function($routeProvider) {
 
 springInitiative.controller('mainController', function($scope, $http){
 
-	$scope.getIndex = function(){
 		$http.get('api/index')
 			.success(function(data){
 				$scope.allStudents = data
@@ -28,12 +27,13 @@ springInitiative.controller('mainController', function($scope, $http){
 			.error(function(data){
 				console.log('Error:' + data)
 			})
-	};
-
+	
     $scope.getStudent=function(student){
-    	$http.get('api/student/'+ student)
+    	$http.get('api/student/'+ student._id)
     		.success(function(data){
-    			$scope.currentStudent = data
+    			$scope.currentStudent = data.currentStudent
+                $scope.allStudents = data.allStudents
+                
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
