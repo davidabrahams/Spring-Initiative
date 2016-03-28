@@ -30,6 +30,17 @@ routes.POSTregister = function(req, res, next) {
       console.log('error while user register!', err); return next(err);
     }
     console.log('user registered!');
+    console.log(user.authToken);
+    //send email verification
+    var authenticationURL = 'http://localhost:3000/verify?authToken=' + user.authToken;
+    sendgrid.send({
+      to:       account.email,
+      from:     'emailauth@yourdomain.com',
+      subject:  'Confirm your email',
+      html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
+      }, function(err, json) {
+      if (err) { return console.error(err); }
+    });
 
     passport.authenticate('local')(req, res, function () {
       res.send({redirect: '/'});

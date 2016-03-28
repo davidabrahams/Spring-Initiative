@@ -5,15 +5,14 @@ var mongoose = require('mongoose'),
 
 var User = new Schema({});
 
-// TODO: use passport email to authenticate email addresses. This requires
-// sending confirmation emails
 
-// User.plugin(passportEmail, {
-//   usernameField: 'email',
-// });
-
-User.plugin(passportLocal, {
+User.plugin(passportEmail, {
   usernameField: 'email',
-})
+});
+
+// Might not need this
+// User.plugin(passportLocal, {
+//   usernameField: 'email',
+// })
 
 module.exports = mongoose.model('User', User);
