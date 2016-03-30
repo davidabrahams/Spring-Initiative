@@ -34,7 +34,7 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('express-session')({
-  secret: 'Brenna is Bae',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }));
@@ -107,13 +107,9 @@ app.use(function(err, req, res, next) {
 });
 
 function isLoggedIn(req, res, next) {
-
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
-  {
     return next();
-  }
-
   // if they aren't redirect them to the home page
   res.redirect('/login');
 }

@@ -30,8 +30,7 @@ loginApp.controller('loginCtrl', function($scope, $http) {
       console.log(response.data);
       // window.location.href = response.data.redirect;
     }, function (response) {
-      console.log('error!');
-      console.log(response.data);
+      console.log('error: %s', response.data);
     });
   }
 });
