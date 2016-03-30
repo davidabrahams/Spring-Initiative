@@ -3,6 +3,7 @@ var path = require('path');
 var routes = {};
 var path = require('path');
 var passport = require('passport');
+var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname,'../models/user'));
 var Attendence = require(path.join(__dirname,'../models/studentDataModel')).attendence;
@@ -29,22 +30,29 @@ routes.POSTregister = function(req, res, next) {
     if (err) {
       console.log('error while user register!', err); return next(err);
     }
-    console.log('user registered!');
-    console.log(user.authToken);
+    
     //send email verification
+    //Used example: https://github.com/heitortsergent/passport-local-mongoose-email/tree/master/examples/login
     var authenticationURL = 'http://localhost:3000/verify?authToken=' + user.authToken;
     sendgrid.send({
-      to:       account.email,
-      from:     'emailauth@yourdomain.com',
-      subject:  'Confirm your email',
+      to:       user.email,
+      from:     'SpringInitiative@olinjs.com',
+      subject:  'Confirm your email for Spring Initiative',
       html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
       }, function(err, json) {
       if (err) { return console.error(err); }
     });
+    console.log("Email Sent");    
+  });
+}
 
-    passport.authenticate('local')(req, res, function () {
-      res.send({redirect: '/'});
-    });
+routes.GETemailver = function(req, res){
+  // User gets here after clicking the link in the email
+  // Hence needs to be redirected
+  User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
+    if(err) console.log('err:', err);
+
+    res.redirect('/login')
   });
 }
 
