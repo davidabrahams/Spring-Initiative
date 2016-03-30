@@ -13,7 +13,7 @@ app.controller('loginController', function($scope, $http) {
   $scope.register = function() {
     var data = {username: $scope.email, password: $scope.password};
     $http.post('register', data).then(function (response) {
-      window.location.href = response.data.redirect;
+      window.location.href = response.data.redirect;zx
     }, function (response) {
       console.log('error: %s', response.data);
     });

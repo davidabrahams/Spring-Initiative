@@ -33,7 +33,8 @@ routes.POSTlogin = function(req, res, next) {
       return res.status(401).send(info.message);
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.send({redirect: '/'});
+      console.log('redirecting to /# when logging in');
+      return res.send({redirect: '/#/'});
     });
   })(req, res, next);
 }
@@ -47,7 +48,8 @@ routes.POSTregister = function(req, res, next) {
     console.log('user registered!');
 
     passport.authenticate('local')(req, res, function () {
-      res.send({redirect: '/'});
+      console.log('redirecting to /# after registering');
+      res.send({redirect: '/#/'});
     });
   });
 }

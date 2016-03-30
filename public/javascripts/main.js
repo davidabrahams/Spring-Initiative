@@ -17,9 +17,9 @@ app.config(function($routeProvider) {
             controller: 'loginController'
         }) 
 
-        .otherwise({
-        redirectTo: '/'
-      });
+      //   .otherwise({
+      //   redirectTo: '/'
+      // });
 });
 
 app.controller('indexController', function($scope, $http){
