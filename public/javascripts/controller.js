@@ -67,11 +67,11 @@ springInitiative.controller('mainController', function($scope, $http){
     };
 
 
-    $scope.newEntry=function(student){
-    	$http.post('api/student/newEntry/' + student._id, student)
+    $scope.newEntryFunc = function(student){
+    	$http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     		.success(function(data){
-                $scope.selected = $scope.allStudents[0];
-    			$scope.allStudents = data;
+    			$scope.allStudents = data.allStudents;
+                $scope.currentStudent = data.currentStudent;
     		})
     		.error(function(data){
     			console.log('Error: ' + data)

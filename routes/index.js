@@ -52,9 +52,9 @@ routes.POSTeditstudent = function(req, res, next) {
   console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({_id:studentID}, {
-	name: studentName,
-	program: studentProgram,
-	archived: studentArchived
+  	name: studentName,
+  	program: studentProgram,
+  	archived: studentArchived
   }, function(err, record){
   	Student.find({}, function(err, allStudents){
   		if(err){res.send(err)}
@@ -69,9 +69,9 @@ routes.POSTaddstudent = function(req, res, next) {
   var studentArchived = req.body.archived;
 
   Student.create({
-	name: studentName,
-	program: studentProgram,
-	archived: studentArchived
+  	name: studentName,
+  	program: studentProgram,
+  	archived: studentArchived
   }, function(err, newStudent){
   	if(err){res.send(err)}
   	Student.find({}, function(err, allStudents){
@@ -81,64 +81,111 @@ routes.POSTaddstudent = function(req, res, next) {
 }
 
 routes.POSTnewEntry = function(req, res, next){
-var currentDate = new Date();
+  // var currentDate = new Date();
   var studentID = req.params._id;
   var studentAttendance = req.body.attendance;
   var studentData = req.body.data;
-  var studentGrades = req.body.data;
-  console.log("formdata", studentAttendance, studentGrades, studentData)
+  var studentGrades = req.body.grades;
+  var date = req.body.date;
+  console.log("formdata", studentID, studentAttendance, studentGrades, studentData, date)
 
 
-  var attendID;
-  var dataID;
-  var gradeID;
+  var attendID = String;
+  var dataID = String;
+  var gradeID = String;
 
   Attendance.create({
-  	student: studentID,
-  	type: 'attendance',
-  	data: studentAttendance,
-  	date: currentDate
-  }, function(err, newAttendance){
-  	  	if(err){res.send(err)}
-  	  	attendID = newAttendance._id;
-  	  	console.log('new attendance logged')
+    student: studentID,
+    type: "attendance",
+    data: studentAttendance,
+    date: date
+  }, function(err, newAttendanceObj){
+    console.log("new attend", newAttendanceObj)
+    Grades.create({
+      student: studentID,
+      type: "grades",
+      data: studentGrades,
+      date: date
+    }, function(err, newGradeObj){
+      console.log("newGradeObj",newGradeObj)
+      Data.create({
+        student: studentID,
+        type: "data",
+        data: studentData,
+        date: date
+      }, function(err, newDataObj){
+        console.log("newDataObj",newDataObj)
+           Student.update({_id: studentID},{
+             $push: { 'attendance' : newAttendanceObj._id ,'grades' : newGradeObj._id, 'data' : newDataObj._id }
+           }, function(err, record){
+             if(err){res.send(err)}
+             Student.find({_id: studentID}, function(err, currentStudent){
+              Student.find({}, function(err, allStudents){
+                res.json({allStudents: allStudents, currentStudent: currentStudent})
+              })
+             })
+           })
+      })
+    })
   })
 
-   Data.create({
-  	student: studentID,
-  	type: 'data',
-  	data: studentData,
-  	date: currentDate
-  }, function(err, newData){
-  	  	if(err){res.send(err)}
-  	  	dataID = newData._id;
-  	  	console.log('new data logged')
+  // Attendance.create({
+  // 	student: studentID,
+  // 	type: 'attendance',
+  // 	data: studentAttendance,
+  // 	date: date
+  // }, function(err, newAttendance){
+  // 	  	if(err){res.send(err)}
+  // 	  	attendID = newAttendance._id;
+  // 	  	console.log('new attendance logged')
+  // })
 
-  })
+  //  Data.create({
+  // 	student: studentID,
+  // 	type: 'data',
+  // 	data: studentData,
+  // 	date: date
+  // }, function(err, newData){
+  // 	  	if(err){res.send(err)}
+  // 	  	dataID = newData._id;
+  // 	  	console.log('new data logged')
 
-   Grades.create({
-  	student: studentID,
-  	type: 'data',
-  	data: studentGrades,
-  	date: currentDate
-  }, function(err, newGrade){
-  	  	if(err){res.send(err)}
-  	  	gradeID = newGrade._id;
-  	  	console.log('new grade logged')
+  // })
 
-  })
+  //  Grades.create({
+  // 	student: studentID,
+  // 	type: 'data',
+  // 	data: studentGrades,
+  // 	date: date
+  // }, function(err, newGrade){
+  // 	  	if(err){res.send(err)}
+  // 	  	gradeID = newGrade._id;
+  // 	  	console.log('new grade logged')
 
-   Student.update({_id: studentID},{
-   	$addToSet: {attendance: attendID},
-   	$addToSet: {grades: gradeID},
-   	$addToSet: {data: dataID}
-   }, function(err, record){
-   	if(err){res.send(err)}
-   })
+  // })
 
-   Student.find({}, function(err, allStudents){
-   	res.json(allStudents);
-   })
+   // Student.update({_id: studentID},{
+   // 	$addToSet: {attendance: attendID},
+   // 	$addToSet: {grades: gradeID},
+   // 	$addToSet: {data: dataID}
+   // }, function(err, record){
+   // 	if(err){res.send(err)}
+   // })
+
+   // Student.update({_id: studentID},{
+   //  attendance: attendID,
+   //  grades: gradeID,
+   //  data: dataID
+   // }, function(err, record){
+   //  if(err){res.send(err)}
+   //    console.log(attendID, "attendID")
+   //    console.log("Student updates")
+   //       Student.find({}, function(err, allStudents){
+   //  console.log(allStudents, "allStudents")
+   //  res.json(allStudents);
+   // })
+   // })
+
 }
 
 

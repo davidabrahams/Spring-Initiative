@@ -1,18 +1,25 @@
 var mongoose = require('mongoose');
 
+var attendanceSchema = mongoose.Schema({
+	type: String,
+	date: Date,
+	data: Boolean,
+	student: String
+});
+
 var dataSchema = mongoose.Schema({
 	type: String,
 	date: Date,
-	data: Array,
+	data: String,
 	student: String
 });
 
 var studentSchema = mongoose.Schema({
 	name: String,
 	program: String,
-	attendance: Array,
-	grades: Array,
-	data: Array,
+	attendance: [String],
+	grades: [String],
+	data: [String],
 	archived: Boolean
 });
 
@@ -21,7 +28,7 @@ var userSchema = mongoose.Schema({
 	password: String
 });
 
-module.exports.attendace = mongoose.model('Attendace', dataSchema);
+module.exports.attendance = mongoose.model('Attendance', attendanceSchema);
 module.exports.grades = mongoose.model('Grades', dataSchema);
 module.exports.data = mongoose.model('Data', dataSchema);
 module.exports.student = mongoose.model('Student', studentSchema);

@@ -60,18 +60,17 @@
          <center>
             <h1>{{currentStudent.name}}</h1>
             <img src="http://farm4.static.flickr.com/3289/2847918653_7e30ae3737.jpg" height ='200px'> <br><p>^Filler image for where data will go</p>
-            {{currentStudent}}
          </center>
       </div>
       <div class="currentStudentEntryForm" ng-show="showStudent"> 
          <center>
             <h2> Add a new entry </h2> 
             <form class = "entryform">
-            Date: <input type="date" ng-model="date" value="{{ date | date: 'yyyy-MM-dd' }}" /> <br>
-            Attendance: <input type="radio" ng-model = "newStudent.attendance" value = "true"> Present </input><input type="radio" ng-model = "newStudent.archived" value = "false"> Absent </input><br> 
-            GPA: <input type ="text" ng-model = "currentStudent.grades" placeholder = "3.5" required = "" /> <br>
-            Additional Info: <input type="text" ng-model = "currentStudent.data" placeholder = "Input more data" required = "" /> <br>
-            <button class="btn btn-lg btn-primary btn-block" ng-click = "newEntry(currentStudent)" type="submit">Submit</button>
+            Date: <input type="date" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" /> <br>
+            Attendance: <input type="radio" name="radAnswer" ng-model = "newEntry.attendance" value = "true"> Present </input><input type="radio" name="radAnswer" ng-model = "newEntry.attendance" value = "false"> Absent </input><br> 
+            GPA: <input type ="text" ng-model = "newEntry.grades" placeholder = "3.5" required = "" /> <br>
+            Additional Info: <input type="text" ng-model = "newEntry.data" placeholder = "Input more data" required = "" /> <br>
+            <button class="btn btn-lg btn-primary btn-block" ng-click = "newEntryFunc(currentStudent)" type="submit">Submit</button>
 
             </form>
          </center>
