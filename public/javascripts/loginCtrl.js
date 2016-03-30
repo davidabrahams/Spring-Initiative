@@ -5,15 +5,24 @@ loginApp.controller('loginCtrl', function($scope, $http) {
       console.log(response.data);
       window.location.href = response.data.redirect;
     }, function (response) {
-      console.log(response.data);
+      var msg = response.data;
+      if (msg === 'Incorrect username') {
+        $('#email-group').addClass('has-error');
+        $('#password-group').removeClass('has-error');
+        $scope.email_error = response.data;
+        $scope.password_error = null;
+      } else if (msg == 'Incorrect password') {
+        $('#password-group').addClass('has-error');
+        $('#email-group').removeClass('has-error');
+        $scope.password_error = response.data;
+        $scope.email_error = null;
+      }
     });
   }
 
 
   $scope.register = function() {
-    console.log($scope.email);
     var data = {username: $scope.email, password: $scope.password};
-    console.log(data)
     $http.post("register", data).then(function (response) {
       console.log('success!');
       console.log(response.data);
