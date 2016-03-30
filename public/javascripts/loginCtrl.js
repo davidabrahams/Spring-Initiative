@@ -6,7 +6,7 @@ loginApp.controller('loginCtrl', function($scope, $http) {
       window.location.href = response.data.redirect;
     }, function (response) {
       var msg = response.data;
-      if (msg === 'Incorrect username') {
+      if (msg === 'Incorrect username' || msg === 'User did not verify email!') {
         $('#email-group').addClass('has-error');
         $('#password-group').removeClass('has-error');
         $scope.email_error = response.data;
@@ -16,6 +16,8 @@ loginApp.controller('loginCtrl', function($scope, $http) {
         $('#email-group').removeClass('has-error');
         $scope.password_error = response.data;
         $scope.email_error = null;
+      } else {
+        console.log(msg);
       }
     });
   }
@@ -26,7 +28,7 @@ loginApp.controller('loginCtrl', function($scope, $http) {
     $http.post("register", data).then(function (response) {
       console.log('success!');
       console.log(response.data);
-      window.location.href = response.data.redirect;
+      // window.location.href = response.data.redirect;
     }, function (response) {
       console.log('error!');
       console.log(response.data);
