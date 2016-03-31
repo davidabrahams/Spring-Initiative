@@ -1,17 +1,17 @@
 var mongoose = require('mongoose');
 
 var attendanceSchema = mongoose.Schema({
-	type: String,
-	date: Date,
-	entry: Boolean,
-	student: String
+  type: String,
+  date: Date,
+  entry: Boolean,
+  student: String
 });
 
 var entrySchema = mongoose.Schema({
-	type: String,
-	date: Date,
-	entry: String,
-	student: String
+  type: String,
+  date: Date,
+  entry: String,
+  student: String
 });
 
 
