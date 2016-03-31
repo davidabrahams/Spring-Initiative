@@ -1,19 +1,42 @@
 var springInitiative = angular.module('springInitiative', ['ngRoute']);
 
-// springInitiative.config(function($routeProvider){
-// 	$routeProvider
-// 	.when('/', {
-// 		templateURL: '../views/student.html'
-// 		controller: 'mainController'
-// 	})
-// });
-
 springInitiative.config(function($routeProvider) {
     $routeProvider
     .when('/student',{
-        templateUrl: '../views/student.html',
+        templateUrl: 'views/student.html',
         controller: 'mainController'
     })
+    .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'loginCtrl'
+    })
+    .when('/', {
+        templateUrl: 'views/login.html',
+        controller: 'loginCtrl'
+    })
+});
+
+
+springInitiative.controller('loginCtrl', function($scope, $http) {
+  $scope.login = function() {
+    console.log($scope.email);
+    $http.post("login", {username: $scope.email, password: $scope.password}).then(function (response) {
+      console.log(response.data);
+      window.location.href = response.data.redirect;
+    }, function (response) {
+      console.log(response.data);
+    });
+  }
+
+
+  $scope.register = function() {
+    var data = {username: $scope.email, password: $scope.password};
+    $http.post("register", data).then(function (response) {
+      window.location.href = response.data.redirect;
+    }, function (response) {
+      console.log('error: %s', response.data);
+    });
+  }
 });
 
 

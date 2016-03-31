@@ -34,7 +34,7 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/student', function(req, res){
-    res.sendFile('student.html', { root: path.join(__dirname, './views') });
+    res.sendFile('stu.html', { root: path.join(__dirname, './views') });
     })
 
 app.use(require('express-session')({
