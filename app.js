@@ -42,11 +42,8 @@ app.use(require('express-session')({
 // Configure passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-// app.get('/', isLoggedIn, index.GETindex);
-// app.get('/login', index.GETlogin);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
-// app.get('/program', index.GETprogram);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);

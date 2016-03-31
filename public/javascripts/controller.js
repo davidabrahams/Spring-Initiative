@@ -16,14 +16,10 @@ springInitiative.config(function($routeProvider) {
     })
 });
 
-
 springInitiative.controller('loginCtrl', function($scope, $http, $location) {
   $scope.login = function() {
-    console.log($scope.email);
     $http.post("login", {username: $scope.email, password: $scope.password}).then(function (response) {
-      console.log(response.data);
       $location.path(response.data.redirect);
-      // window.location.href = response.data.redirect;
     }, function (response) {
       console.log(response.data);
     });
@@ -33,7 +29,7 @@ springInitiative.controller('loginCtrl', function($scope, $http, $location) {
   $scope.register = function() {
     var data = {username: $scope.email, password: $scope.password};
     $http.post("register", data).then(function (response) {
-      window.location.href = response.data.redirect;
+      $location.path(response.data.redirect);
     }, function (response) {
       console.log('error: %s', response.data);
     });
@@ -72,7 +68,6 @@ springInitiative.controller('mainController', function($scope, $http){
     		.success(function(data){
     			$scope.allStudents = data.allStudents;
                 $scope.newStudent = data.newStudent;
-                console.log($scope.newStudent);
     		})
     		.error(function(data){
     			console.log('Error: ' + data)
