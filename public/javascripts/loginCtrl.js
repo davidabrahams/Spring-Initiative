@@ -26,8 +26,7 @@ loginApp.controller('loginCtrl', function($scope, $http) {
   $scope.register = function() {
     var data = {username: $scope.email, password: $scope.password};
     $http.post("register", data).then(function (response) {
-      console.log('success!');
-      console.log(response.data);
+      $scope.verification_alert = true;
       // window.location.href = response.data.redirect;
     }, function (response) {
       console.log('error: %s', response.data);
