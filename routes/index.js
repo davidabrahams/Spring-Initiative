@@ -2,31 +2,60 @@ var express = require('express');
 var path = require('path');
 var routes = {};
 var path = require('path');
+var passport = require('passport');
 
-var User = require(path.join(__dirname,'../models/studentDataModel')).user;
-var Attendance = require(path.join(__dirname,'../models/studentDataModel')).attendance;
-var Data = require(path.join(__dirname,'../models/studentDataModel')).data;
-var Student = require(path.join(__dirname,'../models/studentDataModel')).student;
-var Grades = require(path.join(__dirname,'../models/studentDataModel')).grades;
+var User = require(path.join(__dirname,'../models/user'));
+var Attendance = require(path.join(__dirname,'../models/data')).attendance;
+var Entry = require(path.join(__dirname,'../models/data')).entry;
+var Student = require(path.join(__dirname,'../models/student'));
+var Grades = require(path.join(__dirname,'../models/data')).grades;
 
-routes.GEThome = function(req, res, next) {
-  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-}
-
-routes.POSTlogin = function(req, res, next) {
-  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-}
-
-routes.POSTregister = function(req, res, next) {
-  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
-}
-
-routes.GETindex = function(req, res){
+routes.GETallStudents = function(req, res){
 	// Student.find
 	// res.JSON({students: allStudents});
 	Student.find({}, function(err, allStudents){
 		res.json(allStudents);
-	}) 
+	})
+} 
+
+routes.POSTlogin = function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err)
+      return res.status(500).send(err.message);
+    if (!user)
+      return res.status(401).send(info.message);
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.send({redirect: '/'});
+    });
+  })(req, res, next);
+}
+
+routes.POSTregister = function(req, res, next) {
+  User.register(new User({ email: req.body.username }), req.body.password,
+                function(err, user) {
+    if (err) {
+      console.log('error while user register!', err); return next(err);
+    }
+    console.log('user registered!');
+
+    passport.authenticate('local')(req, res, function () {
+      res.send({redirect: '/'});
+    });
+  });
+}
+
+routes.GETindex = function(req, res){
+  // Student.find
+  // res.JSON({students: allStudents});
+  if (req.user)
+    res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  else
+    res.sendStatus(401);
+}
+
+routes.GETlogin = function(req, res){
+  res.sendFile('login.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.GETprogram = function(req, res, next) {
@@ -63,6 +92,7 @@ routes.POSTeditstudent = function(req, res, next) {
   })
 }
 
+
 routes.POSTaddstudent = function(req, res, next) {
   var studentName = req.body.name;
   var studentProgram = req.body.program;
@@ -84,39 +114,34 @@ routes.POSTnewEntry = function(req, res, next){
   // var currentDate = new Date();
   var studentID = req.params._id;
   var studentAttendance = req.body.attendance;
-  var studentData = req.body.data;
+  var studentEntry = req.body.entry;
   var studentGrades = req.body.grades;
   var date = req.body.date;
-  console.log("formdata", studentID, studentAttendance, studentGrades, studentData, date)
-
-
-  var attendID = String;
-  var dataID = String;
-  var gradeID = String;
+  console.log("formdata", studentID, studentAttendance, studentGrades, studentEntry, date)
 
   Attendance.create({
     student: studentID,
     type: "attendance",
-    data: studentAttendance,
+    entry: studentAttendance,
     date: date
   }, function(err, newAttendanceObj){
     console.log("new attend", newAttendanceObj)
     Grades.create({
       student: studentID,
       type: "grades",
-      data: studentGrades,
+      entry: studentGrades,
       date: date
     }, function(err, newGradeObj){
       console.log("newGradeObj",newGradeObj)
-      Data.create({
+      Entry.create({
         student: studentID,
-        type: "data",
-        data: studentData,
+        type: "entry",
+        entry: studentEntry,
         date: date
-      }, function(err, newDataObj){
-        console.log("newDataObj",newDataObj)
+      }, function(err, newEntryObj){
+        console.log("newEntryObj",newEntryObj)
            Student.update({_id: studentID},{
-             $push: { 'attendance' : newAttendanceObj._id ,'grades' : newGradeObj._id, 'data' : newDataObj._id }
+             $push: { 'attendance' : newAttendanceObj._id ,'grades' : newGradeObj._id, 'entry' : newEntryObj._id }
            }, function(err, record){
              if(err){res.send(err)}
              Student.find({_id: studentID}, function(err, currentStudent){
@@ -129,63 +154,6 @@ routes.POSTnewEntry = function(req, res, next){
     })
   })
 
-  // Attendance.create({
-  // 	student: studentID,
-  // 	type: 'attendance',
-  // 	data: studentAttendance,
-  // 	date: date
-  // }, function(err, newAttendance){
-  // 	  	if(err){res.send(err)}
-  // 	  	attendID = newAttendance._id;
-  // 	  	console.log('new attendance logged')
-  // })
-
-  //  Data.create({
-  // 	student: studentID,
-  // 	type: 'data',
-  // 	data: studentData,
-  // 	date: date
-  // }, function(err, newData){
-  // 	  	if(err){res.send(err)}
-  // 	  	dataID = newData._id;
-  // 	  	console.log('new data logged')
-
-  // })
-
-  //  Grades.create({
-  // 	student: studentID,
-  // 	type: 'data',
-  // 	data: studentGrades,
-  // 	date: date
-  // }, function(err, newGrade){
-  // 	  	if(err){res.send(err)}
-  // 	  	gradeID = newGrade._id;
-  // 	  	console.log('new grade logged')
-
-  // })
-
-   // Student.update({_id: studentID},{
-   // 	$addToSet: {attendance: attendID},
-   // 	$addToSet: {grades: gradeID},
-   // 	$addToSet: {data: dataID}
-   // }, function(err, record){
-   // 	if(err){res.send(err)}
-   // })
-
-   // Student.update({_id: studentID},{
-   //  attendance: attendID,
-   //  grades: gradeID,
-   //  data: dataID
-   // }, function(err, record){
-   //  if(err){res.send(err)}
-   //    console.log(attendID, "attendID")
-   //    console.log("Student updates")
-   //       Student.find({}, function(err, allStudents){
-   //  console.log(allStudents, "allStudents")
-   //  res.json(allStudents);
-   // })
-   // })
-
 }
 
 
@@ -196,5 +164,4 @@ routes.GETarchive = function(req, res, next) {
   	res.json(archivedStudents);
   })
 }
-
 module.exports = routes;

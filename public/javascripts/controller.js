@@ -20,7 +20,7 @@ springInitiative.config(function($routeProvider) {
 
 springInitiative.controller('mainController', function($scope, $http){
 
-		$http.get('api/index')
+		$http.get('api/allStudents')
 			.success(function(data){
 				$scope.allStudents = data;
                 $scope.showStudent = false;

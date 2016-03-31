@@ -5,9 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+// requires the model with Passport-Local plugged in
+var User = require('./models/user');
 
 var app = express();
 
@@ -29,19 +33,26 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res){
-     res.sendFile('index.html', { root: path.join(__dirname, './views') });
-    })
-
 app.get('/student', function(req, res){
     res.sendFile('student.html', { root: path.join(__dirname, './views') });
     })
 
-app.get('/', index.GEThome);
+app.use(require('express-session')({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Configure passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/users', users);
+app.get('/', isLoggedIn, index.GETindex);
+app.get('/login', index.GETlogin);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
-app.get('/api/index', index.GETindex);
 app.get('/program', index.GETprogram);
+app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);
@@ -56,6 +67,13 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('db connection successful!');
 });
+
+// use static authenticate method of model in LocalStrategy
+// passport.use(User.createStrategy());
+passport.use(new LocalStrategy(User.authenticate()));
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -87,6 +105,14 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+function isLoggedIn(req, res, next) {
+  // if user is authenticated in the session, carry on
+  if (req.isAuthenticated())
+    return next();
+  // if they aren't redirect them to the home page
+  res.redirect('/login');
+}
 
 
 module.exports = app;
