@@ -1,8 +1,6 @@
 loginApp.controller('loginCtrl', function($scope, $http) {
   $scope.login = function() {
-    console.log($scope.email);
     $http.post("login", {username: $scope.email, password: $scope.password}).then(function (response) {
-      console.log(response.data);
       window.location.href = response.data.redirect;
     }, function (response) {
       var msg = response.data;
@@ -11,11 +9,13 @@ loginApp.controller('loginCtrl', function($scope, $http) {
         $('#password-group').removeClass('has-error');
         $scope.email_error = response.data;
         $scope.password_error = null;
+        $scope.verification_alert = false;
       } else if (msg == 'Incorrect password') {
         $('#password-group').addClass('has-error');
         $('#email-group').removeClass('has-error');
         $scope.password_error = response.data;
         $scope.email_error = null;
+        $scope.verification_alert = false;
       } else {
         console.log(msg);
       }
