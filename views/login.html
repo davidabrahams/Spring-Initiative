@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Spring Initiative Login</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="stylesheets/signin.css" rel="stylesheet">
+  </head>
+
+  <body ng-controller="loginCtrl">
+    <div class="container">
+      <form role="form" class="form-signin" ng-submit="login()">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <div class="form-group" id="email-group">
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="email" autofocus required>
+          <span ng-show="email_error" class="help-block">{{email_error}}</span>
+        </div>
+        <div class="form-group" id="password-group">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" required>
+          <span ng-show="password_error" class="help-block">{{password_error}}</span>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <div class="alert alert-info" ng-show="verification_alert">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          A verification email has been sent to {{email}}
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button type='button' class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</button>
+
+      </form>
+    </div> <!-- /container -->
+    <script type="text/javascript" src="/javascripts/apps.js"></script>
+    <script type="text/javascript" src="/javascripts/loginCtrl.js"></script>
+
+  </body>
+</html>
