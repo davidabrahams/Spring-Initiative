@@ -13,11 +13,11 @@ var Grades = require(path.join(__dirname,'../models/data')).grades;
 routes.GETallStudents = function(req, res){
 	// Student.find
 	// res.JSON({students: allStudents});
-  res.sendFile('index.html', { root: path.join(__dirname, '../views') });
+  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 	Student.find({}, function(err, allStudents){
 		res.json(allStudents);
 	})
-} 
+}
 
 routes.POSTlogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
@@ -27,7 +27,7 @@ routes.POSTlogin = function(req, res, next) {
       return res.status(401).send(info.message);
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      return res.send({redirect: '/#/student'});
+      return res.send({redirect: '/student'});
     });
   })(req, res, next);
 }
@@ -41,7 +41,7 @@ routes.POSTregister = function(req, res, next) {
     console.log('user registered!');
 
     passport.authenticate('local')(req, res, function () {
-      res.send({redirect: '/#/'});
+      res.send({redirect: '/'});
     });
   });
 }
@@ -74,7 +74,7 @@ routes.GETstudent = function(req, res, next) {
 }
 
 routes.POSTeditstudent = function(req, res, next) {
-  
+
   var studentName = req.body.name;
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;

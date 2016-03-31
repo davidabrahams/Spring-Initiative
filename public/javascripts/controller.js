@@ -3,26 +3,27 @@ var springInitiative = angular.module('springInitiative', ['ngRoute']);
 springInitiative.config(function($routeProvider) {
     $routeProvider
     .when('/student',{
-        templateUrl: 'views/student.html',
+        templateUrl: '../views/student.html',
         controller: 'mainController'
     })
     .when('/login', {
-        templateUrl: 'views/login.html',
+        templateUrl: '../views/login.html',
         controller: 'loginCtrl'
     })
     .when('/', {
-        templateUrl: 'views/login.html',
+        templateUrl: '../views/login.html',
         controller: 'loginCtrl'
     })
 });
 
 
-springInitiative.controller('loginCtrl', function($scope, $http) {
+springInitiative.controller('loginCtrl', function($scope, $http, $location) {
   $scope.login = function() {
     console.log($scope.email);
     $http.post("login", {username: $scope.email, password: $scope.password}).then(function (response) {
       console.log(response.data);
-      window.location.href = response.data.redirect;
+      $location.path(response.data.redirect);
+      // window.location.href = response.data.redirect;
     }, function (response) {
       console.log(response.data);
     });
@@ -51,14 +52,14 @@ springInitiative.controller('mainController', function($scope, $http){
 			.error(function(data){
 				console.log('Error:' + data)
 			})
-	
+
     $scope.getStudent=function(student){
     	$http.get('api/student/'+ student._id)
     		.success(function(data){
     			$scope.currentStudent = data.currentStudent;
                 $scope.allStudents = data.allStudents;
                 $scope.showStudent = !$scope.showStudent;
-                
+
     		})
     		.error(function(data){
     			console.log('Error: ' + data)

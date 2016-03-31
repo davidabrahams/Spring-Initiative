@@ -33,10 +33,6 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/student', function(req, res){
-    res.sendFile('stu.html', { root: path.join(__dirname, './views') });
-    })
-
 app.use(require('express-session')({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -46,18 +42,21 @@ app.use(require('express-session')({
 // Configure passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
-app.use('/users', users);
-app.get('/', isLoggedIn, index.GETindex);
-app.get('/login', index.GETlogin);
+// app.get('/', isLoggedIn, index.GETindex);
+// app.get('/login', index.GETlogin);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
-app.get('/program', index.GETprogram);
+// app.get('/program', index.GETprogram);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);
 app.get('/api/index/archive', index.GETarchive);
 app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
+app.use(function(req, res) {
+  // Use res.sendfile, as it streams instead of reading the file into memory.
+  res.sendFile('index.html', { root: path.join(__dirname, 'views') });
+});
 
 var mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI);
