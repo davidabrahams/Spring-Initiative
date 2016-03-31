@@ -46,7 +46,6 @@ app.use(passport.session());
 app.use('/users', users);
 
 app.get('/verify', index.GETemailver);
-app.get('/login', index.GETlogin);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);

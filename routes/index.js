@@ -12,9 +12,6 @@ var Student = require(path.join(__dirname, '../models/student'));
 var Grades = require(path.join(__dirname, '../models/data')).grades;
 
 routes.GETallStudents = function(req, res) {
-  // Student.find
-  // res.JSON({students: allStudents});
-  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
   Student.find({}, function(err, allStudents) {
     res.json(allStudents);
   })
@@ -43,8 +40,7 @@ routes.POSTregister = function(req, res, next) {
     }), req.body.password,
     function(err, user) {
       if (err) {
-        return res.status(403).send(err.message)
-          // console.log('error while user register!', err); return next(err);
+        return res.status(403).send(err.message);
       }
 
       // send email verification
@@ -93,10 +89,6 @@ routes.GETlogin = function(req, res) {
   res.sendFile('index.html', {
     root: path.join(__dirname, '../views')
   });
-}
-
-routes.GETprogram = function(req, res, next) {
-  // res.sendFile('index.html', { root: path.join(__dirname, '../views') });
 }
 
 routes.GETstudent = function(req, res, next) {
