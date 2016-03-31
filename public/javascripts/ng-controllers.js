@@ -1,19 +1,3 @@
-springInitiative.config(function($routeProvider) {
-  $routeProvider
-    .when('/student', {
-      templateUrl: 'views/student.html',
-      controller: 'mainController'
-    })
-    .when('/login', {
-      templateUrl: 'views/login.html',
-      controller: 'loginCtrl'
-    })
-    .when('/', {
-      templateUrl: 'views/login.html',
-      controller: 'loginCtrl'
-    })
-});
-
 springInitiative.controller('loginCtrl', function($scope, $http, $location) {
   $scope.login = function() {
     $http.post("login", {
