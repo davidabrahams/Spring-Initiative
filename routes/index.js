@@ -74,23 +74,6 @@ routes.GETemailver = function(req, res) {
   });
 }
 
-routes.GETindex = function(req, res) {
-  // Student.find
-  // res.JSON({students: allStudents});
-  if (req.user)
-    res.sendFile('index.html', {
-      root: path.join(__dirname, '../views')
-    });
-  else
-    res.sendStatus(401);
-}
-
-routes.GETlogin = function(req, res) {
-  res.sendFile('index.html', {
-    root: path.join(__dirname, '../views')
-  });
-}
-
 routes.GETstudent = function(req, res, next) {
   Student.findOne({
     _id: req.params._id
