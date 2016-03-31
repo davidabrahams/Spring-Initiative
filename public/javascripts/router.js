@@ -4,9 +4,8 @@
 */
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-    // $urlRouterProvider.otherwise('/'); //if invalid URL
-
     $stateProvider
+        /* Home page */
         .state('index', {
           url: '/',
           views: {
@@ -14,36 +13,53 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
                 templateUrl: '/views/index.html',
                 controller: 'indexController',
             },
-            'overview@index': {
+            'content@index': {
                 templateUrl: '/views/overview.html',
                 controller: 'overviewController'
-            },
-            'program@index': {
-                templateUrl: '/views/program.html',
-                controller: 'programController'
-            },
-            'student@index': {
-                templateUrl: '/views/student.html',
-                controller: 'studentController',
-                params: {
-                  student: {value: 'some object'}
-                }
             }
           }
         })
+        /* Authentication */
         .state('login', {
           url: '/login',
           templateUrl: '/views/login.html',
           controller: 'loginController'
         })
-        .state('program', {
-          url: '/',
-          templateUrl: '/views/program.html'
+        /* Page views */
+        .state('index.program', {
+          views: {
+            'content': {
+                templateUrl: '/views/program.html',
+                controller: 'programController'
+            }
+          }
         })
-        .state('student', {
-          url: '/',
-          templateUrl: '/views/student.html'
-    });
+        .state('index.student', {
+          views: {
+            'content': {
+                templateUrl: '/views/student.html',
+                controller: 'studentController',
+            }
+          }
+        })
+        .state('index.addStudent', {
+          views: {
+            'content': {
+                templateUrl: '/views/addStudent.html',
+                controller: 'addStudentController'
+            }
+          }
+        })
+        .state('index.settings', {
+          views: {
+            'content': {
+                templateUrl: '/views/settings.html',
+                controller: 'settingsController'
+            }
+          }
+        });
+
+    $urlRouterProvider.otherwise('/'); //if invalid URL
 
     // Get rid of '#' in /#/routename
     if(window.history && window.history.pushState){
@@ -54,7 +70,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     }
 });
 
-// Control redirection if not logged in
+// Redirect if not logged in
 app.run(function($rootScope, $location, $http) {
     $rootScope.$on('$stateChangeStart', function(event, next, current) {
         $http({
@@ -75,41 +91,4 @@ app.run(function($rootScope, $location, $http) {
              console.log('Error: in GET \'/user\'', err);
         });
     });
-});
-
-app.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
-    
-    // checkUser($rootScope, $location, $http);
-    console.log('this should be second');
-    $scope.user = $rootScope.loggedInUser;
-
-    $http({
-          method: 'GET',
-          url: '/student'
-        })
-        .success(function(data){
-            console.log(data.students);
-            $scope.students = data.students;
-         })
-        .error(function(err){
-             console.log('Error: in GET \'/student\'', err);
-        }
-    );
-
-    $scope.showStudent = function(student){
-        $scope.contentTitle = student.name;
-        $scope.contentText = 'Here you can see ' + student.name + '\'s information.';
-    }
-});
-
-app.controller('overviewController', function($scope, $rootScope, $http, $location){
-});
-
-app.controller('studentController', function($scope, $rootScope, $http, $location){
-    $scope.studentName = 'd';
-    $scope.studentInfo = 'we';
-});
-
-app.controller('programController', function($scope, $rootScope, $http, $location){
 });
