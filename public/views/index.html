@@ -1,8 +1,10 @@
 <div id="main-container">
- 
 		<!-- Sidebar -->
 		<div id="sidebar-container" class="sidebar">
-			<div id="logo" class="sidebar"><h1>Spring Initiative</h1></div>
+			<div id="logout" class="sidebar" ng-model="user">
+				<a href="/">logout</a> | {{user}}
+			</div>
+			<div id="logo" class="sidebar"><h1><a href="/">Spring Initiative</a></h1></div>
 			<div id="search-container" class="sidebar">
 				<div id="searchbar" class="input-group">
 				  <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
@@ -11,17 +13,26 @@
 					<a href="/"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
 				</div>
 			</div>
+			<br></br>
 			<div id="sidebar-items" class="sidebar">
 			    <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-			    	{{student.email}}
+			    	<a ui-sref="student">{{student.name}}</a>
+			    </div>
+			    <div class="student-item">
+			    	<a ui-sref="addStudent">+ Add new student</a>
 			    </div>
 			</div>
 		</div>
 
 		<!-- Main content -->
 		<div id="content-container" class="content">
-			<div id="content-title" class="content" ng-model="contentTitle"><h3>{{contentTitle}}</h3></div>
-			<div id="content-text" class="content" ng-model="contentText">{{contentText}}</div>
+			<div ui-view>
+				<div ui-view="overview"></div>
+				<div ui-view="program"></div>
+			    <div ui-view="student"></div>
+			    <!-- Also a way to navigate -->
+			    <!-- <a ui-sref="route1"></a> -->
+			</div>
 		</div>
 
 		<!-- Header maybe -->

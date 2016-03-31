@@ -45,11 +45,11 @@ app.use(passport.session());
 
 app.use('/users', users);
 
-app.get('/', isLoggedIn, index.GETindex);
+app.get('/', index.GETindex);
 app.get('/login', index.GETlogin);
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
-
+app.get('/user', index.GETuser);
 // TODO: Add logged in middleware to these routes to ensure the user is
 // authenticated.
 app.get('/program', index.GETprogram);
@@ -105,14 +105,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
-function isLoggedIn(req, res, next) {
-  // if user is authenticated in the session, carry on
-  if (req.isAuthenticated())
-    return next();
-  // if they aren't redirect them to the login page
-  console.log('redirecting to /#/login from ' + req.route.path +' because I\'m not logged in');
-  res.redirect('/#/login');
-}
+// function isLoggedIn(req, res, next) {
+//   // if user is authenticated in the session, carry on
+//   if (req.isAuthenticated())
+//     return next();
+//   // if they aren't redirect them to the login page
+//   console.log('redirecting to /#/login from ' + req.route.path +' because I\'m not logged in');
+//   res.redirect('/#/login');
+// }
 
 
 module.exports = app;

@@ -14,11 +14,18 @@ var Grades = require(path.join(__dirname,'../models/data')).grades;
 // }
 
 routes.GETindex = function (req, res, next){
-  if (req.user)
+  // if (req.user)
     res.sendFile('main.html', { root: path.join(__dirname, '../public') });
+  // else
+  //   console.log('no user');
+  //   res.sendStatus(401);
+}
+
+routes.GETuser = function (req, res, next){
+  if (req.user)
+    res.json({user:req.user});
   else
-    console.log('no user');
-    res.sendStatus(401);
+    res.json({user:null});
 }
 
 routes.GETlogin = function(req, res){
@@ -33,8 +40,8 @@ routes.POSTlogin = function(req, res, next) {
       return res.status(401).send(info.message);
     req.logIn(user, function(err) {
       if (err) { return next(err); }
-      console.log('redirecting to /# when logging in');
-      return res.send({redirect: '/#/'});
+      console.log('redirecting to / when logging in');
+      return res.send({redirect: '/'});
     });
   })(req, res, next);
 }
@@ -48,8 +55,8 @@ routes.POSTregister = function(req, res, next) {
     console.log('user registered!');
 
     passport.authenticate('local')(req, res, function () {
-      console.log('redirecting to /# after registering');
-      res.send({redirect: '/#/'});
+      console.log('redirecting to / after registering');
+      res.send({redirect: '/'});
     });
   });
 }
@@ -59,9 +66,9 @@ routes.GETprogram = function (req, res, next) {
 }
 
 routes.GETstudent = function (req, res, next) {
-  Student.find({}, function (err, student){
-    res.json({students: student});
-  });
+  // Student.find({}, function (err, student){
+    res.json({students: [{name:'a'}, {name:'b'},{name:'c'}]});
+  // });
 }
 
 routes.POSTeditstudent = function (req, res, next) {
