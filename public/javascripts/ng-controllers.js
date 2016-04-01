@@ -113,16 +113,16 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
     $scope.students = [];
 
     // checkUser($rootScope, $location, $http);
-    console.log('this should be second');
     $scope.user = $rootScope.loggedInUser;
 
+    // TODO: make this cleaner using http.get(...)
     $http({
           method: 'GET',
-          url: '/student'
+          url: '/api/allStudents'
         })
         .success(function(data){
-            console.log(data.students);
-            $scope.students = data.students;
+            console.log(data);
+            $scope.students = data;
          })
         .error(function(err){
              console.log('Error: in GET \'/student\'', err);
