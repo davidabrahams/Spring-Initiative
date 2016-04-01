@@ -1,17 +1,21 @@
-var springInitiative = angular.module('springInitiative', ['ngRoute']);
+var springInitiative = angular.module('springInitiativeApp', ['ui.router']);
 
-springInitiative.config(function($routeProvider) {
-  $routeProvider
-    .when('/student', {
-      templateUrl: 'views/student.html',
+springInitiative.config(function($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/login');
+
+  $stateProvider
+
+    .state('student', {
+      url: '/student',
+      templateUrl: 'views/partial-student.html',
       controller: 'mainController'
     })
-    .when('/login', {
-      templateUrl: 'views/login.html',
+
+    .state('login', {
+      url: '/login',
+      templateUrl: 'views/partial-login.html',
       controller: 'loginCtrl'
-    })
-    .when('/', {
-      templateUrl: 'views/login.html',
-      controller: 'loginCtrl'
-    })
+    });
+
 });

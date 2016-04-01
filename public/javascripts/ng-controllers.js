@@ -1,10 +1,10 @@
-springInitiative.controller('loginCtrl', function($scope, $http, $location) {
+springInitiative.controller('loginCtrl', function($scope, $http, $state) {
   $scope.login = function() {
     $http.post("login", {
       username: $scope.email,
       password: $scope.password
     }).then(function(response) {
-      $location.path(response.data.redirect);
+      $state.go(response.data.redirect);
     }, function(response) {
       var msg = response.data;
       if (msg === 'Incorrect username' || msg ===

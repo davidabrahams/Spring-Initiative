@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en" ng-app ="springInitiative">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,16 +20,18 @@
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-route.js"></script> <!-- load ngRoute -->
-    <script rel = "stylesheet" type="text/javascript" src="/javascripts/ng-apps.js"></script>
-    <script rel = "stylesheet" type="text/javascript" src="/javascripts/ng-controllers.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script> <!-- load ngRoute -->
+    <script src="/javascripts/ng-apps.js"></script>
+    <script src="/javascripts/ng-controllers.js"></script>
 
     <!-- Custom styles for this template -->
     <link href="stylesheets/signin.css" rel="stylesheet">
 
   </head>
 
-  <body>
-    <div ng-view/>
+  <body ng-app="springInitiativeApp">
+    <div class="container">
+      <div ui-view></div>
+    </div>
   </body>
 </html>
