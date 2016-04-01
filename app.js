@@ -46,6 +46,9 @@ app.use(passport.session());
 app.use('/users', users);
 
 app.get('/verify', index.GETemailver);
+app.get('/user', function(req, res, next) {
+  res.json({user: req.user});
+})
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);

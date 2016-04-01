@@ -97,6 +97,7 @@ springInitiative.controller('mainController', function($scope, $http) {
       })
   };
 
+  // TODO: .success and .error are deprecated
   $scope.getArchive = function() {
     $http.get('api/index/archive')
       .success(function(data) {
@@ -114,6 +115,7 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
 
     // checkUser($rootScope, $location, $http);
     $scope.user = $rootScope.loggedInUser;
+    console.log($rootScope.loggedInUser);
 
     // TODO: make this cleaner using http.get(...)
     $http({
