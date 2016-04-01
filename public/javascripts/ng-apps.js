@@ -2,7 +2,7 @@ var springInitiative = angular.module('springInitiativeApp', ['ui.router']);
 
 springInitiative.config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/login');
 
   $stateProvider
 
