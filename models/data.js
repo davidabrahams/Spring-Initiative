@@ -1,13 +1,20 @@
 var mongoose = require('mongoose');
 
-var dataSchema = mongoose.Schema({
+var attendanceSchema = mongoose.Schema({
   type: String,
   date: Date,
-  data: Array
+  entry: Boolean,
+  student: String
+});
+
+var entrySchema = mongoose.Schema({
+  type: String,
+  date: Date,
+  entry: String,
+  student: String
 });
 
 
-module.exports.attendace = mongoose.model('Attendace', dataSchema);
-module.exports.grades = mongoose.model('Grades', dataSchema);
-// TODO: data is a reserved word, we should refactor this
-module.exports.data = mongoose.model('Data', dataSchema);
+module.exports.attendance = mongoose.model('Attendance', attendanceSchema);
+module.exports.grades = mongoose.model('Grades', entrySchema);
+module.exports.entry = mongoose.model('Entry', entrySchema);

@@ -1,19 +1,12 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    passportEmail = require('passport-local-mongoose-email'),
-    passportLocal = require('passport-local-mongoose');
+    passportEmail = require('passport-local-mongoose-email');
 
 var User = new Schema({});
 
-// TODO: use passport email to authenticate email addresses. This requires
-// sending confirmation emails
-
-// User.plugin(passportEmail, {
-//   usernameField: 'email',
-// });
-
-User.plugin(passportLocal, {
+// Passport Email used here
+User.plugin(passportEmail, {
   usernameField: 'email',
-})
+});
 
 module.exports = mongoose.model('User', User);
