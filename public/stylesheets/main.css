@@ -1,4 +1,4 @@
-/*Containers*/
+/* Containers */
 #main-container{
 	display: flex;
 	position:fixed;
@@ -18,13 +18,14 @@
 	flex-grow: 8;
 	flex-shrink: 3;
 	padding: 20px;
+	padding-left: 100px;
 }
 
 #search-container{
 	display: flex;
 }
 
-/*Sidebar*/
+/* Sidebar */
 #searchbar{}
 .form-control{
     width: 100%;
@@ -39,7 +40,12 @@
 
 #student-item{}
 
-/*Content*/
+/* Content */
 #content-title{}
 
 #content-text{}
+
+/* Input */
+.form-control {
+    width:250px;
+}

@@ -1,23 +1,26 @@
 <div id="content-title" class="content" ng-model="studentName">
-  <h3>stuname - {{studentName}}</h3>
+  <h3>{{studentName}}</h3>
 </div>
 <div id="content-text" class="content" ng-model="studentInfo">
-  stuinfo - {{studentInfo}}
+  {{studentInfo}}
 </div>
 
 <!-- TODO: reformat -->
 
-<div class="wrapper">
 <ul class="students" ng-repeat = "student in allStudents">
   <li> <a ng-click= "getStudent(student); show = !show" href = ''  >{{student.name}} </a> </li>
 </ul >
+
+
 <div class="currentStudentInfo" ng-show="showStudent">
   <center>
     <h1>{{currentStudent.name}}</h1>
-    <img src="http://farm4.static.flickr.com/3289/2847918653_7e30ae3737.jpg" height ='200px'> <br>
+    <!-- <img src="http://farm4.static.flickr.com/3289/2847918653_7e30ae3737.jpg" height ='200px'> <br> -->
     <p>^Filler image for where data will go</p>
   </center>
 </div>
+
+
 <div class="currentStudentEntryForm" ng-show="showStudent">
   <center>
     <h2> Add a new entry </h2>
@@ -30,6 +33,8 @@
     </form>
   </center>
 </div>
+
+
 <div class="currentStudentEditForm" ng-show="showStudent">
   <form class="studentform">
     <center>
@@ -52,23 +57,3 @@
     </center>
   </form>
 </div>
-</div>
-<div class="newStudentForm">
-<form class="studentform">
-  <center>
-    <h5> ---------------------------------------------------- </h5>
-    <h2>Add a New Student</h2>
-    <br>
-    Name: <input type="text" ng-model = "newStudent.name" placeholder="Jane Doe" required="" autofocus="" /> <br>
-    Program:
-    <select id="programs" ng-model = "newStudent.program">
-      <option value="Little Spring">Little Spring</option>
-      <option value="Big Spring">Big Spring</option>
-      <option value="Baby Spring">Baby Spring</option>
-    </select>
-    <br>
-    </input>
-    Archived: <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input><input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
-    <button class="btn btn-lg btn-primary btn-block" ng-click = "addStudent()" type="submit">Submit</button>
-  </center>
-</form>

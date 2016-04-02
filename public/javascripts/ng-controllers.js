@@ -62,6 +62,11 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
              console.log('Error: in GET \'/student\'', err);
         }
     );
+
+    $scope.currentStudent;
+    $scope.getStudent = function(student){
+      $rootScope.currentStudent = student;
+    }
 });
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location){
@@ -72,16 +77,10 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
     $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope, $http) {
+springInitiative.controller('studentController', function($scope, $http, $rootScope) {
+  $scope.studentName = $rootScope.currentStudent.name;
+  console.log('Current student:', $rootScope.currentStudent);
 
-  $http.get('api/allStudents')
-    .success(function(data) {
-      $scope.allStudents = data;
-      $scope.showStudent = false;
-    })
-    .error(function(data) {
-      console.log('Error:' + data)
-    })
 
   $scope.getStudent = function(student) {
     $http.get('api/student/' + student._id)
@@ -90,17 +89,6 @@ springInitiative.controller('studentController', function($scope, $http) {
         $scope.allStudents = data.allStudents;
         $scope.showStudent = !$scope.showStudent;
 
-      })
-      .error(function(data) {
-        console.log('Error: ' + data)
-      })
-  };
-
-  $scope.addStudent = function() {
-    $http.post('api/student/add', $scope.newStudent)
-      .success(function(data) {
-        $scope.allStudents = data.allStudents;
-        $scope.newStudent = data.newStudent;
       })
       .error(function(data) {
         console.log('Error: ' + data)
@@ -143,6 +131,16 @@ springInitiative.controller('studentController', function($scope, $http) {
 });
 
 springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
+  $scope.addStudent = function() {
+    $http.post('api/student/add', $scope.newStudent)
+      .success(function(data) {
+        $scope.allStudents = data.allStudents;
+        $scope.newStudent = data.newStudent;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data)
+      })
+  };
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
