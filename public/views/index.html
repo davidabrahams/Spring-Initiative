@@ -18,7 +18,7 @@
 			<br></br>
 			<div id="sidebar-items" class="sidebar">
 			    <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-			    	<a ui-sref="index.student({ data: {{student}} })">{{student.name}}</a>
+			    	<a ui-sref="index.student">{{student.name}}</a>
 			    </div>
 			    <div class="student-item">
 			    	<a ui-sref="index.program">Big Spring</a>
