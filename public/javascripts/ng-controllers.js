@@ -64,7 +64,7 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
     );
 
     $scope.currentStudent;
-    $scope.getStudent = function(student){
+    $scope.showStudent = function(student){
       $rootScope.currentStudent = student;
     }
 });
@@ -78,24 +78,30 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 });
 
 springInitiative.controller('studentController', function($scope, $http, $rootScope) {
-  $scope.studentName = $rootScope.currentStudent.name;
+  // $scope.studentName = $rootScope.currentStudent.name;
   console.log('Current student:', $rootScope.currentStudent);
+  // TODO: Fix controller reloading! Currently, it'll show you the new information
+  // because it's showing $rootScope. We could leave it as that,
+  // but I don't know if we'll run into problems in the future
+  // because of that
 
+  // TODO: test these funcs below since you'll prob need to replace them with rootScope
+  // if we continue on with the current solution above
 
-  $scope.getStudent = function(student) {
-    $http.get('api/student/' + student._id)
-      .success(function(data) {
-        $scope.currentStudent = data.currentStudent;
-        $scope.allStudents = data.allStudents;
-        $scope.showStudent = !$scope.showStudent;
+  // $scope.getStudent = function(student) {
+  //   $http.get('api/student/' + student._id)
+  //     .success(function(data) {
+  //       $scope.currentStudent = data.currentStudent;
+  //       $scope.allStudents = data.allStudents;
+  //       $scope.showStudent = !$scope.showStudent;
 
-      })
-      .error(function(data) {
-        console.log('Error: ' + data)
-      })
-  };
+  //     })
+  //     .error(function(data) {
+  //       console.log('Error: ' + data)
+  //     })
+  // };
 
-  $scope.editStudentFunc = function(student) {
+  $scope.submitEditStudent = function(student) {
     $http.post('api/student/edit/' + student._id, student)
       .success(function(data) {
         $scope.selected = $scope.allStudents[0];
@@ -106,7 +112,7 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
       })
   };
 
-  $scope.newEntryFunc = function(student) {
+  $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
         $scope.allStudents = data.allStudents;
