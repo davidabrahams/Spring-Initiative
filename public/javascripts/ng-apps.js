@@ -65,25 +65,18 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
 
 });
 
-springInitiative.run(function($rootScope, $location, $http) {
+springInitiative.run(function($rootScope, $state, $http) {
     $rootScope.$on('$stateChangeStart', function(event, next, current) {
-        $http({
-          method: 'GET',
-          url: '/user'
-        })
-        .success(function(data){
-            console.log('Current user:', data.user);
-            if (data.user == null) {
-                console.log('No one logged in, redirecting to /login');
-                // no logged user, redirect to /login if not on page
-                if ( next.templateUrl === 'views/login.html') {}
-                else { $location.path('/login'); }
-            } else { $rootScope.loggedInUser = data.user.email;
-                console.log($rootScope.loggedInUser + ' is logged in.');}
-         })
-        .error(function(err){
-             console.log('Error: in GET \'/user\'', err);
-        });
+        if (next.name !== 'login') {
+          $http.get('/user').then(function(data) {
+              if (data.data.user == null) {
+                  console.log('No one logged in, redirecting to /login');
+                    $state.go('login');
+              }
+           }, function(err){
+               console.log('Error: in GET \'/user\'', err);
+          });
+      }
     });
 });
 
