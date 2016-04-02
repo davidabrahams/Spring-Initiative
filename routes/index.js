@@ -17,10 +17,6 @@ routes.GETallStudents = function(req, res) {
   })
 }
 
-routes.GETlogin = function(req, res){
-  res.sendFile('login.html', { root: path.join(__dirname, '../views') });
-}
-
 routes.POSTlogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err)
