@@ -78,7 +78,6 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 });
 
 springInitiative.controller('studentController', function($scope, $http, $rootScope) {
-  // $scope.studentName = $rootScope.currentStudent.name;
   console.log('Current student:', $rootScope.currentStudent);
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
@@ -98,41 +97,45 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   //     })
   //     .error(function(data) {
   //       console.log('Error: ' + data)
-  //     })
-  // };
+  //     });
+  // }
 
+
+  //TODO: check these and make sure they work
   $scope.submitEditStudent = function(student) {
     $http.post('api/student/edit/' + student._id, student)
       .success(function(data) {
         $scope.selected = $scope.allStudents[0];
-        $scope.allStudents = data;
+        $scope.$parent.students = data;
       })
       .error(function(data) {
         console.log('Error: ' + data)
-      })
-  };
+      });
+  }
 
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
-        $scope.allStudents = data.allStudents;
-        $scope.currentStudent = data.currentStudent;
+        $scope.$parent.students = data.allStudents;
+        $rootScope.currentStudent = data.currentStudent;
+        //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {
         console.log('Error: ' + data)
-      })
-  };
+      });
+  }
 
   // TODO: .success and .error are deprecated
   $scope.getArchive = function() {
     $http.get('api/index/archive')
       .success(function(data) {
-        $scope.allArchivedStudents = data
+        $scope.allArchivedStudents = data;
+        //TODO: update archived stuff
       })
       .error(function(data) {
         console.log('Error:' + data)
-      })
-  };
+      });
+  }
 
 });
 
