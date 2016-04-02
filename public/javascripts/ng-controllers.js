@@ -42,37 +42,8 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-<<<<<<< HEAD
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
     $scope.students = [];
-
-    // checkUser($rootScope, $location, $http);
-    $scope.user = $rootScope.loggedInUser;
-    console.log($rootScope.loggedInUser);
-
-    // TODO: make this cleaner using http.get(...)
-    $http({
-          method: 'GET',
-          url: '/api/allStudents'
-        })
-        .success(function(data){
-            console.log(data);
-            $scope.students = data;
-         })
-        .error(function(err){
-             console.log('Error: in GET \'/student\'', err);
-        }
-    );
-
-    $scope.currentStudent;
-    $scope.showStudent = function(student){
-      $rootScope.currentStudent = student;
-    }
-});
-=======
-springInitiative.controller('indexController', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
-  $scope.students = [];
->>>>>>> layout-student-entries-ui-router
 
   $scope.user = $rootScope.loggedInUser;
   console.log($rootScope.loggedInUser);
@@ -102,7 +73,6 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   // but I don't know if we'll run into problems in the future
   // because of that
 
-<<<<<<< HEAD
   // TODO: test these funcs below since you'll prob need to replace them with rootScope
   // if we continue on with the current solution above
 
@@ -112,15 +82,6 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   //       $scope.currentStudent = data.currentStudent;
   //       $scope.allStudents = data.allStudents;
   //       $scope.showStudent = !$scope.showStudent;
-=======
-  $scope.getStudent = function(student) {
-    $http.get('api/student/' + student._id)
-      .success(function(data) {
-        $scope.currentStudent = data.currentStudent;
-        $scope.allStudents = data.allStudents;
-        $scope.showStudent = !$scope.showStudent;
->>>>>>> layout-student-entries-ui-router
-
   //     })
   //     .error(function(data) {
   //       console.log('Error: ' + data)
@@ -166,7 +127,6 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
 
 });
 
-<<<<<<< HEAD
 springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
   $scope.addStudent = function() {
     $http.post('api/student/add', $scope.newStudent)
@@ -182,8 +142,3 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
 });
-=======
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location) {});
-
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location) {});
->>>>>>> layout-student-entries-ui-router
