@@ -1,1 +1,37 @@
-Add a student using our invisible form:
+<form class="student-form">
+    <h3>Add New Student</h3>
+
+    <br>
+    <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
+
+    <br>
+    Program:
+    <select id="programs" ng-model="newStudent.program">
+      <option value="Little Spring">Little Spring</option>
+      <option value="Big Spring">Big Spring</option>
+      <option value="Baby Spring">Baby Spring</option>
+    </select>
+
+    <!-- TODO: Change program select to bootstrap version below -->
+<!--     <div class="btn-group">
+	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Program <span class="caret"></span>
+	  </button>
+	  <ul class="dropdown-menu">
+	    <li><a href="#">Big Spring</a></li>
+	    <li><a href="#">Little Spring</a></li>
+	    <li><a href="#">Baby Spring</a></li>
+	  </ul>
+	</div>
+ -->
+
+	<!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
+    <br>
+    Archived: 
+    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input>
+    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
+
+	<br>
+	<button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
+
+</form>
