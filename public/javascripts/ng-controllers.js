@@ -42,19 +42,22 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('indexController', ['$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
   $scope.students = [];
 
   $scope.user = $rootScope.loggedInUser;
   console.log($rootScope.loggedInUser);
 
+  $http.get('/user').then(function(data) {
+    $scope.user = data.data.user
+  })
+
   $http.get('/api/allStudents').then(function(data) {
-    console.log(data);
     $scope.students = data.data;
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
-});
+}]);
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
 
@@ -64,15 +67,6 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 });
 
 springInitiative.controller('studentController', function($scope, $http) {
-
-  $http.get('api/allStudents')
-    .success(function(data) {
-      $scope.allStudents = data;
-      $scope.showStudent = false;
-    })
-    .error(function(data) {
-      console.log('Error:' + data)
-    })
 
   $scope.getStudent = function(student) {
     $http.get('api/student/' + student._id)
