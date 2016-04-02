@@ -1,6 +1,6 @@
 var springInitiative = angular.module('springInitiativeApp', ['ui.router']);
 
-springInitiative.config(function($stateProvider, $urlRouterProvider) {
+springInitiative.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $urlRouterProvider.otherwise('/');
 
@@ -60,6 +60,8 @@ springInitiative.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     });
+
+    $locationProvider.html5Mode(true);
 
 });
 
