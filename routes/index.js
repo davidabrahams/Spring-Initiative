@@ -28,7 +28,7 @@ routes.POSTlogin = function(req, res, next) {
         return next(err);
       }
       return res.send({
-        redirect: 'index.student'
+        redirect: 'index'
       });
     });
   })(req, res, next);
