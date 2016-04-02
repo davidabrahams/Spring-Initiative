@@ -2,14 +2,15 @@ var springInitiative = angular.module('springInitiativeApp', ['ui.router']);
 
 springInitiative.config(function($stateProvider, $urlRouterProvider) {
 
-  $urlRouterProvider.otherwise('/login');
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
 
+    /* Page views */
     .state('login', {
       url: '/login',
       templateUrl: 'views/login.html',
-      controller: 'loginCtrl'
+      controller: 'loginController'
     })
 
     .state('index', {
@@ -20,33 +21,33 @@ springInitiative.config(function($stateProvider, $urlRouterProvider) {
             controller: 'indexController',
         },
         'content@index': {
-            templateUrl: 'views/overview.html',
+            templateUrl: 'views/content/overview.html',
             controller: 'overviewController'
         }
       }
     })
-    /* Page views */
+
+    /* Content views */
     .state('index.program', {
       views: {
         'content': {
-            templateUrl: 'views/program.html',
+            templateUrl: 'views/content/program.html',
             controller: 'programController'
         }
       }
     })
     .state('index.student', {
-      // url: '/student',
       views: {
         'content': {
-          templateUrl: 'views/partial-student.html',
-          controller: 'mainController'
+          templateUrl: 'views/content/student.html',
+          controller: 'studentController'
         }
       }
     })
     .state('index.addStudent', {
       views: {
         'content': {
-            templateUrl: 'views/addStudent.html',
+            templateUrl: 'views/content/addStudent.html',
             controller: 'addStudentController'
         }
       }
@@ -54,7 +55,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider) {
     .state('index.settings', {
       views: {
         'content': {
-            templateUrl: 'views/settings.html',
+            templateUrl: 'views/content/settings.html',
             controller: 'settingsController'
         }
       }

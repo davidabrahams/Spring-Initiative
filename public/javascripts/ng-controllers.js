@@ -1,6 +1,6 @@
-springInitiative.controller('loginCtrl', function($scope, $http, $state) {
+springInitiative.controller('loginController', function($scope, $http, $state) {
   $scope.login = function() {
-    $http.post("login", {
+    $http.post('login', {
       username: $scope.email,
       password: $scope.password
     }).then(function(response) {
@@ -31,7 +31,7 @@ springInitiative.controller('loginCtrl', function($scope, $http, $state) {
       username: $scope.email,
       password: $scope.password
     };
-    $http.post("register", data).then(function(response) {
+    $http.post('register', data).then(function(response) {
       $scope.verification_alert = true;
       // window.location.href = response.data.redirect;
     }, function(response) {
@@ -40,7 +40,39 @@ springInitiative.controller('loginCtrl', function($scope, $http, $state) {
   }
 });
 
-springInitiative.controller('mainController', function($scope, $http) {
+
+
+springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
+    $scope.students = [];
+
+    // checkUser($rootScope, $location, $http);
+    $scope.user = $rootScope.loggedInUser;
+    console.log($rootScope.loggedInUser);
+
+    // TODO: make this cleaner using http.get(...)
+    $http({
+          method: 'GET',
+          url: '/api/allStudents'
+        })
+        .success(function(data){
+            console.log(data);
+            $scope.students = data;
+         })
+        .error(function(err){
+             console.log('Error: in GET \'/student\'', err);
+        }
+    );
+});
+
+springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location){
+});
+
+springInitiative.controller('programController', function($scope, $rootScope, $http, $location){
+    $scope.programName = 'something spring';
+    $scope.programInfo = ':3';
+});
+
+springInitiative.controller('studentController', function($scope, $http) {
 
   $http.get('api/allStudents')
     .success(function(data) {
@@ -108,41 +140,6 @@ springInitiative.controller('mainController', function($scope, $http) {
       })
   };
 
-});
-
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
-
-    // checkUser($rootScope, $location, $http);
-    $scope.user = $rootScope.loggedInUser;
-    console.log($rootScope.loggedInUser);
-
-    // TODO: make this cleaner using http.get(...)
-    $http({
-          method: 'GET',
-          url: '/api/allStudents'
-        })
-        .success(function(data){
-            console.log(data);
-            $scope.students = data;
-         })
-        .error(function(err){
-             console.log('Error: in GET \'/student\'', err);
-        }
-    );
-});
-
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location){
-});
-
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location){
-    $scope.programName = 'something spring';
-    $scope.programInfo = ':3';
-});
-
-springInitiative.controller('studentController', function($scope, $rootScope, $http, $location){
-    $scope.studentName = 'd';
-    $scope.studentInfo = 'we';
 });
 
 springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
