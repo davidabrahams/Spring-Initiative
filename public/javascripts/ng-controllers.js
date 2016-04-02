@@ -42,34 +42,25 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
+springInitiative.controller('indexController', function($scope, $rootScope, $http, $location) {
+  $scope.students = [];
 
-    // checkUser($rootScope, $location, $http);
-    $scope.user = $rootScope.loggedInUser;
-    console.log($rootScope.loggedInUser);
+  $scope.user = $rootScope.loggedInUser;
+  console.log($rootScope.loggedInUser);
 
-    // TODO: make this cleaner using http.get(...)
-    $http({
-          method: 'GET',
-          url: '/api/allStudents'
-        })
-        .success(function(data){
-            console.log(data);
-            $scope.students = data;
-         })
-        .error(function(err){
-             console.log('Error: in GET \'/student\'', err);
-        }
-    );
+  $http.get('/api/allStudents').then(function(data) {
+    console.log(data);
+    $scope.students = data.data;
+  }, function(err) {
+    console.log('Error: in GET \'/student\'', err);
+  });
 });
 
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location){
-});
+springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
 
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location){
-    $scope.programName = 'something spring';
-    $scope.programInfo = ':3';
+springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+  $scope.programName = 'something spring';
+  $scope.programInfo = ':3';
 });
 
 springInitiative.controller('studentController', function($scope, $http) {
@@ -142,8 +133,6 @@ springInitiative.controller('studentController', function($scope, $http) {
 
 });
 
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
-});
+springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location) {});
 
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
-});
+springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location) {});
