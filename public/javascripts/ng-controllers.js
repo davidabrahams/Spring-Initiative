@@ -141,4 +141,21 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+  $http.get('api/allUsers')
+  .success(function(data) {
+    $scope.allUsers = data;
+  })
+  .error(function(data) {
+    console.log('Error:' + data)
+  });
+
+  $scope.toggleAdmin = function(username) {
+    $http.post('api/changeAdmin/'+username._id)
+    .success(function(data) {
+      username.isAdmin = !username.isAdmin;
+    })
+    .error(function(data) {
+      console.log('Error occured while admin change');
+    });
+  };
 });

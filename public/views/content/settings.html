@@ -1,1 +1,5 @@
-Some settings go here
+<div class="user-item" ng-repeat="username in allUsers"> 
+	{{username.email}} - {{username.isAdmin}} <button ng-click="toggleAdmin(username)">Change Admin Status</button>
+</div>
+
+
