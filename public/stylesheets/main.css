@@ -1,0 +1,54 @@
+/* Containers */
+#main-container {
+  display: flex;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#sidebar-container {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #eeeeee;
+}
+#content-container {
+	flex-grow: 8;
+	flex-shrink: 3;
+	padding: 20px;
+	padding-left: 100px;
+}
+#search-container { display: flex }
+#searchbar { }
+.form-control { width: 100% }
+#settings {
+  padding: 5px;
+  font-size: 20px;
+}
+
+/* Sidebar */
+#searchbar {}
+.form-control{
+    width: 100%;
+}
+
+#settings {
+	padding: 5px;
+	font-size: 20px;
+}
+
+#sidebar-items {}
+
+#student-item {}
+
+/* Content */
+#content-title {}
+
+#content-text {}
+
+/* Input */
+.form-control {
+    width:250px;
+}

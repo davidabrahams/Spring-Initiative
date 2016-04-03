@@ -46,6 +46,9 @@ app.use(passport.session());
 app.use('/users', users);
 
 app.get('/verify', index.GETemailver);
+app.get('/user', function(req, res, next) {
+  res.json({user: req.user});
+})
 app.post('/login', index.POSTlogin);
 app.post('/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
@@ -56,7 +59,7 @@ app.get('/api/index/archive', index.GETarchive);
 app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
-  res.sendFile('index.html', { root: path.join(__dirname, 'views') });
+  res.sendFile('main.html', { root: path.join(__dirname, 'views') });
 });
 
 var mongoURI = process.env.MONGO_URI;
