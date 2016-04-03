@@ -57,7 +57,7 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
-}]);
+});
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
 
