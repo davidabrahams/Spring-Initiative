@@ -2,36 +2,32 @@
     <h3>Add New Student</h3>
 
     <br>
+    <label>Name:</label>
     <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
 
     <br>
-    Program:
-    <select id="programs" ng-model="newStudent.program">
-      <option value="Little Spring">Little Spring</option>
-      <option value="Big Spring">Big Spring</option>
-      <option value="Baby Spring">Baby Spring</option>
-    </select>
 
-    <!-- TODO: Change program select to bootstrap version below -->
-<!--     <div class="btn-group">
-	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Program <span class="caret"></span>
-	  </button>
-	  <ul class="dropdown-menu">
-	    <li><a href="#">Big Spring</a></li>
-	    <li><a href="#">Little Spring</a></li>
-	    <li><a href="#">Baby Spring</a></li>
-	  </ul>
-	</div>
- -->
+    <div class="form-group">
+        <label for="sel1">Program:</label>
+        <select class="form-control" id="sel1">
+            <option value="Little Spring">Little Spring</option>
+            <option value="Big Spring">Big Spring</option>
+            <option value="Baby Spring">Baby Spring</option>
+        </select>
+    </div>
 
-	<!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
+
+    <!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
+    <label>Archived:</label> <br>
+
+    <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true">Yes</label>
+    <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "false">No</label>
+    
+<!--     <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input>
+    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input> -->
+
     <br>
-    Archived: 
-    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input>
-    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input>
-
-	<br>
-	<button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
+    <br>
+    <button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
 
 </form>
