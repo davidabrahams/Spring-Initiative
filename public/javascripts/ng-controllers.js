@@ -21,7 +21,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
         $scope.email_error = null;
         $scope.verification_alert = false;
       } else {
-        console.log(msg);
+        console.log('Login message:', msg);
       }
     });
   }
@@ -43,13 +43,11 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
-
-  $scope.user = $rootScope.loggedInUser;
-  console.log($rootScope.loggedInUser);
+  $scope.students = [];
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
+    console.log("Current user: " + $scope.user.email)
   })
 
   $http.get('/api/allStudents').then(function(data) {
@@ -57,6 +55,11 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
+
+  $scope.showStudent = function(student){
+    $rootScope.currentStudent = student;
+  }
+
 });
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
@@ -93,7 +96,7 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   $scope.submitEditStudent = function(student) {
     $http.post('api/student/edit/' + student._id, student)
       .success(function(data) {
-        $scope.selected = $scope.allStudents[0];
+        // $scope.selected = $scope.allStudents[0];
         $scope.$parent.students = data;
       })
       .error(function(data) {
