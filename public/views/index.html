@@ -15,9 +15,9 @@
 					<a ui-sref="index.settings"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
 				</div>
 			</div>
-			
+
 			<br>
-			
+
 			<div id="sidebar-items" class="sidebar">
 			    <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
 			    	<a ui-sref="index.student">{{student.name}}</a>
@@ -45,4 +45,7 @@
 		<!-- Header maybe -->
 	<!-- 	<div id="header-container" class="header">
 		</div> -->
+
+	<link rel="stylesheet" type="text/css" href = "/stylesheets/index.css">
+
 </div>
