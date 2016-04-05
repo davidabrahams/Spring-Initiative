@@ -1,5 +1,5 @@
 <div class="user-item" ng-repeat="username in allUsers"> 
-	{{username.email}} - {{username.isAdmin}} <button ng-click="toggleAdmin(username)">Change Admin Status</button>
+	{{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email"ng-click="toggleAdmin(username)">Change Admin Status</button>
 </div>
 
 
