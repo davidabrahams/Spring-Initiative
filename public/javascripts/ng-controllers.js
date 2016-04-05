@@ -43,7 +43,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
+  $scope.students = [];
 
   $scope.user = $rootScope.loggedInUser;
   console.log($rootScope.loggedInUser);
@@ -57,6 +57,12 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
+
+
+  $scope.showStudent = function(student){
+    $rootScope.currentStudent = student;
+  }
+
 });
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
