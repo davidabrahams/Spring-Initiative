@@ -1,51 +1,45 @@
 <div id="main-container">
-		<!-- Sidebar -->
-		<div id="sidebar-container" class="sidebar">
-			<div id="logout" class="sidebar" ng-model="user">
-				<a href="/">logout</a> | {{user.email}}
-			</div>
-			<div id="logo" class="sidebar">
-				<h1><a ui-sref="index">Spring Initiative</a></h1>
-			</div>
-			<div id="search-container" class="sidebar">
-				<div id="searchbar">
-				  <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
-				</div>
-				<div id="settings" class="sidebar">
-					<a ui-sref="index.settings"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
-				</div>
-			</div>
-
-			<br>
-
-			<div id="sidebar-items" class="sidebar">
-			    <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-			    	<a ui-sref="index.student">{{student.name}}</a>
-			    </div>
-			    <div class="student-item">
-			    	<a ui-sref="index.program">Big Spring</a>
-			    </div>
-			    <div class="student-item">
-			    	<a ui-sref="index.program">Spring Spring</a>
-			    </div>
-			    <div class="student-item">
-			    	<a ui-sref="index.program">Little Spring</a>
-			    </div>
-			    <div class="student-item">
-			    	<a ui-sref="index.addStudent">+ Add new student</a>
-			    </div>
-			</div>
-		</div>
-
-		<!-- Page content -->
-		<div id="content-container" class="content">
-			<div ui-view="content"></div>
-		</div>
-
-		<!-- Header maybe -->
-	<!-- 	<div id="header-container" class="header">
-		</div> -->
-
-	<link rel="stylesheet" type="text/css" href = "/stylesheets/index.css">
-
+  <!-- Sidebar -->
+  <div id="sidebar-container" class="sidebar">
+    <div id="logout" class="sidebar" ng-model="user">
+      <a href="/">logout</a> | {{user.email}}
+    </div>
+    <div id="logo" class="sidebar">
+      <h1><a ui-sref="index">Spring Initiative</a></h1>
+    </div>
+    <div id="search-container" class="sidebar">
+      <div id="searchbar">
+        <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
+      </div>
+      <div id="settings" class="sidebar">
+        <a ui-sref="index.settings"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+      </div>
+    </div>
+    <br>
+    <div id="sidebar-items" class="sidebar">
+      <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
+        <a ui-sref="index.student">{{student.name}}</a>
+      </div>
+      <div class="student-item">
+        <a ui-sref="index.program">Big Spring</a>
+      </div>
+      <div class="student-item">
+        <a ui-sref="index.program">Spring Spring</a>
+      </div>
+      <div class="student-item">
+        <a ui-sref="index.program">Little Spring</a>
+      </div>
+      <div class="student-item">
+        <a ui-sref="index.addStudent">+ Add new student</a>
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div id="content-container" class="content">
+    <div ui-view="content"></div>
+  </div>
+  <!-- Header maybe -->
+  <!-- 	<div id="header-container" class="header">
+    </div> -->
+  <link rel="stylesheet" type="text/css" href = "/stylesheets/index.css">
 </div>
