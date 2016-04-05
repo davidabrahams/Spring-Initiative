@@ -45,11 +45,9 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
   $scope.students = [];
 
-  $scope.user = $rootScope.loggedInUser;
-  console.log($rootScope.loggedInUser);
-
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
+    console.log("Current user: " + $scope.user.email)
   })
 
   $http.get('/api/allStudents').then(function(data) {
@@ -57,7 +55,6 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
-
 
   $scope.showStudent = function(student){
     $rootScope.currentStudent = student;
