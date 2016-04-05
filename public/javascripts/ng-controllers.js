@@ -86,17 +86,17 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
   // TODO: test these funcs below since you'll prob need to replace them with rootScope
   // if we continue on with the current solution above
 
-  $scope.getStudent = function(student) {
-    $http.get('api/student/' + student._id)
-      .success(function(data) {
-        $scope.currentStudent = data.currentStudent;
-        $scope.allStudents = data.allStudents;
-        $scope.showStudent = !$scope.showStudent;
-      })
-      .error(function(data) {
-        console.log('Error: ' + data)
-      });
-  }
+  // $scope.getStudent = function(student) {
+  //   $http.get('api/student/' + student._id)
+  //     .success(function(data) {
+  //       $scope.currentStudent = data.currentStudent;
+  //       $scope.allStudents = data.allStudents;
+  //       $scope.showStudent = !$scope.showStudent;
+  //     })
+  //     .error(function(data) {
+  //       console.log('Error: ' + data)
+  //     });
+  // }
 
 
   //TODO: check these and make sure they work
