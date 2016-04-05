@@ -43,13 +43,11 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
-    $scope.students = [];
-
-  $scope.user = $rootScope.loggedInUser;
-  console.log($rootScope.loggedInUser);
+  $scope.students = [];
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
+    console.log("Current user: " + $scope.user.email)
   })
 
   $http.get('/api/allStudents').then(function(data) {
