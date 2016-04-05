@@ -21,7 +21,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
         $scope.email_error = null;
         $scope.verification_alert = false;
       } else {
-        console.log(msg);
+        console.log('Login message:', msg);
       }
     });
   }
@@ -99,7 +99,7 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   $scope.submitEditStudent = function(student) {
     $http.post('api/student/edit/' + student._id, student)
       .success(function(data) {
-        $scope.selected = $scope.allStudents[0];
+        // $scope.selected = $scope.allStudents[0];
         $scope.$parent.students = data;
       })
       .error(function(data) {
