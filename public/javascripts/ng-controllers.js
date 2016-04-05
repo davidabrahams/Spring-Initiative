@@ -86,7 +86,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
   // TODO: test these funcs below since you'll prob need to replace them with rootScope
   // if we continue on with the current solution above
 
-  $rootScope.getStudent = function(student) {
+  $scope.getStudent = function(student) {
     $http.get('api/student/' + student._id)
       .success(function(data) {
         $scope.currentStudent = data.currentStudent;
