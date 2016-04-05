@@ -52,6 +52,16 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
     $scope.user = data.data.user
   })
 
+  $scope.logout = function(){
+    $http.get("/logout")
+    .success(function(data){
+      $location.path('/login');
+    })
+    .error(function(data){
+      console.log("Error")
+    })
+  }
+  
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data;
   }, function(err) {
@@ -66,8 +76,8 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope, $http, $rootScope) {
-  console.log('Current student:', $rootScope.currentStudent);
+springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
   // but I don't know if we'll run into problems in the future
@@ -76,17 +86,17 @@ springInitiative.controller('studentController', function($scope, $http, $rootSc
   // TODO: test these funcs below since you'll prob need to replace them with rootScope
   // if we continue on with the current solution above
 
-  // $scope.getStudent = function(student) {
-  //   $http.get('api/student/' + student._id)
-  //     .success(function(data) {
-  //       $scope.currentStudent = data.currentStudent;
-  //       $scope.allStudents = data.allStudents;
-  //       $scope.showStudent = !$scope.showStudent;
-  //     })
-  //     .error(function(data) {
-  //       console.log('Error: ' + data)
-  //     });
-  // }
+  $rootScope.getStudent = function(student) {
+    $http.get('api/student/' + student._id)
+      .success(function(data) {
+        $scope.currentStudent = data.currentStudent;
+        $scope.allStudents = data.allStudents;
+        $scope.showStudent = !$scope.showStudent;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data)
+      });
+  }
 
 
   //TODO: check these and make sure they work
