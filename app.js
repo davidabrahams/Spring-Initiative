@@ -27,10 +27,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(sassMiddleware({
-    src: path.join(__dirname, 'sass'),
-    dest: path.join(__dirname, 'public'),
-    indentedSyntax: true,
-    debug: true
+  src: path.join(__dirname, 'sass'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: true,
+  debug: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -51,6 +51,7 @@ app.get('/user', function(req, res, next) {
   res.json({user: req.user});
 })
 app.post('/login', index.POSTlogin);
+app.get('/logout', index.GETlogout);
 app.post('/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
