@@ -42,24 +42,27 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('indexController', function($scope, $rootScope,
+                            $http, $location, $state) {
+
   $scope.students = [];
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
     console.log("Current user: " + $scope.user.email)
+
   })
 
   $scope.logout = function(){
-    $http.get("/logout")
+    $http.post("/logout")
     .success(function(data){
-      $location.path('/login');
+      $state.go('login')
     })
     .error(function(data){
       console.log("Error")
     })
   }
-  
+
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data;
   }, function(err) {
@@ -154,4 +157,21 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+  $http.get('api/allUsers')
+  .success(function(data) {
+    $scope.allUsers = data;
+  })
+  .error(function(data) {
+    console.log('Error:' + data)
+  });
+
+  $scope.toggleAdmin = function(username) {
+    $http.post('api/changeAdmin/'+username._id)
+    .success(function(data) {
+      username.isAdmin = !username.isAdmin;
+    })
+    .error(function(data) {
+      console.log('Error occured while admin change');
+    });
+  };
 });
