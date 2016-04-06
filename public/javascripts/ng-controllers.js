@@ -43,11 +43,13 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
+
   $scope.students = [];
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
     console.log("Current user: " + $scope.user.email)
+
   })
 
   $http.get('/api/allStudents').then(function(data) {
@@ -144,4 +146,21 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+  $http.get('api/allUsers')
+  .success(function(data) {
+    $scope.allUsers = data;
+  })
+  .error(function(data) {
+    console.log('Error:' + data)
+  });
+
+  $scope.toggleAdmin = function(username) {
+    $http.post('api/changeAdmin/'+username._id)
+    .success(function(data) {
+      username.isAdmin = !username.isAdmin;
+    })
+    .error(function(data) {
+      console.log('Error occured while admin change');
+    });
+  };
 });
