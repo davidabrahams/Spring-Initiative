@@ -42,7 +42,8 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('indexController', function($scope, $rootScope,
+                            $http, $location, $state) {
 
   $scope.students = [];
 
@@ -51,6 +52,16 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
     console.log("Current user: " + $scope.user.email)
 
   })
+
+  $scope.logout = function(){
+    $http.post("/logout")
+    .success(function(data){
+      $state.go('login')
+    })
+    .error(function(data){
+      console.log("Error")
+    })
+  }
 
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data;
@@ -71,8 +82,8 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope, $http, $rootScope) {
-  console.log('Current student:', $rootScope.currentStudent);
+springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
   // but I don't know if we'll run into problems in the future

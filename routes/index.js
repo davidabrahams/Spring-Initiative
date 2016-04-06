@@ -34,6 +34,12 @@ routes.POSTlogin = function(req, res, next) {
   })(req, res, next);
 }
 
+routes.POSTlogout = function(req, res){
+  console.log("logged out")
+  req.logout();
+  res.sendStatus(200);
+}
+
 routes.POSTregister = function(req, res, next) {
   User.register(new User({
       email: req.body.username
