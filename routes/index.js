@@ -212,4 +212,24 @@ routes.GETarchive = function(req, res, next) {
     res.json(archivedStudents);
   })
 }
+
+routes.GETallUsers = function(req, res) {
+  User.find({}, function(err, allUsers) {
+    res.json(allUsers);
+  })
+}
+
+routes.POSTchangeAdmin = function(req, res) {
+  userid = req.params._id;
+  User.findOne({_id:userid}, function (err, user) {
+    user.isAdmin = !user.isAdmin;
+    user.save(function (err) {
+      if(err) {
+        console.log(err);
+      }
+    })
+    res.json(user);
+  });
+}
+
 module.exports = routes;
