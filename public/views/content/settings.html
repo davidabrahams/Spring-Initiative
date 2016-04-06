@@ -1,5 +1,12 @@
-<div class="user-item" ng-repeat="username in allUsers"> 
-	{{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email"ng-click="toggleAdmin(username)">Change Admin Status</button>
+<div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers"> 
+	{{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email" ng-click="toggleAdmin(username)">Change Admin Status</button>
 </div>
 
-
+<div class="change-password" >
+</br>
+<form ng-submit="changePassword(user)">
+	New Password: <input type="password" ng-model="currentPassword1" name="password"> </br>
+	Retype New Password: <input type="password" ng-model="currentPassword2" name="password"> </br>
+	<input type="submit" id="submit" value="Submit" >
+</form>
+</div>

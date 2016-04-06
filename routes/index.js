@@ -226,4 +226,17 @@ routes.POSTchangeAdmin = function(req, res) {
   });
 }
 
+routes.POSTchangePassword = function(req, res) {
+  userid = req.params._id;
+  User.findOne({_id:userid}, function (err, user) {
+    /////VHANGE
+    user.save(function (err) {
+      if(err) {
+        console.log(err);
+      }
+    })
+    res.json(user);
+  });
+}
+
 module.exports = routes;

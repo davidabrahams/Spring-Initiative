@@ -40,8 +40,6 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
   }
 });
 
-
-
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
 
   $scope.students = [];
@@ -163,4 +161,18 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       console.log('Error occured while admin change');
     });
   };
+
+  $scope.changePassword = function(user) {
+    if($scope.changePassword1 == $scope.changePassword2){
+      console.log(user._id);
+      $http.post('api/changePassword/'+user._id)
+      .success(function(data) {
+        console.log('Success Change Password');
+        console.log(data);
+      })
+      .error(function(data) {
+        console.log('Unsuccess Change Password');
+      });
+    }
+  }
 });
