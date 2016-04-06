@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     passportEmail = require('passport-local-mongoose-email');
 
 var User = new Schema({
-	isAdmin: {type: Boolean, default: false}
+  isAdmin: {type: Boolean, default: false}
 });
 
 // Passport Email used here
