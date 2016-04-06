@@ -50,7 +50,7 @@ app.get('/user', function(req, res, next) {
   res.json({user: req.user});
 })
 app.post('/login', index.POSTlogin);
-app.get('/logout', index.GETlogout);
+app.post('/logout', index.POSTlogout);
 app.post('/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);

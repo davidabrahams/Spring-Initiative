@@ -2,7 +2,7 @@
 		<!-- Sidebar -->
 		<div id="sidebar-container" class="sidebar">
 			<div id="logout" class="sidebar" ng-model="user">
-				<a href="/" ng-click="logout()">logout</a> | {{user.email}}
+				<a ui-sref="index" ng-click="logout()">logout</a> | {{user.email}}
 			</div>
 			<div id="logo" class="sidebar">
 				<h1><a ui-sref="index">Spring Initiative</a></h1>
@@ -15,9 +15,9 @@
 					<a ui-sref="index.settings"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
 				</div>
 			</div>
-			
+
 			<br>
-			
+
 			<div id="sidebar-items" class="sidebar">
 			    <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
 			    	<a ui-sref="index.student">{{student.name}}</a>

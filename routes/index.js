@@ -34,10 +34,10 @@ routes.POSTlogin = function(req, res, next) {
   })(req, res, next);
 }
 
-routes.GETlogout = function(req, res){
+routes.POSTlogout = function(req, res){
   console.log("logged out")
   req.logout();
-  res.redirect("/")
+  res.sendStatus(200);
 }
 
 routes.POSTregister = function(req, res, next) {

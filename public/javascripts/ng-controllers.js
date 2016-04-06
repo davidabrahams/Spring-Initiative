@@ -42,7 +42,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('indexController', function($scope, $rootScope, $http, $location, $state){
     $scope.students = [];
 
   $scope.user = $rootScope.loggedInUser;
@@ -53,15 +53,15 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   })
 
   $scope.logout = function(){
-    $http.get("/logout")
+    $http.post("/logout")
     .success(function(data){
-      $location.path('/login');
+      $state.go('login')
     })
     .error(function(data){
       console.log("Error")
     })
   }
-  
+
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data;
   }, function(err) {
