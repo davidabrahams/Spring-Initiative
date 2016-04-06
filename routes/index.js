@@ -3,7 +3,8 @@ var path = require('path');
 var routes = {};
 var path = require('path');
 var passport = require('passport');
-var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
+var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
+                                   process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
 var Attendance = require(path.join(__dirname, '../models/data')).attendance;
@@ -27,9 +28,7 @@ routes.POSTlogin = function(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.send({
-        redirect: 'index'
-      });
+      return res.sendStatus(200);
     });
   })(req, res, next);
 }
@@ -118,7 +117,7 @@ routes.POSTeditstudent = function(req, res, next) {
       if (err) {
         res.send(err)
       }
-      Student.findOne({_id: studentID}, function(err, currentStudent){
+      Student.findOne({_id: studentID}, function(err, currentStudent) {
         res.json({allStudents:allStudents, currentStudent: currentStudent})
       })
     })
