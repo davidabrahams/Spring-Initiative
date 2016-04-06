@@ -27,16 +27,14 @@
             <input ng-model="newEntry.attendance" type="radio" name="optradio" value="false">Absent</label>
         </div>
       </div>
-      <label>GPA:</label>
-      <br>
-      <input type="text" ng-model="newEntry.grades" placeholder="3.5" required="" />
-      <br>
-      <br>
-      <label>Additional Info:</label>
-      <br>
-      <input type="text" ng-model="newEntry.data" placeholder="Input more data" required="" />
-      <br>
-      <br>
+      <div class="form-group">
+        <label>GPA:</label>
+        <input type="text" ng-model="newEntry.grades" placeholder="3.5" class="form-control" required/>
+      </div>
+      <div class="form-group">
+        <label>Additional Info:</label>
+        <input type="text" ng-model="newEntry.data" placeholder="Input more data" class="form-control" />
+      </div>
       <button class="btn btn-default" ng-click="submitNewEntry(currentStudent)" type="submit">Submit</button>
     </form>
     <br>
@@ -67,13 +65,14 @@
           <option value="Baby Spring">Baby Spring</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Archived:</label>
-        <br>
-        <label class="radio-inline">
-          <input ng-model="editStudent.archived" type="radio" name="optradio" value="true">Yes</label>
-        <label class="radio-inline">
-          <input ng-model="editStudent.archived" type="radio" name="optradio" value="false">No</label>
+      <div class="form-group control-group">
+        <label class="control-label">Archived:</label>
+        <div class="controls">
+          <label class="radio-inline">
+            <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
+          <label class="radio-inline">
+            <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
+        </div>
       </div>
       <button class="btn btn-default" ng-click="submitEditStudent(editStudent, currentStudent)" type="submit">Submit</button>
 
