@@ -8,7 +8,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
 
     /* Page views */
     .state('login', {
-      url: '/login',
+      url: '/api/login',
       templateUrl: 'views/login.html',
       controller: 'loginController'
     })

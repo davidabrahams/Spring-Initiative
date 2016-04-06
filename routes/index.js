@@ -118,7 +118,9 @@ routes.POSTeditstudent = function(req, res, next) {
       if (err) {
         res.send(err)
       }
-      res.json(allStudents)
+      Student.findOne({_id: studentID}, function(err, currentStudent){
+        res.json({allStudents:allStudents, currentStudent: currentStudent})
+      })
     })
   })
 }

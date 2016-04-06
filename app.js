@@ -50,9 +50,9 @@ app.get('/verify', index.GETemailver);
 app.get('/user', function(req, res, next) {
   res.json({user: req.user});
 })
-app.post('/login', index.POSTlogin);
-app.post('/logout', index.POSTlogout);
-app.post('/register', index.POSTregister);
+app.post('/api/login', index.POSTlogin);
+app.post('/api/logout', index.POSTlogout);
+app.post('/api/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
@@ -118,7 +118,7 @@ function isLoggedIn(req, res, next) {
   if (req.isAuthenticated())
     return next();
   // if they aren't redirect them to the home page
-  res.redirect('/login');
+  res.redirect('/api/login');
 }
 
 

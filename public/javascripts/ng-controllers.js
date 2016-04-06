@@ -1,6 +1,6 @@
 springInitiative.controller('loginController', function($scope, $http, $state) {
   $scope.login = function() {
-    $http.post('login', {
+    $http.post('api/login', {
       username: $scope.email,
       password: $scope.password
     }).then(function(response) {
@@ -31,7 +31,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
       username: $scope.email,
       password: $scope.password
     };
-    $http.post('register', data).then(function(response) {
+    $http.post('api/register', data).then(function(response) {
       $scope.verification_alert = true;
       // window.location.href = response.data.redirect;
     }, function(response) {
@@ -54,7 +54,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   })
 
   $scope.logout = function(){
-    $http.post("/logout")
+    $http.post("/api/logout")
     .success(function(data){
       $state.go('login')
     })
@@ -106,11 +106,12 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
 
   //TODO: check these and make sure they work
-  $scope.submitEditStudent = function(student) {
-    $http.post('api/student/edit/' + student._id, student)
+  $scope.submitEditStudent = function(editStudent, currentStudent) {
+    $http.post('api/student/edit/' + currentStudent._id, editStudent)
       .success(function(data) {
-        // $scope.selected = $scope.allStudents[0];
-        $scope.$parent.students = data;
+        $scope.$parent.students = data.allStudents;
+        $rootScope.currentStudent = data.currentStudent;
+        $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
         console.log('Error: ' + data)
