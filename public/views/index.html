@@ -5,7 +5,34 @@
         <a ui-sref="index">Spring Initiative</a>
       </li>
 
-      <div class="navbar-form " role="search">
+      <li>
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading panel-title">
+              <h1 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                      Students
+                      <span class="caret"></span>
+                  </a>
+              </h1>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body">
+                <ul>
+                  <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
+                    <li>
+                      <a ui-sref="index.student">{{student.name}}</a>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </li>
+
+      <div class="navbar-form" role="search">
         <div class="input-group">
           <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
           <div class="input-group-btn">
@@ -17,11 +44,6 @@
       <li>
         <a ui-sref="index.addStudent">+ Add new student</a>
       </li>
-      <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-        <li>
-          <a ui-sref="index.student">{{student.name}}</a>
-        </li>
-      </div>
 
       <li>
         <a ui-sref="index.program">Big Spring</a>
@@ -46,3 +68,7 @@
 </div>
 
 <link href="stylesheets/simple-sidebar.css" rel="stylesheet">
+<link href="stylesheets/dropdown.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
