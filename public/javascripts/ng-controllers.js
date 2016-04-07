@@ -127,7 +127,6 @@ springInitiative.controller('studentController', function($scope, $http) {
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
         $scope.$parent.currentStudent = data.currentStudent;
-        //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {
         console.log('Error: ' + data)

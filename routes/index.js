@@ -160,21 +160,24 @@ routes.POSTnewEntry = function(req, res, next) {
     student: studentID,
     type: "attendance",
     entry: studentAttendance,
-    date: date
+    date: date,
+    submitted: new Date()
   }, function(err, newAttendanceObj) {
     console.log("new attend", newAttendanceObj)
     Grades.create({
       student: studentID,
       type: "grades",
       entry: studentGrades,
-      date: date
+      date: date,
+      submitted: new Date()
     }, function(err, newGradeObj) {
       console.log("newGradeObj", newGradeObj)
       Entry.create({
         student: studentID,
         type: "entry",
         entry: studentEntry,
-        date: date
+        date: date,
+        submitted: new Date()
       }, function(err, newEntryObj) {
         console.log("newEntryObj", newEntryObj)
         Student.update({
