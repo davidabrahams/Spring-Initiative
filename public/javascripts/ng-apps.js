@@ -17,7 +17,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
       url: '/',
       views: {
         '': {
-            templateUrl: 'views/index.html',
+            templateUrl: 'views/index2.html',
             controller: 'indexController',
         },
         'content@index': {
