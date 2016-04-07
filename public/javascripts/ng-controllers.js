@@ -4,7 +4,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
       username: $scope.email,
       password: $scope.password
     }).then(function(response) {
-      $state.go(response.data.redirect);
+      $state.go('index');
     }, function(response) {
       var msg = response.data;
       if (msg === 'Incorrect username' || msg ===
@@ -84,6 +84,8 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 
 springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
 
+  $scope.editStudent = angular.copy($rootScope.currentStudent);
+
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
   // but I don't know if we'll run into problems in the future
@@ -111,7 +113,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
         $rootScope.currentStudent = data.currentStudent;
-        $scope.currentStudent = data.currentStudent;
+        // $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
         console.log('Error: ' + data)

@@ -7,59 +7,75 @@
     <!-- {{currentStudent.info}} -->
   </p>
 
-
-  <a ng-click="showAddEntry = !showAddEntry">+ Add new entry</a><br>
+  <a ng-click="showAddEntry = !showAddEntry">+ Add new entry</a>
+  <br>
   <div class="entry-form" ng-show="showAddEntry">
-   
-      <h2> Add a new entry </h2>
-      <form class = "entryform">
-        <label>Date:</label><br>
-        <input type="date" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" /><br><br>
-        <label>Attendance:</label> <br>
-        <label class="radio-inline"><input ng-model = "newEntry.attendance" type="radio" name="optradio" value = "true">Present</label>
-        <label class="radio-inline"><input ng-model = "newEntry.attendance" type="radio" name="optradio" value = "false">Absent</label>
-        <br><br>
-        <label>GPA:</label><br>
-        <input type ="text" ng-model = "newEntry.grades" placeholder = "3.5" required = "" /><br><br>
-        <label>Additional Info:</label><br>
-        <input type="text" ng-model = "newEntry.data" placeholder = "Input more data" required = "" /><br><br>
-        <button class="btn btn-default" ng-click = "submitNewEntry(currentStudent)" type="submit">Submit</button>
-      </form>
+
+    <h2> Add a new entry </h2>
+    <form class="entryform">
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" class="form-control" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
+      </div>
+      <div class="form-group control-group">
+        <label class="control-label">Attendance:</label>
+        <div class="controls">
+          <label class="radio-inline">
+            <input ng-model="newEntry.attendance" type="radio" name="optradio" value="true">Present
+          </label>
+          <label class="radio-inline">
+            <input ng-model="newEntry.attendance" type="radio" name="optradio" value="false">Absent</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>GPA:</label>
+        <input type="text" ng-model="newEntry.grades" placeholder="3.5" class="form-control" required/>
+      </div>
+      <div class="form-group">
+        <label>Additional Info:</label>
+        <input type="text" ng-model="newEntry.data" placeholder="Input more data" class="form-control" />
+      </div>
+      <button class="btn btn-default" ng-click="submitNewEntry(currentStudent)" type="submit">Submit</button>
+    </form>
     <br>
   </div>
 
-
-  <a ng-click="showEditEntry = !showEditEntry">+ Edit entry</a><br>
+  <a ng-click="showEditEntry = !showEditEntry">+ Edit entry</a>
+  <br>
   <div ng-show="showEditEntry">
     Edit some entry here
   </div>
 
-
-  <a ng-click="showEditStudent = !showEditStudent">+ Edit student</a><br>
+  <a ng-click="showEditStudent = !showEditStudent">+ Edit student</a>
+  <br>
   <div class="edit-form" ng-show="showEditStudent">
     <form class="studentform">
-     
-        <h2>Edit {{currentStudent.name}}'s Info</h2>
-        <br>
-    <label>Name:</label>
-    <input type="text" class="form-control" ng-model="editStudent.name" placeholder = "{{currentStudent.name}}" required="" autofocus="" autocomplete="on">  </input> 
-    <br>
-    <div class="form-group">
+
+      <h2>Edit {{currentStudent.name}}'s Info</h2>
+      <br>
+      <div class="form-group">
+        <label for="name_input">Name:</label>
+        <input type="text" class="form-control" ng-model="editStudent.name" id="name_input" required autofocus> </input>
+      </div>
+      <div class="form-group">
         <label for="sel1">Program:</label>
-        <select class="form-control" id="sel1" ng-model = "editStudent.program" ng-init="currentStudent.program = currentStudent.program">
-            <option value="Little Spring">Little Spring</option>
-            <option value="Big Spring">Big Spring</option>
-            <option value="Baby Spring">Baby Spring</option>
+        <select class="form-control" id="sel1" ng-model="editStudent.program">
+          <option value="Little Spring">Little Spring</option>
+          <option value="Big Spring">Big Spring</option>
+          <option value="Baby Spring">Baby Spring</option>
         </select>
-    </div>
+      </div>
+      <div class="form-group control-group">
+        <label class="control-label">Archived:</label>
+        <div class="controls">
+          <label class="radio-inline">
+            <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
+          <label class="radio-inline">
+            <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
+        </div>
+      </div>
+      <button class="btn btn-default" ng-click="submitEditStudent(editStudent, currentStudent)" type="submit">Submit</button>
 
-      <label>Archived:</label> <br>
-
-    <label class="radio-inline"><input ng-model = "editStudent.archived" type="radio" name="optradio" value = "true">Yes</label>
-    <label class="radio-inline"><input ng-model = "editStudent.archived" type="radio" name="optradio" value = "false">No</label>
-    <br><br>
-        <button class="btn btn-default" ng-click = "submitEditStudent(editStudent, currentStudent)" type="submit">Submit</button>
-      
     </form>
   </div>
 
