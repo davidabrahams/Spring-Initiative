@@ -1,10 +1,10 @@
 springInitiative.controller('loginController', function($scope, $http, $state) {
   $scope.login = function() {
-    $http.post('login', {
+    $http.post('api/login', {
       username: $scope.email,
       password: $scope.password
     }).then(function(response) {
-      $state.go(response.data.redirect);
+      $state.go('index');
     }, function(response) {
       var msg = response.data;
       if (msg === 'Incorrect username' || msg ===
@@ -31,7 +31,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
       username: $scope.email,
       password: $scope.password
     };
-    $http.post('register', data).then(function(response) {
+    $http.post('api/register', data).then(function(response) {
       $scope.verification_alert = true;
       // window.location.href = response.data.redirect;
     }, function(response) {
@@ -42,8 +42,8 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope,
-                            $http, $location, $state) {
+springInitiative.controller('indexController', function($scope, $http,
+                            $location, $state) {
 
   $scope.students = [];
 
@@ -54,7 +54,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   })
 
   $scope.logout = function(){
-    $http.post("/logout")
+    $http.post("/api/logout")
     .success(function(data){
       $state.go('login')
     })
@@ -70,19 +70,23 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   });
 
   $scope.showStudent = function(student){
-    $rootScope.currentStudent = student;
+    $scope.currentStudent = student;
   }
 
 });
 
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
+springInitiative.controller('overviewController', function($scope, $http,
+                            $location) {});
 
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('programController', function($scope, $http,
+                            $location) {
   $scope.programName = 'something spring';
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+springInitiative.controller('studentController', function($scope, $http) {
+
+  $scope.editStudent = angular.copy($scope.$parent.currentStudent);
 
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
@@ -106,11 +110,12 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
 
   //TODO: check these and make sure they work
-  $scope.submitEditStudent = function(student) {
-    $http.post('api/student/edit/' + student._id, student)
+  $scope.submitEditStudent = function(editStudent, currentStudent) {
+    $http.post('api/student/edit/' + currentStudent._id, editStudent)
       .success(function(data) {
-        // $scope.selected = $scope.allStudents[0];
-        $scope.$parent.students = data;
+        $scope.$parent.students = data.allStudents;
+        $scope.$parent.currentStudent = data.currentStudent;
+        // $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
         console.log('Error: ' + data)
@@ -121,10 +126,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
-        
-        console.log(currentStudent)
-        //TODO: need to test these since I don't know how to show/see new edits
+        $scope.$parent.currentStudent = data.currentStudent;
       })
       .error(function(data) {
         console.log('Error: ' + data)
@@ -145,11 +147,12 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
 });
 
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('addStudentController', function($scope, $http,
+                            $location) {
   $scope.addStudent = function() {
     $http.post('api/student/add', $scope.newStudent)
       .success(function(data) {
-        $scope.allStudents = data.allStudents;
+        $scope.$parent.students = data.allStudents;
         $scope.newStudent = data.newStudent;
       })
       .error(function(data) {
@@ -158,7 +161,8 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
   };
 });
 
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('settingsController', function($scope, $http,
+                            $location) {
   $http.get('api/allUsers')
   .success(function(data) {
     $scope.allUsers = data;
