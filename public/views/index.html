@@ -5,8 +5,18 @@
         <a ui-sref="index">Spring Initiative</a>
       </li>
 
+      <div class="navbar-form" role="search">
+        <div class="input-group">
+          <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
+          <div class="input-group-btn">
+            <button class="btn btn-default" ui-sref="index.settings" ng-if="user.isAdmin"><i class="glyphicon glyphicon-cog"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <li>
-        <div class="panel-group" id="accordion">
+        <div id="accordion">
           <div class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
                 Students
@@ -27,15 +37,6 @@
         </div>
       </li>
 
-      <div class="navbar-form" role="search">
-        <div class="input-group">
-          <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
-          <div class="input-group-btn">
-            <button class="btn btn-default" ui-sref="index.settings" ng-if="user.isAdmin"><i class="glyphicon glyphicon-cog"></i>
-            </button>
-          </div>
-        </div>
-      </div>
       <li>
         <a ui-sref="index.addStudent">+ Add new student</a>
       </li>
