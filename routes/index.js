@@ -167,6 +167,7 @@ routes.POSTnewEntry = function(req, res, next) {
       student: studentID,
       type: "grades",
       entry: studentGrades,
+      date: date,
       submitted: new Date()
     }, function(err, newGradeObj) {
       console.log("newGradeObj", newGradeObj)
