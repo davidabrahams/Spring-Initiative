@@ -4,14 +4,16 @@ var attendanceSchema = mongoose.Schema({
   type: String,
   date: Date,
   entry: Boolean,
-  student: String
+  student: String,
+  submitted: Date
 });
 
 var entrySchema = mongoose.Schema({
   type: String,
   date: Date,
   entry: String,
-  student: String
+  student: String,
+  submitted: Date
 });
 
 
