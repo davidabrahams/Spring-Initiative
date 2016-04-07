@@ -14,7 +14,9 @@
           </div>
         </div>
       </div>
-
+      <li>
+        <a ui-sref="index.addStudent">+ Add new student</a>
+      </li>
       <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
         <li>
           <a ui-sref="index.student">{{student.name}}</a>
@@ -22,22 +24,13 @@
       </div>
 
       <li>
-        <a href="#">Dashboard</a>
+        <a ui-sref="index.program">Big Spring</a>
       </li>
       <li>
-        <a href="#">Shortcuts</a>
+        <a ui-sref="index.program">Spring Spring</a>
       </li>
       <li>
-        <a href="#">Overview</a>
-      </li>
-      <li>
-        <a href="#">Events</a>
-      </li>
-      <li>
-        <a href="#">About</a>
-      </li>
-      <li>
-        <a href="#">Services</a>
+        <a ui-sref="index.program">Little Spring</a>
       </li>
       <li>
         <a ui-sref="index" ng-click="logout()">Logout</a> | {{user.email}}
@@ -49,10 +42,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <h1>Simple Sidebar</h1>
-          <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-          <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+          <div ui-view="content"></div>
         </div>
       </div>
     </div>
