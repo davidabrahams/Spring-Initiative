@@ -34,6 +34,12 @@ routes.POSTlogin = function(req, res, next) {
   })(req, res, next);
 }
 
+routes.POSTlogout = function(req, res){
+  console.log("logged out")
+  req.logout();
+  res.sendStatus(200);
+}
+
 routes.POSTregister = function(req, res, next) {
   User.register(new User({
       email: req.body.username
@@ -206,4 +212,24 @@ routes.GETarchive = function(req, res, next) {
     res.json(archivedStudents);
   })
 }
+
+routes.GETallUsers = function(req, res) {
+  User.find({}, function(err, allUsers) {
+    res.json(allUsers);
+  })
+}
+
+routes.POSTchangeAdmin = function(req, res) {
+  userid = req.params._id;
+  User.findOne({_id:userid}, function (err, user) {
+    user.isAdmin = !user.isAdmin;
+    user.save(function (err) {
+      if(err) {
+        console.log(err);
+      }
+    })
+    res.json(user);
+  });
+}
+
 module.exports = routes;
