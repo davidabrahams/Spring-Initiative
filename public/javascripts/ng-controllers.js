@@ -42,8 +42,8 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
 
 
 
-springInitiative.controller('indexController', function($scope, $rootScope,
-                            $http, $location, $state) {
+springInitiative.controller('indexController', function($scope, $http,
+                            $location, $state) {
 
   $scope.students = [];
 
@@ -70,21 +70,23 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   });
 
   $scope.showStudent = function(student){
-    $rootScope.currentStudent = student;
+    $scope.currentStudent = student;
   }
 
 });
 
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
+springInitiative.controller('overviewController', function($scope, $http,
+                            $location) {});
 
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('programController', function($scope, $http,
+                            $location) {
   $scope.programName = 'something spring';
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+springInitiative.controller('studentController', function($scope, $http) {
 
-  $scope.editStudent = angular.copy($rootScope.currentStudent);
+  $scope.editStudent = angular.copy($scope.$parent.currentStudent);
 
   // TODO: Fix controller reloading! Currently, it'll show you the new information
   // because it's showing $rootScope. We could leave it as that,
@@ -112,7 +114,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
+        $scope.$parent.currentStudent = data.currentStudent;
         // $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
@@ -124,7 +126,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
+        $scope.$parent.currentStudent = data.currentStudent;
         //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {
@@ -146,7 +148,8 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
 });
 
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('addStudentController', function($scope, $http,
+                            $location) {
   $scope.addStudent = function() {
     $http.post('api/student/add', $scope.newStudent)
       .success(function(data) {
@@ -159,7 +162,8 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
   };
 });
 
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('settingsController', function($scope, $http,
+                            $location) {
   $http.get('api/allUsers')
   .success(function(data) {
     $scope.allUsers = data;
