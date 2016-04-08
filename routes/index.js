@@ -7,7 +7,7 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
                                    process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
-var Form = require(path.join(__dirname, '../models/form'));
+var FormDB = require(path.join(__dirname, '../models/form'));
 var Cohort = require(path.join(__dirname, '../models/cohort'));
 var Student = require(path.join(__dirname, '../models/student'));
 
@@ -145,23 +145,17 @@ routes.POSTaddstudent = function(req, res, next) {
 }
 
 routes.POSTnewEntry = function(req, res, next) {
-  // var currentDate = new Date();
   var studentID = req.params._id;
   var date = req.body.date;
   var period = req.body.period;
   var attendance = req.body.attendance;
-  var behaviorText = req.body.behaviorText
-  var warnings = req.body.warnings;
-  var stars = req.body.stars;
-  var engagingContent = req.body.engagingContent;
-  var engagingPeers = req.body.engagingPeers;
-  var schoolBehavior = req.body.schoolBehavior;
+  var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
-  var grades = req.body.grades;
   var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
-
-  Form.create({
+  var warnings = req.body.warnings;
+  var stars = req.body.stars;
+  FormDB.create({
     _studentID: studentID,
     date: date,
     period: period,
@@ -169,19 +163,19 @@ routes.POSTnewEntry = function(req, res, next) {
     behaviorText: behaviorText,
     warnings: warnings,
     stars: stars,
-    engagingContent: engagingContent,
-    engagingPeers: engagingPeers,
-    schoolBehavior: schoolBehavior,
     actionSteps: actionSteps,
-    grades: grades,
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
   }, function(err, newEntryObj) {
     if (err) {
-      res.send(err);
+      console.log(err)
+      res.send(err)
     }
-    res.json(newEntryObj);
-  });
+    console.log("new form entry", newEntryObj)
+    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
+
+    res.json(newEntryObj)
+  })
 };
 
 
@@ -189,7 +183,7 @@ routes.POSTnewCohortEntry = function(req, res, next) {
   var cohortName = req.body.name;
   var cohortComment = req.body.comment;
 
-  Form.create({
+  Cohort.create({
     name: cohortName,
     comment: cohortComment
   }, function(err, newCohortEntryObj) {
