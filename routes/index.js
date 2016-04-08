@@ -6,10 +6,9 @@ var passport = require('passport');
 var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
-var Attendance = require(path.join(__dirname, '../models/data')).attendance;
-var Entry = require(path.join(__dirname, '../models/data')).entry;
+var Form = require(path.join(__dirname, '../models/form'));
+var Cohort = require(path.join(__dirname, '../models/cohortEntry'));
 var Student = require(path.join(__dirname, '../models/student'));
-var Grades = require(path.join(__dirname, '../models/data')).grades;
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
@@ -222,7 +221,7 @@ routes.POSTnewEntry = function(req, res, next) {
   var teacherFeedback = req.body.teacherFeedback;
 
   Form.create({
-    student: studentID,
+    _studentID: studentID,
     date: date,
     period: period,
     attendance: attendance,
@@ -245,6 +244,22 @@ routes.POSTnewEntry = function(req, res, next) {
   })
 };
 
+
+routes.POSTnewCohortEntry = function(req, res, next) {
+  var cohortName = req.body.name;
+  var cohortComment = req.body.comment;
+
+  Form.create({
+    name: cohortName,
+    comment: cohortComment
+  }function(err, newCohortEntryObj) {
+    if (err) {
+      res.send(err)
+    }
+    console.log("new cohort entry", newCohortEntryObj)
+    res.json(newCohortEntryObj)
+  })
+};
 
 //   var studentID = req.params._id;
 //   var studentAttendance = req.body.attendance;
