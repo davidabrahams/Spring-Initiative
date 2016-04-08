@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var studentSchema = mongoose.Schema({
   name: String,
-  program: String,
+  _cohortID: { type: Number, ref: 'Cohort' },
   archived: Boolean
 });
 
