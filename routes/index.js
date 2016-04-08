@@ -142,7 +142,6 @@ routes.POSTaddstudent = function(req, res, next) {
       });
     })
   });
-  var studentID = req.params._id;
 }
 
 routes.POSTnewEntry = function(req, res, next) {
