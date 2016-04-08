@@ -3,12 +3,15 @@
     <div id="content-title" class="content">
       <h3>{{currentStudent.name}}</h3>
     </div>
+
+
     <div id="content-text" class="content">
       <p>
         Student info goes here
         <!-- {{currentStudent.info}} -->
       </p>
-
+      <chart-form></chart-form>
+        <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
       <a ng-click="showAddEntry = !showAddEntry">+ Add new entry</a>
       <br>
       <div class="entry-form" ng-show="showAddEntry">
