@@ -7,10 +7,9 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
                                    process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
-var Attendance = require(path.join(__dirname, '../models/data')).attendance;
-var Entry = require(path.join(__dirname, '../models/data')).entry;
+var Form = require(path.join(__dirname, '../models/form'));
+var Cohort = require(path.join(__dirname, '../models/cohort'));
 var Student = require(path.join(__dirname, '../models/student'));
-var Grades = require(path.join(__dirname, '../models/data')).grades;
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
@@ -104,7 +103,6 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-  console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({
     _id: studentID
@@ -143,71 +141,65 @@ routes.POSTaddstudent = function(req, res, next) {
         newStudent: newStudent
       });
     })
-  })
+  });
 }
 
 routes.POSTnewEntry = function(req, res, next) {
   // var currentDate = new Date();
   var studentID = req.params._id;
-  var studentAttendance = req.body.attendance;
-  var studentEntry = req.body.entry;
-  var studentGrades = req.body.grades;
   var date = req.body.date;
-  console.log("formdata", studentID, studentAttendance, studentGrades,
-    studentEntry, date)
+  var period = req.body.period;
+  var attendance = req.body.attendance;
+  var behaviorText = req.body.behaviorText
+  var warnings = req.body.warnings;
+  var stars = req.body.stars;
+  var engagingContent = req.body.engagingContent;
+  var engagingPeers = req.body.engagingPeers;
+  var schoolBehavior = req.body.schoolBehavior;
+  var actionSteps = req.body.actionSteps;
+  var grades = req.body.grades;
+  var readingLevels = req.body.readingLevels;
+  var teacherFeedback = req.body.teacherFeedback;
 
-  Attendance.create({
-    student: studentID,
-    type: "attendance",
-    entry: studentAttendance,
+  Form.create({
+    _studentID: studentID,
     date: date,
-    submitted: new Date()
-  }, function(err, newAttendanceObj) {
-    console.log("new attend", newAttendanceObj)
-    Grades.create({
-      student: studentID,
-      type: "grades",
-      entry: studentGrades,
-      date: date,
-      submitted: new Date()
-    }, function(err, newGradeObj) {
-      console.log("newGradeObj", newGradeObj)
-      Entry.create({
-        student: studentID,
-        type: "entry",
-        entry: studentEntry,
-        date: date,
-        submitted: new Date()
-      }, function(err, newEntryObj) {
-        console.log("newEntryObj", newEntryObj)
-        Student.update({
-          _id: studentID
-        }, {
-          $push: {
-            'attendance': newAttendanceObj._id,
-            'grades': newGradeObj._id,
-            'entry': newEntryObj._id
-          }
-        }, function(err, record) {
-          if (err) {
-            res.send(err)
-          }
-          Student.find({
-            _id: studentID
-          }, function(err, currentStudent) {
-            Student.find({}, function(err, allStudents) {
-              res.json({
-                allStudents: allStudents,
-                currentStudent: currentStudent
-              })
-            })
-          })
-        })
-      })
-    })
-  })
+    period: period,
+    attendance: attendance,
+    behaviorText: behaviorText,
+    warnings: warnings,
+    stars: stars,
+    engagingContent: engagingContent,
+    engagingPeers: engagingPeers,
+    schoolBehavior: schoolBehavior,
+    actionSteps: actionSteps,
+    grades: grades,
+    readingLevels: readingLevels,
+    teacherFeedback: teacherFeedback
+  }, function(err, newEntryObj) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(newEntryObj);
+  });
+};
 
-}
+
+routes.POSTnewCohortEntry = function(req, res, next) {
+  var cohortName = req.body.name;
+  var cohortComment = req.body.comment;
+
+  Form.create({
+    name: cohortName,
+    comment: cohortComment
+  }, function(err, newCohortEntryObj) {
+    if (err) {
+      res.send(err)
+    }
+    console.log("new cohort entry", newCohortEntryObj)
+    res.json(newCohortEntryObj)
+  })
+};
 
 routes.GETarchive = function(req, res, next) {
   Student.find({
