@@ -3,7 +3,8 @@ var path = require('path');
 var routes = {};
 var path = require('path');
 var passport = require('passport');
-var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD);
+var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
+                                   process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
 var Attendance = require(path.join(__dirname, '../models/data')).attendance;
@@ -27,11 +28,15 @@ routes.POSTlogin = function(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.send({
-        redirect: 'index'
-      });
+      return res.sendStatus(200);
     });
   })(req, res, next);
+}
+
+routes.POSTlogout = function(req, res){
+  console.log("logged out")
+  req.logout();
+  res.sendStatus(200);
 }
 
 routes.POSTregister = function(req, res, next) {
@@ -112,7 +117,9 @@ routes.POSTeditstudent = function(req, res, next) {
       if (err) {
         res.send(err)
       }
-      res.json(allStudents)
+      Student.findOne({_id: studentID}, function(err, currentStudent) {
+        res.json({allStudents:allStudents, currentStudent: currentStudent})
+      })
     })
   })
 }
@@ -153,21 +160,24 @@ routes.POSTnewEntry = function(req, res, next) {
     student: studentID,
     type: "attendance",
     entry: studentAttendance,
-    date: date
+    date: date,
+    submitted: new Date()
   }, function(err, newAttendanceObj) {
     console.log("new attend", newAttendanceObj)
     Grades.create({
       student: studentID,
       type: "grades",
       entry: studentGrades,
-      date: date
+      date: date,
+      submitted: new Date()
     }, function(err, newGradeObj) {
       console.log("newGradeObj", newGradeObj)
       Entry.create({
         student: studentID,
         type: "entry",
         entry: studentEntry,
-        date: date
+        date: date,
+        submitted: new Date()
       }, function(err, newEntryObj) {
         console.log("newEntryObj", newEntryObj)
         Student.update({
