@@ -3,7 +3,9 @@ var mongoose = require('mongoose'),
     passportEmail = require('passport-local-mongoose-email');
 
 var User = new Schema({
-  isAdmin: {type: Boolean, default: false}
+  isAdmin: {type: Boolean, default: false},
+  adminAuth: String, // admin is first half of authToken
+  userAuth: String   // user is second half of authToken
 });
 
 // Passport Email used here
