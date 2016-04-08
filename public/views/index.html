@@ -1,45 +1,48 @@
-<div id="main-container">
-  <!-- Sidebar -->
-  <div id="sidebar-container" class="sidebar">
-    <div id="logout" class="sidebar" ng-model="user">
-      <a ng-click="logout()">logout</a> | {{user.email}}
-    </div>
-    <div id="logo" class="sidebar">
-      <h1><a ui-sref="index">Spring Initiative</a></h1>
-    </div>
-    <div id="search-container" class="sidebar">
-      <div id="searchbar">
-        <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
+<div id="wrapper">
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a ui-sref="index">Spring Initiative</a>
+      </li>
+
+      <div class="navbar-form " role="search">
+        <div class="input-group">
+          <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
+          <div class="input-group-btn">
+            <button class="btn btn-default" ui-sref="index.settings" ng-if="user.isAdmin"><i class="glyphicon glyphicon-cog"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <div id="settings" class="sidebar">
-        <a ng-if="user.isAdmin";   ui-sref="index.settings"><span class="glyphicon glyphicon-cog"></span></a>
-      </div>
-    </div>
-    <br>
-    <div id="sidebar-items" class="sidebar">
-      <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-        <a ui-sref="index.student">{{student.name}}</a>
-      </div>
-      <div class="student-item">
-        <a ui-sref="index.program">Big Spring</a>
-      </div>
-      <div class="student-item">
-        <a ui-sref="index.program">Spring Spring</a>
-      </div>
-      <div class="student-item">
-        <a ui-sref="index.program">Little Spring</a>
-      </div>
-      <div class="student-item">
+      <li>
         <a ui-sref="index.addStudent">+ Add new student</a>
+      </li>
+      <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
+        <li>
+          <a ui-sref="index.student">{{student.name}}</a>
+        </li>
       </div>
+
+      <li>
+        <a ui-sref="index.program">Big Spring</a>
+      </li>
+      <li>
+        <a ui-sref="index.program">Spring Spring</a>
+      </li>
+      <li>
+        <a ui-sref="index.program">Little Spring</a>
+      </li>
+      <li>
+        <a ui-sref="index" ng-click="logout()">Logout</a> | {{user.email}}
+      </li>
+    </ul>
+  </div>
+
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div ui-view="content"></div>
     </div>
   </div>
-  <!-- Page content -->
-  <div id="content-container" class="content">
-    <div ui-view="content"></div>
-  </div>
-  <!-- Header maybe -->
-  <!-- 	<div id="header-container" class="header">
-    </div> -->
-  <link rel="stylesheet" type="text/css" href = "/stylesheets/index.css">
 </div>
+
+<link href="stylesheets/simple-sidebar.css" rel="stylesheet">
