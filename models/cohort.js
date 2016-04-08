@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var cohortSchema = mongoose.Schema({
-  program: String,
+  name: String,
   comment: String
 });
 
