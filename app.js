@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var sassMiddleware = require('node-sass-middleware');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -25,11 +26,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('node-sass-middleware')({
-  src: path.join(__dirname, 'public'),
+app.use(sassMiddleware({
+  src: path.join(__dirname, 'sass'),
   dest: path.join(__dirname, 'public'),
   indentedSyntax: true,
-  sourceMap: true
+  debug: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -49,14 +50,17 @@ app.get('/verify', index.GETemailver);
 app.get('/user', function(req, res, next) {
   res.json({user: req.user});
 })
-app.post('/login', index.POSTlogin);
-app.post('/register', index.POSTregister);
+app.post('/api/login', index.POSTlogin);
+app.post('/api/logout', index.POSTlogout);
+app.post('/api/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);
 app.get('/api/index/archive', index.GETarchive);
 app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
+app.get('/api/allUsers', index.GETallUsers);
+app.post('/api/changeAdmin/:_id', index.POSTchangeAdmin);
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
   res.sendFile('main.html', { root: path.join(__dirname, 'views') });
@@ -113,9 +117,8 @@ function isLoggedIn(req, res, next) {
   // if user is authenticated in the session, carry on
   if (req.isAuthenticated())
     return next();
-  // if they aren't redirect them to the home page
-  res.redirect('/login');
+  // if they aren't send an error
+  res.sendStatus(401);
 }
-
 
 module.exports = app;
