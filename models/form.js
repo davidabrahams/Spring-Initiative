@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-var formSchema = mongoose.Schema({
-  _studentID: { type: String, ref: 'Student' },
+var formSchema = Schema({
+  _studentID: { type: Schema.Types.ObjectId, ref: 'Student' },
   period: String,
   date: Date,
   attendance: String,
@@ -10,13 +11,11 @@ var formSchema = mongoose.Schema({
   stars: String,
   engagingContent: Number,
   engagingPeers: Number,
-  schoolBehavior: String,
+  schoolBehavior: [Boolean],
   actionSteps: String,
   grades: String,
   readingLevels: String,
   teacherFeedback: String
 });
-
-
 
 module.exports = mongoose.model('Form', formSchema);

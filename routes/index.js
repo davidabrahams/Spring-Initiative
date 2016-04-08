@@ -8,7 +8,7 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
 
 var User = require(path.join(__dirname, '../models/user'));
 var FormDB = require(path.join(__dirname, '../models/form'));
-var Cohort = require(path.join(__dirname, '../models/cohortEntry'));
+var Cohort = require(path.join(__dirname, '../models/cohort'));
 var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
@@ -103,7 +103,6 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-  console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({
     _id: studentID
@@ -142,86 +141,20 @@ routes.POSTaddstudent = function(req, res, next) {
         newStudent: newStudent
       });
     })
-  }) 
-  // var studentID = req.params._id;
-//   var studentAttendance = req.body.attendance;
-//   var studentEntry = req.body.entry;
-//   var studentGrades = req.body.grades;
-//   var date = req.body.date;
-//   console.log("formdata", studentID, studentAttendance, studentGrades,
-//     studentEntry, date)
-
-//   Attendance.create({
-//     student: studentID,
-//     type: "attendance",
-//     entry: studentAttendance,
-//     date: date,
-//     submitted: new Date()
-//   }, function(err, newAttendanceObj) {
-//     console.log("new attend", newAttendanceObj)
-//     Grades.create({
-//       student: studentID,
-//       type: "grades",
-//       entry: studentGrades,
-//       date: date,
-//       submitted: new Date()
-//     }, function(err, newGradeObj) {
-//       console.log("newGradeObj", newGradeObj)
-//       Entry.create({
-//         student: studentID,
-//         type: "entry",
-//         entry: studentEntry,
-//         date: date,
-//         submitted: new Date()
-//       }, function(err, newEntryObj) {
-//         console.log("newEntryObj", newEntryObj)
-//         Student.update({
-//           _id: studentID
-//         }, {
-//           $push: {
-//             'attendance': newAttendanceObj._id,
-//             'grades': newGradeObj._id,
-//             'entry': newEntryObj._id
-//           }
-//         }, function(err, record) {
-//           if (err) {
-//             res.send(err)
-//           }
-//           Student.find({
-//             _id: studentID
-//           }, function(err, currentStudent) {
-//             Student.find({}, function(err, allStudents) {
-//               res.json({
-//                 allStudents: allStudents,
-//                 currentStudent: currentStudent
-//               })
-//             })
-//           })
-//         })
-//       })
-//     })
-//   })
-
-// }
+  });
 }
 
 routes.POSTnewEntry = function(req, res, next) {
-  // var currentDate = new Date();
   var studentID = req.params._id;
   var date = req.body.date;
   var period = req.body.period;
   var attendance = req.body.attendance;
-  var behaviorText = req.body.behaviorText
-  var warnings = req.body.warnings;
-  var stars = req.body.stars;
-  // var engagingContent = req.body.engagingContent;
-  // var engagingPeers = req.body.engagingPeers;
-  var schoolBehavior = req.body.schoolBehavior;
+  var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
-  // var grades = req.body.grades;
   var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
-
+  var warnings = req.body.warnings;
+  var stars = req.body.stars;
   FormDB.create({
     _studentID: studentID,
     date: date,
@@ -230,11 +163,7 @@ routes.POSTnewEntry = function(req, res, next) {
     behaviorText: behaviorText,
     warnings: warnings,
     stars: stars,
-    // engagingContent: engagingContent,
-    // engagingPeers: engagingPeers,
-    schoolBehavior: schoolBehavior,
     actionSteps: actionSteps,
-    // grades: grades,
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
   }, function(err, newEntryObj) {
