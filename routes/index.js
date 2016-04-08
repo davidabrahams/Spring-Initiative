@@ -104,7 +104,6 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-  console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({
     _id: studentID
@@ -180,7 +179,6 @@ routes.POSTnewEntry = function(req, res, next) {
     if (err) {
       res.send(err);
     }
-    console.log("new form entry", newEntryObj);
     res.json(newEntryObj);
   });
 };
