@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var formSchema = mongoose.Schema({
-  _studentID: String,
+  _studentID: { type: Number, ref: 'Student' },
   period: String,
   date: Date,
   attendance: String,
