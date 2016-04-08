@@ -202,67 +202,6 @@ routes.POSTnewCohortEntry = function(req, res, next) {
   })
 };
 
-//   var studentID = req.params._id;
-//   var studentAttendance = req.body.attendance;
-//   var studentEntry = req.body.entry;
-//   var studentGrades = req.body.grades;
-//   var date = req.body.date;
-//   console.log("formdata", studentID, studentAttendance, studentGrades,
-//     studentEntry, date)
-
-//   Attendance.create({
-//     student: studentID,
-//     type: "attendance",
-//     entry: studentAttendance,
-//     date: date,
-//     submitted: new Date()
-//   }, function(err, newAttendanceObj) {
-//     console.log("new attend", newAttendanceObj)
-//     Grades.create({
-//       student: studentID,
-//       type: "grades",
-//       entry: studentGrades,
-//       date: date,
-//       submitted: new Date()
-//     }, function(err, newGradeObj) {
-//       console.log("newGradeObj", newGradeObj)
-//       Entry.create({
-//         student: studentID,
-//         type: "entry",
-//         entry: studentEntry,
-//         date: date,
-//         submitted: new Date()
-//       }, function(err, newEntryObj) {
-//         console.log("newEntryObj", newEntryObj)
-//         Student.update({
-//           _id: studentID
-//         }, {
-//           $push: {
-//             'attendance': newAttendanceObj._id,
-//             'grades': newGradeObj._id,
-//             'entry': newEntryObj._id
-//           }
-//         }, function(err, record) {
-//           if (err) {
-//             res.send(err)
-//           }
-//           Student.find({
-//             _id: studentID
-//           }, function(err, currentStudent) {
-//             Student.find({}, function(err, allStudents) {
-//               res.json({
-//                 allStudents: allStudents,
-//                 currentStudent: currentStudent
-//               })
-//             })
-//           })
-//         })
-//       })
-//     })
-//   })
-
-// }
-
 routes.GETarchive = function(req, res, next) {
   Student.find({
     archived: true
