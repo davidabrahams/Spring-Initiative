@@ -33,14 +33,11 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
     };
     $http.post('register', data).then(function(response) {
       $scope.verification_alert = true;
-      // window.location.href = response.data.redirect;
     }, function(response) {
       console.log('error: %s', response.data);
     });
   }
 });
-
-
 
 springInitiative.controller('indexController', function($scope, $rootScope, $http, $location){
     $scope.students = [];
