@@ -5,7 +5,7 @@
         <a ui-sref="index">Spring Initiative</a>
       </li>
 
-      <div class="navbar-form " role="search">
+      <div class="navbar-form" role="search">
         <div class="input-group">
           <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
           <div class="input-group-btn">
@@ -14,14 +14,53 @@
           </div>
         </div>
       </div>
+
+      <li>
+        <div id="accordion">
+          <div class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                Current Students
+                <span class="caret"></span>
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:false}" ng-click="showStudent(student)">
+                  <li>
+                    <a ui-sref="index.student">{{student.name}}</a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <div id="accordion">
+          <div class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                Past Students
+                <span class="caret"></span>
+            </a>
+          </div>
+          <div id="collapseTwo" class="panel-collapse collapse">
+            <div class="panel-body">
+              <ul>
+                <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
+                  <li>
+                    <a ui-sref="index.student">{{student.name}}</a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </li>
       <li>
         <a ui-sref="index.addStudent">+ Add new student</a>
       </li>
-      <div class="student-item" ng-repeat="student in students | filter :searchbar" ng-click="showStudent(student)">
-        <li>
-          <a ui-sref="index.student">{{student.name}}</a>
-        </li>
-      </div>
 
       <li>
         <a ui-sref="index.program">Big Spring</a>

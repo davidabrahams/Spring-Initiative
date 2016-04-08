@@ -57,11 +57,11 @@
           <br>
           <div class="form-group">
             <label for="name_input">Name:</label>
-            <input type="text" class="form-control" ng-model="editStudent.name" id="name_input" required autofocus> </input>
+            <input type="text" class="form-control" ng-model="$root.editStudent.name" id="name_input" required autofocus> </input>
           </div>
           <div class="form-group">
             <label for="sel1">Program:</label>
-            <select class="form-control" id="sel1" ng-model="editStudent.program">
+            <select class="form-control" id="sel1" ng-model="$root.editStudent.program">
               <option value="Little Spring">Little Spring</option>
               <option value="Big Spring">Big Spring</option>
               <option value="Baby Spring">Baby Spring</option>
@@ -71,12 +71,12 @@
             <label class="control-label">Archived:</label>
             <div class="controls">
               <label class="radio-inline">
-                <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
+                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
               <label class="radio-inline">
-                <input ng-model="editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
+                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
             </div>
           </div>
-          <button class="btn btn-default" ng-click="submitEditStudent(editStudent, currentStudent)" type="submit">Submit</button>
+          <button class="btn btn-default" ng-click="submitEditStudent($root.editStudent, currentStudent)" type="submit">Submit</button>
 
         </form>
       </div>
