@@ -141,66 +141,8 @@ routes.POSTaddstudent = function(req, res, next) {
         newStudent: newStudent
       });
     })
-  }) var studentID = req.params._id;
-//   var studentAttendance = req.body.attendance;
-//   var studentEntry = req.body.entry;
-//   var studentGrades = req.body.grades;
-//   var date = req.body.date;
-//   console.log("formdata", studentID, studentAttendance, studentGrades,
-//     studentEntry, date)
-
-//   Attendance.create({
-//     student: studentID,
-//     type: "attendance",
-//     entry: studentAttendance,
-//     date: date,
-//     submitted: new Date()
-//   }, function(err, newAttendanceObj) {
-//     console.log("new attend", newAttendanceObj)
-//     Grades.create({
-//       student: studentID,
-//       type: "grades",
-//       entry: studentGrades,
-//       date: date,
-//       submitted: new Date()
-//     }, function(err, newGradeObj) {
-//       console.log("newGradeObj", newGradeObj)
-//       Entry.create({
-//         student: studentID,
-//         type: "entry",
-//         entry: studentEntry,
-//         date: date,
-//         submitted: new Date()
-//       }, function(err, newEntryObj) {
-//         console.log("newEntryObj", newEntryObj)
-//         Student.update({
-//           _id: studentID
-//         }, {
-//           $push: {
-//             'attendance': newAttendanceObj._id,
-//             'grades': newGradeObj._id,
-//             'entry': newEntryObj._id
-//           }
-//         }, function(err, record) {
-//           if (err) {
-//             res.send(err)
-//           }
-//           Student.find({
-//             _id: studentID
-//           }, function(err, currentStudent) {
-//             Student.find({}, function(err, allStudents) {
-//               res.json({
-//                 allStudents: allStudents,
-//                 currentStudent: currentStudent
-//               })
-//             })
-//           })
-//         })
-//       })
-//     })
-//   })
-
-// }
+  });
+  var studentID = req.params._id;
 }
 
 routes.POSTnewEntry = function(req, res, next) {
@@ -235,13 +177,13 @@ routes.POSTnewEntry = function(req, res, next) {
     grades: grades,
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
-  }function(err, newEntryObj) {
+  }, function(err, newEntryObj) {
     if (err) {
-      res.send(err)
+      res.send(err);
     }
-    console.log("new form entry", newEntryObj)
-    res.json(newEntryObj)
-  })
+    console.log("new form entry", newEntryObj);
+    res.json(newEntryObj);
+  });
 };
 
 
@@ -252,7 +194,7 @@ routes.POSTnewCohortEntry = function(req, res, next) {
   Form.create({
     name: cohortName,
     comment: cohortComment
-  }function(err, newCohortEntryObj) {
+  }, function(err, newCohortEntryObj) {
     if (err) {
       res.send(err)
     }
