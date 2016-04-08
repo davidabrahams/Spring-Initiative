@@ -47,19 +47,19 @@ routes.POSTregister = function(req, res, next) {
       User.find({isAdmin: true}, {email: 1, _id: 0}, function(err, admins) {
         // send email verification
         var authenticationURL = 'http://' + req.headers.host +
-          '/verify?authToken=' + user.authToken;
+          '/verify?authToken=' + user.authToken + 
+          '&email=' + user.email;
         var email = new sendgrid.Email();
 
         for (var i = admins.length - 1; i >= 0; i--) {
           email.addTo(admins[i].email);
         };
 
-        // email.addTo(user.email);
         email.setFrom('SpringInitiative@olinjs.com');
         email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
         email.setHtml('<a target=_blank href=\"' + authenticationURL +
-          '\">Confirm their registration.</a><br>This is an automated response. Do not reply'
-        );
+          '\">Confirm their registration.</a>' + 
+          '<br>This is an automated response. Do not reply.');
         sendgrid.send(email);
 
         console.log("Email verification sent");
@@ -71,27 +71,22 @@ routes.POSTregister = function(req, res, next) {
 }
 
 routes.GETemailver = function(req, res) {
-  // User gets here after clicking the link in the email
-  // Hence needs to be redirected
   User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
     if (err) {
       console.log('Email ver err:', err);
       res.sendStatus(500);
     }
     else {
-
-      //TODO: gget user.email
-
-      // var email = new sendgrid.Email();
-      // //email.addTo(user.email);
-      // email.setFrom('SpringInitiative@olinjs.com');
-      // email.setSubject('Registration complete for Spring Initiative');
-      // email.setHtml('You\'ve been registered for Spring Initiative\'s website.' +
-      //               '<br>This is an automated response. Do not reply');
-      // sendgrid.send(email);
+      var email = new sendgrid.Email();
+      email.addTo(req.query.email);
+      email.setFrom('SpringInitiative@olinjs.com');
+      email.setSubject('Registration complete for Spring Initiative');
+      email.setHtml('You\'ve been registered for Spring Initiative\'s website.' +
+                    '<br>This is an automated response. Do not reply.');
+      sendgrid.send(email);
 
       console.log("Email alert sent");
-      res.sendStatus(200);
+      res.redirect('/')
     }
   });
 }

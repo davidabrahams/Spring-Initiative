@@ -21,7 +21,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
         $scope.email_error = null;
         $scope.verification_alert = false;
       } else {
-        console.log(msg);
+        console.log('Error: ', msg);
       }
     });
   }
@@ -32,6 +32,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
       password: $scope.password
     };
     $http.post('register', data).then(function(response) {
+      $scope.registerEmail = angular.copy($scope.email);
       $scope.verification_alert = true;
     }, function(response) {
       console.log('error: %s', response.data);
@@ -43,7 +44,6 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
     $scope.students = [];
 
   $scope.user = $rootScope.loggedInUser;
-  console.log($rootScope.loggedInUser);
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
