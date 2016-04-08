@@ -7,7 +7,7 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SE
 
 var User = require(path.join(__dirname, '../models/user'));
 var Form = require(path.join(__dirname, '../models/form'));
-var Cohort = require(path.join(__dirname, '../models/cohortEntry'));
+var Cohort = require(path.join(__dirname, '../models/cohort'));
 var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
