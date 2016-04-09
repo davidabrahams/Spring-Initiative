@@ -54,6 +54,13 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
         }
       }
     })
+    .state('index.student.editStudent', {
+      views: {
+        'studentView@index.student': {
+          templateUrl: 'views/content/editStudentInfo.html'
+        }
+      }
+    })
     .state('index.addStudent', {
       views: {
         'content': {

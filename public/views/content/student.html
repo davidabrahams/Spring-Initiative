@@ -1,15 +1,15 @@
 <div class="row">
-  <div class="col-sm-6">
-    <div id="content-title" class="content">
-      <h3>{{currentStudent.name}}</h3>
-    </div>
-    <div id="content-text" class="content">
-      <p>
-        Student info goes here
-        <!-- {{currentStudent.info}} -->
-      </p>
-    </div>
-
-    <div ui-view="studentView"></div>
+  <div id="content-title" class="content">
+    <h3>{{currentStudent.name}}</h3>
   </div>
+  <div id="content-text" class="content">
+    <p>
+      Student info goes here
+      <!-- {{currentStudent.info}} -->
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div ui-view="studentView"></div>
 </div>
