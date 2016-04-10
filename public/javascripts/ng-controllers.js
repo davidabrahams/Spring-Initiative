@@ -101,7 +101,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       .success(function(data) {
         // $scope.$parent.students = data.allStudents;
         // $rootScope.currentStudent = data.currentStudent;
-        
+
         // console.log(currentStudent)
         //TODO: need to test these since I don't know how to show/see new edits
       })
@@ -138,7 +138,7 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
-  
+
   $http.get('api/allUsers')
   .success(function(data) {
     $scope.allUsers = data;
@@ -164,18 +164,21 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       }).success(function(data) {
         console.log('Success Change Password');
         console.log(data.msg);
-        $scope.password_match_error = false;
+        $scope.form_change_password.$setPristine();
+        $scope.currentPassword1 = null;
+        $scope.currentPassword2 = null;
+        $scope.password_match_error = null;
         $scope.password_change_msg = data.msg;
-        $scope.currentPassword1 = '';
-        $scope.currentPassword2 = '';
+        $('#chngPassword2').focus();
+        $('#chngPassword2').blur();
       })
       .error(function(data) {
         console.log('Unsuccess Change Password');
-        $scope.password_match_error = false;
+        $scope.password_match_error = null;
         $scope.password_change_msg = data.msg;
       });
     }else{
-      $scope.password_match_error = true;
+      $scope.password_match_error = "Passwords do not match";
       $scope.password_change_msg = null;
     }
   }
