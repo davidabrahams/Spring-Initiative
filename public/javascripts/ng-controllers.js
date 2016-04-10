@@ -157,10 +157,10 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
   };
 
   $scope.changePassword = function(user) {
-    if($scope.changePassword1 == $scope.changePassword2){
-      console.log(user._id);
-      $http.post('api/changePassword/'+user._id)
-      .success(function(data) {
+    if($scope.currentPassword1 == $scope.currentPassword2){
+      $http.post('api/changePassword/'+user._id,{
+        password: $scope.currentPassword1
+      }).success(function(data) {
         console.log('Success Change Password');
         console.log(data);
       })

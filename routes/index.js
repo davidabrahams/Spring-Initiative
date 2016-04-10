@@ -224,14 +224,16 @@ routes.POSTchangeAdmin = function(req, res) {
 
 routes.POSTchangePassword = function(req, res) {
   userid = req.params._id;
+  newPasswordString = req.body.password;
   User.findOne({_id:userid}, function (err, user) {
-    /////VHANGE
-    user.save(function (err) {
-      if(err) {
-        console.log(err);
-      }
-    })
-    res.json(user);
+    user.setPassword(newPasswordString, function(){
+      user.save(function (err) {
+        if(err) {
+          console.log(err);
+        }
+      });
+      return res.status(200).json({msg: 'Password reset successful'});
+    });
   });
 }
 
