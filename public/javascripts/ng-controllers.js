@@ -138,6 +138,7 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+  
   $http.get('api/allUsers')
   .success(function(data) {
     $scope.allUsers = data;
