@@ -1,10 +1,17 @@
 <div class="user-settings">
+  <h2>Change Admin Settings</h2>
 	<div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers"> 
-		{{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email" ng-click="toggleAdmin(username)">Change Admin Status</button>
-	</div>
-	</br>
-	
+		<div class="row chadmin">
+      <div class="col-md-4">{{username.email}}</div>
+      <div class="col-md-2">{{username.isAdmin}}</div>
+      <div class="col-md-3">
+        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button>
+      </div>
+    </div>
+  </div>
+		
 	<div class="change-password">
+    <h2>Change Password</h2>
 	<form role="form" class="form-change-password" ng-submit="changePassword(user)">
 
     <div class='form-row'>
