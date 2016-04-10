@@ -169,6 +169,7 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
         $scope.currentPassword2 = null;
         $scope.password_match_error = null;
         $scope.password_change_msg = data.msg;
+        // this clears focus from the form!
         $('#chngPassword2').focus();
         $('#chngPassword2').blur();
       })
