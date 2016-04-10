@@ -6,9 +6,34 @@
 	
 	<div class="change-password" >
 	<form ng-submit="changePassword(user)">
-		New Password: <input type="password" ng-model="currentPassword1" name="password1"> </br>
-		Retype New Password: <input type="password" ng-model="$parent.currentPassword2" name="password2"> </br>
-		<input type="submit" id="submitpass" value="Submit" >
+
+    <div class='form-row'>
+      <div class='col-xs-2 form-group card required'>
+        <label class='control-label'>New password</label>
+        <input type="password" ng-model="currentPassword1" name="password1" autocomplete='off' class='form-control card-number' size='20' type='text'>
+      </div>
+    </div>
+
+    <div class='form-row'>
+      <div class='col-xs-2 form-group card required'>
+        <label class='control-label'>Repeat password</label>
+        <input type="password" ng-model="currentPassword2" name="password2" autocomplete='off' class='form-control' size='20' type='text'>
+      </div>
+    </div>    
+   
+    <div class='form-row'>
+      <div class='col-md-2 form-group'>
+        <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>    
+      </div>
+    </div>
+
+    <div class='form-row'>
+      <div class="alert alert-info">
+          <span ng-show="password_match_error" class="help-block">Passwords Do Not Match</span>  
+          <span ng-show="password_change_msg" class="help-block">{{password_change_msg}}</span> 
+      </div>
+    </div>
+
 	</form>
 	</div>
 </div>

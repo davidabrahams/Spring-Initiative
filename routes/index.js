@@ -230,6 +230,7 @@ routes.POSTchangePassword = function(req, res) {
       user.save(function (err) {
         if(err) {
           console.log(err);
+          return res.status(500).json({msg: 'Password reset unsuccessful'})
         }
       });
       return res.status(200).json({msg: 'Password reset successful'});
