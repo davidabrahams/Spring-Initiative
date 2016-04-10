@@ -1,7 +1,7 @@
 <div class="user-settings">
   <h2>Change Admin Settings</h2>
-	<div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers"> 
-		<div class="row chadmin">
+  <div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers">
+    <div class="row chadmin">
       <div class="col-md-4">{{username.email}}</div>
       <div class="col-md-2">{{username.isAdmin}}</div>
       <div class="col-md-3">
@@ -9,38 +9,32 @@
       </div>
     </div>
   </div>
-		
-	<div class="change-password">
-    <h2>Change Password</h2>
-	<form role="form" class="form-change-password" ng-submit="changePassword(user)">
 
-    <div class='form-row'>
-      <div class='form-group card required'>
-        <label class='control-label'>New password</label>
-        <input type="password" ng-model="currentPassword1" name="password1" autocomplete='off' class='form-control card-number' size='20' type='text'>
-      </div>
+  <div class="change-password row">
+    <div class="col-sm-4"
+      <form role="form" name="form_change_password" class="form_change_password" ng-submit="changePassword(user)">
+
+        <div class='form-group'>
+          <label for="chngPassword1">New password</label>
+          <input type="password" ng-model="currentPassword1" id="chngPassword1" class='form-control' required>
+        </div>
+
+        <div class='form-group'>
+          <label for="chngPassword2">Repeat new password</label>
+          <input type="password" ng-model="currentPassword2" id="chngPassword2" class='form-control' required>
+        </div>
+
+        <span ng-show="password_match_error" class="help-block">{{password_match_error}}</span>
+
+        <div class="alert alert-info" ng-show="password_change_msg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{password_change_msg}}
+        </div>
+
+        <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>
+
+      </form>
     </div>
-
-    <div class='form-row'>
-      <div class='form-group card required'>
-        <label class='control-label'>Repeat password</label>
-        <input type="password" ng-model="currentPassword2" name="password2" autocomplete='off' class='form-control' size='20' type='text'>
-      </div>
-    </div>    
-   
-    <div class='form-row'>
-      <div class='form-group'>
-        <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>    
-      </div>
-    </div>
-
-    <div class='form-row'>
-      <span ng-show="password_match_error" class="alert alert-info help-block">Passwords Do Not Match</span>  
-      <span ng-show="password_change_msg" class="alert alert-info help-block">{{password_change_msg}}</span> 
-    </div>
-
-	</form>
-	</div>
+  </div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/change-password.css">
