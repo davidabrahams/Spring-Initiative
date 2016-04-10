@@ -1,39 +1,39 @@
 <div class="user-settings">
-	<div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers"> 
-		{{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email" ng-click="toggleAdmin(username)">Change Admin Status</button>
-	</div>
-	</br>
-	
+  <div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers">
+    {{username.email}} - {{username.isAdmin}} <button ng-if="user.email != username.email" ng-click="toggleAdmin(username)">Change Admin Status</button>
+  </div>
+  </br>
+
 	<div class="change-password">
-	<form role="form" class="form-change-password" ng-submit="changePassword(user)">
+    <form role="form" class="form-change-password" ng-submit="changePassword(user)">
 
-    <div class='form-row'>
-      <div class='form-group card required'>
-        <label class='control-label'>New password</label>
-        <input type="password" ng-model="currentPassword1" name="password1" autocomplete='off' class='form-control card-number' size='20' type='text'>
+      <div class='form-row'>
+        <div class='form-group card required'>
+          <label class='control-label'>New password</label>
+          <input type="password" ng-model="currentPassword1" name="password1" autocomplete='off' class='form-control card-number' size='20' type='text'>
+        </div>
       </div>
-    </div>
 
-    <div class='form-row'>
-      <div class='form-group card required'>
-        <label class='control-label'>Repeat password</label>
-        <input type="password" ng-model="currentPassword2" name="password2" autocomplete='off' class='form-control' size='20' type='text'>
+      <div class='form-row'>
+        <div class='form-group card required'>
+          <label class='control-label'>Repeat password</label>
+          <input type="password" ng-model="currentPassword2" name="password2" autocomplete='off' class='form-control' size='20' type='text'>
+        </div>
       </div>
-    </div>    
-   
-    <div class='form-row'>
-      <div class='form-group'>
-        <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>    
+
+      <div class='form-row'>
+        <div class='form-group'>
+          <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>
+        </div>
       </div>
-    </div>
 
-    <div class='form-row'>
-      <span ng-show="password_match_error" class="alert alert-info help-block">Passwords Do Not Match</span>  
-      <span ng-show="password_change_msg" class="alert alert-info help-block">{{password_change_msg}}</span> 
-    </div>
+      <div class='form-row'>
+        <span ng-show="password_match_error" class="alert alert-info help-block">Passwords Do Not Match</span>
+        <span ng-show="password_change_msg" class="alert alert-info help-block">{{password_change_msg}}</span>
+      </div>
 
-	</form>
-	</div>
+    </form>
+  </div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/change-password.css">
