@@ -52,18 +52,18 @@ routes.POSTregister = function(req, res, next) {
       User.find({isAdmin: true}, {email: 1, _id: 0}, function(err, admins) {
         // send email verification
         var authenticationURL = 'http://' + req.headers.host +
-          '/verify?authToken=' + user.authToken + 
+          '/verify?authToken=' + user.authToken +
           '&email=' + user.email;
         var email = new sendgrid.Email();
 
-        for (var i = admins.length - 1; i >= 0; i--) {
+        for (var i = 0; i < admins.length; i++) {
           email.addTo(admins[i].email);
         };
 
         email.setFrom('SpringInitiative@olinjs.com');
         email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
         email.setHtml('<a target=_blank href=\"' + authenticationURL +
-          '\">Confirm their registration.</a>' + 
+          '\">Confirm their registration.</a>' +
           '<br>This is an automated response. Do not reply.');
         sendgrid.send(email);
 
