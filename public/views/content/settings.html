@@ -3,10 +3,11 @@
   <div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers">
     <div class="row chadmin">
       <div class="col-md-4">{{username.email}}</div>
-      <div class="col-md-2">{{username.isAdmin}}</div>
+      <div class="col-md-2" ng-if="username.isAdmin">Admin</div>
+      <div class="col-md-2" ng-if="!username.isAdmin">Staff</div>
       <div class="col-md-3">
-        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button>
-      </div>
+        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button> 
+             </div>
     </div>
   </div>
 
