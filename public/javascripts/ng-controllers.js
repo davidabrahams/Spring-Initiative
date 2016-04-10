@@ -57,7 +57,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
       $state.go('login')
     })
     .error(function(data){
-      console.log("Error")
+      console.log("Error: "+data)
     })
   }
 
@@ -144,7 +144,7 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
     $scope.allUsers = data;
   })
   .error(function(data) {
-    console.log('Error:' + data)
+    console.log('Error: ' + data)
   });
 
   $scope.toggleAdmin = function(username) {
@@ -153,7 +153,7 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       username.isAdmin = !username.isAdmin;
     })
     .error(function(data) {
-      console.log('Error occured while admin change');
+      console.log('Error: ' + data)
     });
   };
 
@@ -162,8 +162,6 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       $http.post('api/changePassword/'+user._id,{
         password: $scope.currentPassword1
       }).success(function(data) {
-        console.log('Success Change Password');
-        console.log(data.msg);
         $scope.form_change_password.$setPristine();
         $scope.currentPassword1 = null;
         $scope.currentPassword2 = null;
@@ -174,7 +172,6 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
         $('#chngPassword2').blur();
       })
       .error(function(data) {
-        console.log('Unsuccess Change Password');
         $scope.password_match_error = null;
         $scope.password_change_msg = data.msg;
       });
