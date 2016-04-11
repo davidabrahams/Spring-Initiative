@@ -69,64 +69,8 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   $scope.showStudent = function(student){
     $rootScope.currentStudent = student;
     $rootScope.editStudent = angular.copy(student);
-    $http.get('/api/student/data/'+ $rootScope.currentStudent._id)
-      .success(function(data){
-        $scope.studentData = data;
-        $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
-        $scope.data = $scope.studentData
-        $scope.hovered = function(d){
-            $scope.barValue = d;
-            $scope.$apply();
-        };
-        $scope.barValue = 'None';
-      })
-      .error(function(data) {
-          console.log('Error: ' + data);
-      });
   }
-}).directive('barChart', function(){
-    var chart = d3.custom.barChart();
-    return {
-        restrict: 'E',
-        replace: true,
-        template: '<div class="chart"></div>',
-        scope:{
-            height: '=height',
-            data: '=data',
-            hovered: '&hovered'
-        },
-        link: function(scope, element, attrs) {
-            var chartEl = d3.select(element[0]);
-            chart.on('customHover', function(d, i){
-                scope.hovered({args:d});
-            });
-
-            scope.$watch('data', function (newVal, oldVal) {
-                chartEl.datum(newVal).call(chart);
-            });
-
-            scope.$watch('height', function(d, i){
-                chartEl.call(chart.height(scope.height));
-            })
-        }
-    }
-  })
-  // .directive('chartForm', function(){
-  //   return {
-  //       restrict: 'E',
-  //       replace: true,
-  //       controller: function AppCtrl ($scope) {
-  //           $scope.update = function(d, i){ $scope.data = randomData(); };
-  //           function randomData(){
-  //               return d3.range(~~(Math.random()*50)+1).map(function(d, i){return ~~(Math.random()*1000);});
-  //           }
-  //       },
-  //       template: '<div class="form">' +
-  //               'Height: {{options.height}}<br />' +
-  //               '<input type="range" ng-model="options.height" min="100" max="800"/>' +
-  //               '<br /><button ng-click="update()">Update Data</button>' +
-  //               '<br />Hovered bar data: {{barValue}}</div>'
-  //   }});;
+});
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
 
@@ -151,6 +95,67 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       });
   }
 
+  $scope.showData = function(currentStudent){
+    $http.get('/api/student/data/'+ currentStudent._id)
+      .success(function(data){
+        $scope.attendance = data.attendanceList;
+        $scope.dates = data.datesList;
+        $scope.stars = data.starsList;
+
+        console.log($scope.attendance, $scope.attendance.sort())
+
+        //loop through each type of data
+        //everytime it comes accross a different "response"
+        //it creates a new list
+        var index = 0;
+
+        for(var i =0; i < $scope.attendance.length; i++){
+          var sortedList = $scope.attendance.sort();
+          if(sortedList[i] != sortedList[i-1]){
+            
+          }
+        }
+
+         $scope.options = {
+            chart: {
+                type: 'pieChart',
+                height: 500,
+                x: function(d){return d.key;},
+                y: function(d){return d.y;},
+                showLabels: true,
+                duration: 500,
+                labelThreshold: 0.01,
+                labelSunbeamLayout: true,
+                legend: {
+                    margin: {
+                        top: 5,
+                        right: 35,
+                        bottom: 5,
+                        left: 0
+                    }
+                }
+            }
+        };
+
+        $scope.data = [
+            {
+                key: "Present",
+                y: 5
+            },
+            {
+                key: "Excused",
+                y: 2
+            },
+            {
+                key: "Skipped",
+                y: 9
+            },
+        ];
+      })
+      .error(function(data) {
+          console.log('Error: ' + data);
+      });
+}
   $scope.submitNewEntry = function(student) {
 
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)

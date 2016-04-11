@@ -5,10 +5,16 @@
   <div id="content-text" class="content">
     <p>
       Student info goes here
-      <chart-form></chart-form>
-        <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
       <!-- {{currentStudent.info}} -->
     </p>
+  </div>
+</div>
+<div ng-switch="$state.current.name.includes('showd3')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Show Visualizations</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".showd3" ng-click = "showData(currentStudent)">+ Show Visualizations</a>
   </div>
 </div>
 <div ng-switch="$state.current.name.includes('addEntry')">
