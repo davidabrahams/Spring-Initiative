@@ -97,16 +97,6 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       });
   }
 
-  $scope.submitNewEntry = function(student) {
-    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
-      .success(function(data) {
-        // TODO: do something on success?
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  }
-
   // TODO: .success and .error are deprecated
   $scope.getArchive = function() {
     $http.get('api/index/archive')
@@ -119,6 +109,18 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       });
   }
 
+});
+
+springInitiative.controller('addEntryController', function($scope, $rootScope, $http, $location) {
+  $scope.submitNewEntry = function(student) {
+    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
+      .success(function(data) {
+        // TODO: do something on success?
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  }
 });
 
 springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
