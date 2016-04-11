@@ -74,69 +74,17 @@ springInitiative.controller('indexController', function($scope, $rootScope,
       .success(function(data){
         $scope.studentData = data;
         console.log($scope.studentData)
+        $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
+        $scope.data = $scope.studentData
+        console.log($scope.data);
+        $scope.hovered = function(d){
+            $scope.barValue = d;
+            $scope.$apply();
+        };
+        $scope.barValue = 'None';
       })
       .error(function(data) {
           console.log('Error: ' + data);
-      });
-    console.log($scope.studentData);
-  }
-
-});
-
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
-
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
-  $scope.programName = 'something spring';
-  $scope.programInfo = ':3';
-});
-
-springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
-  console.log($rootScope.studentData, 'rootScope data')
-
-  $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
-  $scope.data = $scope.studentData
-  console.log($scope.data);
-  $scope.hovered = function(d){
-      $scope.barValue = d;
-      $scope.$apply();
-    };
-  $scope.barValue = 'None';
-  //TODO: check these and make sure they work
-  $scope.submitEditStudent = function(editStudent, currentStudent) {
-    $http.post('api/student/edit/' + currentStudent._id, editStudent)
-      .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
-        // $scope.currentStudent = data.currentStudent;
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  }
-
-  $scope.submitNewEntry = function(student) {
-
-    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
-      .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
-        // console.log(currentStudent)
-        //TODO: need to test these since I don't know how to show/see new edits
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  }
-
-  // TODO: .success and .error are deprecated
-  $scope.getArchive = function() {
-    $http.get('api/index/archive')
-      .success(function(data) {
-        $scope.allArchivedStudents = data;
-        //TODO: update archived stuff
-      })
-      .error(function(data) {
-        console.log('Error:' + data);
       });
   }
 
@@ -182,7 +130,56 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
                 '<input type="range" ng-model="options.height" min="100" max="800"/>' +
                 '<br /><button ng-click="update()">Update Data</button>' +
                 '<br />Hovered bar data: {{barValue}}</div>'
-    }});
+    }});;
+
+springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
+
+springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+  $scope.programName = 'something spring';
+  $scope.programInfo = ':3';
+});
+
+springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+  //TODO: check these and make sure they work
+  $scope.submitEditStudent = function(editStudent, currentStudent) {
+    $http.post('api/student/edit/' + currentStudent._id, editStudent)
+      .success(function(data) {
+        $scope.$parent.students = data.allStudents;
+        $rootScope.currentStudent = data.currentStudent;
+        // $scope.currentStudent = data.currentStudent;
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  }
+
+  $scope.submitNewEntry = function(student) {
+
+    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
+      .success(function(data) {
+        $scope.$parent.students = data.allStudents;
+        $rootScope.currentStudent = data.currentStudent;
+        // console.log(currentStudent)
+        //TODO: need to test these since I don't know how to show/see new edits
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  }
+
+  // TODO: .success and .error are deprecated
+  $scope.getArchive = function() {
+    $http.get('api/index/archive')
+      .success(function(data) {
+        $scope.allArchivedStudents = data;
+        //TODO: update archived stuff
+      })
+      .error(function(data) {
+        console.log('Error:' + data);
+      });
+  }
+
+})
 
 springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
   $scope.addStudent = function() {
