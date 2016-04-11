@@ -99,11 +99,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
-        // $scope.$parent.students = data.allStudents;
-        // $rootScope.currentStudent = data.currentStudent;
-
-        // console.log(currentStudent)
-        //TODO: need to test these since I don't know how to show/see new edits
+        // TODO: do something on success?
       })
       .error(function(data) {
         console.log('Error: ' + data);

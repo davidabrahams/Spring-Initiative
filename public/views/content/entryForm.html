@@ -1,0 +1,101 @@
+<h2> Add a new entry </h2>
+<form class="entryform">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="date" id="date" class="form-control" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
+      </div>
+
+      <div class="form-group control-group">
+        <label class="control-label">Entry Period:</label>
+        <div class="controls">
+          <label class="radio-inline">
+            <input ng-model="newEntry.period" type="radio" name="optradio" value="Daily">Daily
+          </label>
+          <label class="radio-inline">
+            <input ng-model="newEntry.period" type="radio" name="optradio" value="Long Term">Long Term</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sel1">Attendance:</label>
+        <select class="form-control" id="sel1" ng-model="newEntry.attendance">
+          <option value="Present">Present</option>
+          <option value="Absent">Absent</option>
+          <option value="Suspended">Suspended</option>
+          <option value="Excused">Excused</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Behavior at Spring Today:</label>
+        <input type="text" ng-model="newEntry.behaviorText" placeholder="John Doe was ..." class="form-control" required/>
+      </div>
+
+      <div class="form-group">
+        <label for="sel1">Warnings at Spring:</label>
+        <select class="form-control" id="sel1" ng-model="newEntry.warnings">
+          <option value=""></option>
+          <option value="1 Warning">1 Warning</option>
+          <option value="2 Warnings">2 Warnings</option>
+          <option value="Sent Home">Sent Home</option>
+          <option value="Suspended">Suspended</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="sel1">Stars at Spring:</label>
+        <select class="form-control" id="sel1" ng-model="newEntry.stars">
+          <option value=""></option>
+          <option value="1 Star">1 Star</option>
+          <option value="2 Stars">2 Stars</option>
+        </select>
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+
+      <div class="form-group">
+        <label>Issues at School:</label>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Write-Up">Write-Up</label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Detention">Detention</label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="In-School Suspension">In-School Suspension</label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Out-of-School Suspension">Out-of-School Suspension</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Action Steps:</label>
+        <input type="text" ng-model="newEntry.actionSteps" placeholder="Input action steps" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label>Reading Level:</label>
+        <input type="text" ng-model="newEntry.readingLevels" placeholder="Input current reading level of student." class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label>Teacher Feedback:</label>
+        <input type="text" ng-model="newEntry.teacherFeedback" placeholder="Input any teach feedback." class="form-control" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <button class="btn btn-default" ui-sref="^">Cancel</button>
+      <button class="btn btn-default" ng-click="submitNewEntry(currentStudent)" type="submit">Submit</button>
+    </div>
+  </div>
+</form>
