@@ -47,7 +47,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
-    console.log("Current user: " + $scope.user.email)
+    console.log("Current user: " + $scope.user.email);
 
   })
 
@@ -57,7 +57,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
       $state.go('login')
     })
     .error(function(data){
-      console.log("Error: "+data)
+      console.log("Error: "+data);
     })
   }
 
@@ -92,7 +92,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         // $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       });
   }
 
@@ -106,7 +106,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       });
   }
 
@@ -118,7 +118,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         //TODO: update archived stuff
       })
       .error(function(data) {
-        console.log('Error:' + data)
+        console.log('Error:' + data);
       });
   }
 
@@ -132,7 +132,7 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
         $scope.newStudent = data.newStudent;
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       })
   };
 });
@@ -144,7 +144,7 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
     $scope.allUsers = data;
   })
   .error(function(data) {
-    console.log('Error: ' + data)
+    console.log('Error: ' + data);
   });
 
   $scope.toggleAdmin = function(username) {
@@ -153,18 +153,18 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       username.isAdmin = !username.isAdmin;
     })
     .error(function(data) {
-      console.log('Error: ' + data)
+      console.log('Error: ' + data);
     });
   };
 
   $scope.changePassword = function(user) {
-    if($scope.currentPassword1 === $scope.currentPassword2 && $scope.currentPassword1 != undefined){
+    if($scope.current_password_1 === $scope.current_password_2 && $scope.current_password_1 != undefined){
       $http.post('api/changePassword/'+user._id,{
-        password: $scope.currentPassword1
+        password: $scope.current_password_1
       }).success(function(data) {
         $scope.form_change_password.$setPristine();
-        $scope.currentPassword1 = null;
-        $scope.currentPassword2 = null;
+        $scope.current_password_1 = null;
+        $scope.current_password_2 = null;
         $scope.password_match_error = null;
         $scope.password_change_msg = data.msg;
         // this clears focus from the form!
