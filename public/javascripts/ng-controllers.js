@@ -104,18 +104,19 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
         console.log($scope.attendance, $scope.attendance.sort())
 
-        //loop through each type of data
-        //everytime it comes accross a different "response"
-        //it creates a new list
-        var index = 0;
+        var  count = {}; 
+        $scope.attendance.forEach(function(i) { count[i] = (count[i]||0)+1;  });
 
-        for(var i =0; i < $scope.attendance.length; i++){
-          var sortedList = $scope.attendance.sort();
-          if(sortedList[i] != sortedList[i-1]){
-            
-          }
+        var dataList = [];
+        var keys = Object.keys(count);
+        var idea = "Excused"
+        console.log(count[idea])
+
+        for(var i = 0; i < keys.length; i++){
+          console.log(count)
+          dataList.push({key:keys[i], y:count[keys[i]]})
         }
-
+        console.log(dataList)
          $scope.options = {
             chart: {
                 type: 'pieChart',
@@ -137,25 +138,12 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
             }
         };
 
-        $scope.data = [
-            {
-                key: "Present",
-                y: 5
-            },
-            {
-                key: "Excused",
-                y: 2
-            },
-            {
-                key: "Skipped",
-                y: 9
-            },
-        ];
+        $scope.data = dataList;
       })
       .error(function(data) {
           console.log('Error: ' + data);
       });
-}
+  }
   $scope.submitNewEntry = function(student) {
 
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
