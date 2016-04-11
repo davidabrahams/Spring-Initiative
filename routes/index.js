@@ -14,7 +14,7 @@ var Student = require(path.join(__dirname, '../models/student'));
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
     res.json(allStudents);
-  })
+  });
 }
 
 routes.POSTlogin = function(req, res, next) {
@@ -47,34 +47,51 @@ routes.POSTregister = function(req, res, next) {
         return res.status(403).send(err.message);
       }
 
-      // send email verification
-      // Used example: https://github.com/heitortsergent/passport-local-mongoose-email/tree/master/examples/login
-      // req.headers.host gets the current host url
-      var authenticationURL = 'http://' + req.headers.host +
-        '/verify?authToken=' + user.authToken;
-      var email = new sendgrid.Email();
+      // Get admin emails
+      User.find({isAdmin: true}, {email: 1, _id: 0}, function(err, admins) {
+        // send email verification
+        var authenticationURL = 'http://' + req.headers.host +
+          '/verify?authToken=' + user.authToken +
+          '&email=' + user.email;
+        var email = new sendgrid.Email();
 
-      email.addTo(user.email);
-      email.setFrom('SpringInitiative@olinjs.com');
-      email.setSubject('Confirm your email for Spring Initiative');
-      email.setHtml('<a target=_blank href=\"' + authenticationURL +
-        '\">Confirm \
-                  your email</a><br>This is an automated response. Do not reply'
-      );
-      sendgrid.send(email);
+        for (var i = 0; i < admins.length; i++) {
+          email.addTo(admins[i].email);
+        };
 
-      console.log("Email Sent");
-      res.sendStatus(200);
+        email.setFrom('SpringInitiative@olinjs.com');
+        email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
+        email.setHtml('<a target=_blank href=\"' + authenticationURL +
+          '\">Confirm their registration.</a>' +
+          '<br>This is an automated response. Do not reply.');
+        sendgrid.send(email);
+
+        console.log("Email verification sent");
+        res.sendStatus(200);
+
+      });
+
     });
 }
 
 routes.GETemailver = function(req, res) {
-  // User gets here after clicking the link in the email
-  // Hence needs to be redirected
   User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
-    if (err) console.log('err:', err);
+    if (err) {
+      console.log('Email ver err:', err);
+      res.sendStatus(500);
+    }
+    else {
+      var email = new sendgrid.Email();
+      email.addTo(req.query.email);
+      email.setFrom('SpringInitiative@olinjs.com');
+      email.setSubject('Registration complete for Spring Initiative');
+      email.setHtml('You\'ve been registered for Spring Initiative\'s website.' +
+                    '<br>This is an automated response. Do not reply.');
+      sendgrid.send(email);
 
-    res.redirect('/')
+      console.log("Email alert sent");
+      res.redirect('/')
+    }
   });
 }
 
@@ -219,6 +236,22 @@ routes.POSTchangeAdmin = function(req, res) {
       }
     })
     res.json(user);
+  });
+}
+
+routes.POSTchangePassword = function(req, res) {
+  userid = req.params._id;
+  newPasswordString = req.body.password;
+  User.findOne({_id:userid}, function (err, user) {
+    user.setPassword(newPasswordString, function(){
+      user.save(function (err) {
+        if(err) {
+          console.log(err);
+          return res.status(500).json({msg: 'Password reset unsuccessful'})
+        }
+      });
+      return res.status(200).json({msg: 'Password reset successful'});
+    });
   });
 }
 
