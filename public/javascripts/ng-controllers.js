@@ -84,7 +84,7 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 });
 
 springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
-
+  console.log($rootScope)
   $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
   $scope.data = $rootScope.currentStudent.attendence;
   $scope.hovered = function(d){
@@ -109,10 +109,10 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
+        // $scope.$parent.students = data.allStudents;
+        // $rootScope.currentStudent = data.currentStudent;
         
-        console.log(currentStudent)
+        // console.log(currentStudent)
         //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {

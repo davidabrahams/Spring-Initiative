@@ -1,21 +1,31 @@
-<div class="row">
-  <div class="col-sm-6">
-    <div id="content-title" class="content">
-      <h3>{{currentStudent.name}}</h3>
-    </div>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <title>Spring Initiative</title>
 
-    <div id="content-text" class="content">
-      <p>
-        Student info goes here
-        <!-- {{currentStudent.info}} -->
-      </p>
-      <chart-form></chart-form>
-        <bar-chart height="options.height" data="data" hovered="hovered(args)"></bar-chart>
-      <a ng-click="showAddEntry = !showAddEntry">+ Add new entry</a>
-      <br>
-      <div class="entry-form" ng-show="showAddEntry">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href = "/stylesheets/main.css">
 
+    <!-- Latest compiled JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Our scripts -->
+    <script src="/javascripts/ng-apps.js"></script>
+    <script src="/javascripts/ng-controllers.js"></script>
+
+    <base href="/">
+
+  </head>
+<body>
 <h2> Add a new entry </h2>
         <form class="entryform">
           <div class="form-group">
@@ -35,8 +45,8 @@
           </div>
 
           <div class="form-group">
-            <label for="sel1">Attendance:</label>
-            <select class="form-control" id="sel1" ng-model="newEntry.attendance">
+            <label for="sel1">Attendence:</label>
+            <select class="form-control" id="sel1" ng-model="newEntry.attendence">
               <option value="Present">Present</option>
               <option value="Absent">Absent</option>
               <option value="Suspended">Suspended</option>
@@ -106,47 +116,6 @@
         </form>
         <br>
       </div>
-      </div>
 
-      <a ng-click="showEditEntry = !showEditEntry">+ Edit entry</a>
-      <br>
-      <div ng-show="showEditEntry">
-        Edit some entry here
-      </div>
-
-      <a ng-click="showEditStudent = !showEditStudent">+ Edit student</a>
-      <br>
-      <div class="edit-form" ng-show="showEditStudent">
-        <form class="studentform">
-
-          <h2>Edit {{currentStudent.name}}'s Info</h2>
-          <br>
-          <div class="form-group">
-            <label for="name_input">Name:</label>
-            <input type="text" class="form-control" ng-model="$root.editStudent.name" id="name_input" required autofocus> </input>
-          </div>
-          <div class="form-group">
-            <label for="sel1">Program:</label>
-            <select class="form-control" id="sel1" ng-model="$root.editStudent.program">
-              <option value="Little Spring">Little Spring</option>
-              <option value="Big Spring">Big Spring</option>
-              <option value="Baby Spring">Baby Spring</option>
-            </select>
-          </div>
-          <div class="form-group control-group">
-            <label class="control-label">Archived:</label>
-            <div class="controls">
-              <label class="radio-inline">
-                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
-              <label class="radio-inline">
-                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
-            </div>
-          </div>
-          <button class="btn btn-default" ng-click="submitEditStudent($root.editStudent, currentStudent)" type="submit">Submit</button>
-
-        </form>
-      </div>
-
-    </div>
-  </div>
-</div>
+      </body>
+      </html>
