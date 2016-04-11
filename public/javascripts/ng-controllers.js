@@ -47,7 +47,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
-    console.log("Current user: " + $scope.user.email)
+    console.log("Current user: " + $scope.user.email);
 
   })
 
@@ -57,7 +57,7 @@ springInitiative.controller('indexController', function($scope, $rootScope,
       $state.go('login')
     })
     .error(function(data){
-      console.log("Error")
+      console.log("Error: "+data);
     })
   }
 
@@ -92,7 +92,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         // $scope.currentStudent = data.currentStudent;
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       });
   }
 
@@ -101,12 +101,12 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
       .success(function(data) {
         // $scope.$parent.students = data.allStudents;
         // $rootScope.currentStudent = data.currentStudent;
-        
+
         // console.log(currentStudent)
         //TODO: need to test these since I don't know how to show/see new edits
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       });
   }
 
@@ -118,7 +118,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         //TODO: update archived stuff
       })
       .error(function(data) {
-        console.log('Error:' + data)
+        console.log('Error:' + data);
       });
   }
 
@@ -132,18 +132,19 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
         $scope.newStudent = data.newStudent;
       })
       .error(function(data) {
-        console.log('Error: ' + data)
+        console.log('Error: ' + data);
       })
   };
 });
 
 springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+
   $http.get('api/allUsers')
   .success(function(data) {
     $scope.allUsers = data;
   })
   .error(function(data) {
-    console.log('Error:' + data)
+    console.log('Error: ' + data);
   });
 
   $scope.toggleAdmin = function(username) {
@@ -152,7 +153,31 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
       username.isAdmin = !username.isAdmin;
     })
     .error(function(data) {
-      console.log('Error occured while admin change');
+      console.log('Error: ' + data);
     });
   };
+
+  $scope.changePassword = function(user) {
+    if($scope.current_password_1 === $scope.current_password_2 && $scope.current_password_1 != undefined){
+      $http.post('api/changePassword/'+user._id,{
+        password: $scope.current_password_1
+      }).success(function(data) {
+        $scope.form_change_password.$setPristine();
+        $scope.current_password_1 = null;
+        $scope.current_password_2 = null;
+        $scope.password_match_error = null;
+        $scope.password_change_msg = data.msg;
+        // this clears focus from the form!
+        $('#chngPassword2').focus();
+        $('#chngPassword2').blur();
+      })
+      .error(function(data) {
+        $scope.password_match_error = null;
+        $scope.password_change_msg = data.msg;
+      });
+    }else{
+      $scope.password_match_error = "Passwords do not match";
+      $scope.password_change_msg = null;
+    }
+  }
 });

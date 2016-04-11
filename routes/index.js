@@ -239,4 +239,20 @@ routes.POSTchangeAdmin = function(req, res) {
   });
 }
 
+routes.POSTchangePassword = function(req, res) {
+  userid = req.params._id;
+  newPasswordString = req.body.password;
+  User.findOne({_id:userid}, function (err, user) {
+    user.setPassword(newPasswordString, function(){
+      user.save(function (err) {
+        if(err) {
+          console.log(err);
+          return res.status(500).json({msg: 'Password reset unsuccessful'})
+        }
+      });
+      return res.status(200).json({msg: 'Password reset successful'});
+    });
+  });
+}
+
 module.exports = routes;
