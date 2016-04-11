@@ -40,8 +40,7 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
   }
 });
 
-springInitiative.controller('indexController', function($scope, $rootScope,
-                            $http, $location, $state) {
+springInitiative.controller('indexController', function($scope, $rootScope, $http, $location, $state) {
 
   $scope.students = [];
 
@@ -73,10 +72,8 @@ springInitiative.controller('indexController', function($scope, $rootScope,
     $http.get('/api/student/data/'+ $rootScope.currentStudent._id)
       .success(function(data){
         $scope.studentData = data;
-        console.log($scope.studentData)
         $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
         $scope.data = $scope.studentData
-        console.log($scope.data);
         $scope.hovered = function(d){
             $scope.barValue = d;
             $scope.$apply();
@@ -87,7 +84,6 @@ springInitiative.controller('indexController', function($scope, $rootScope,
           console.log('Error: ' + data);
       });
   }
-
 }).directive('barChart', function(){
     var chart = d3.custom.barChart();
     return {
@@ -115,22 +111,22 @@ springInitiative.controller('indexController', function($scope, $rootScope,
         }
     }
   })
-  .directive('chartForm', function(){
-    return {
-        restrict: 'E',
-        replace: true,
-        controller: function AppCtrl ($scope) {
-            $scope.update = function(d, i){ $scope.data = randomData(); };
-            function randomData(){
-                return d3.range(~~(Math.random()*50)+1).map(function(d, i){return ~~(Math.random()*1000);});
-            }
-        },
-        template: '<div class="form">' +
-                'Height: {{options.height}}<br />' +
-                '<input type="range" ng-model="options.height" min="100" max="800"/>' +
-                '<br /><button ng-click="update()">Update Data</button>' +
-                '<br />Hovered bar data: {{barValue}}</div>'
-    }});;
+  // .directive('chartForm', function(){
+  //   return {
+  //       restrict: 'E',
+  //       replace: true,
+  //       controller: function AppCtrl ($scope) {
+  //           $scope.update = function(d, i){ $scope.data = randomData(); };
+  //           function randomData(){
+  //               return d3.range(~~(Math.random()*50)+1).map(function(d, i){return ~~(Math.random()*1000);});
+  //           }
+  //       },
+  //       template: '<div class="form">' +
+  //               'Height: {{options.height}}<br />' +
+  //               '<input type="range" ng-model="options.height" min="100" max="800"/>' +
+  //               '<br /><button ng-click="update()">Update Data</button>' +
+  //               '<br />Hovered bar data: {{barValue}}</div>'
+  //   }});;
 
 springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
 
@@ -139,7 +135,9 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+springInitiative.controller('studentController', function($scope,  $rootScope, $http, $state) {
+
+  $scope.$state = $state;
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)

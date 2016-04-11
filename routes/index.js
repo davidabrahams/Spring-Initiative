@@ -257,10 +257,18 @@ routes.POSTchangePassword = function(req, res) {
 
 routes.GETstudentEntries = function(req, res){
   var studentID = req.params._id;
+  var attendanceList = [];
+  var starsList = [];
+  var datesList = [];
   console.log(studentID)
   FormDB.find({_studentID:studentID}, function(err, studentData){
     console.log(studentData);
-    res.json({studentData: studentData});
+    for (var i = 0; i < studentData.length; i++){
+      attendanceList.push(studentData[i].attendance);
+      starsList.push(studentData[i].stars);
+      datesList.push(studentData[i].date);
+    }
+    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList});
   })
 }
 
