@@ -81,8 +81,9 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
+springInitiative.controller('studentController', function($scope,  $rootScope, $http, $state) {
 
+  $scope.$state = $state;
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
