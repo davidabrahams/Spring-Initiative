@@ -9,7 +9,20 @@
     </p>
   </div>
 </div>
-
-<div class="row">
-  <div ui-view="studentView"></div>
+<div ng-switch="$state.current.name.includes('addEntry')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Add new entry</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".addEntry">+ Add new entry</a>
+  </div>
 </div>
+<div ng-switch="$state.current.name.includes('editStudent')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Edit student</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".editStudent">+ Edit student</a>
+  </div>
+</div>
+<div ui-view="studentView"></div>
