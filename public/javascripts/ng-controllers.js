@@ -158,26 +158,26 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
   };
 
   $scope.changePassword = function(user) {
-    if($scope.current_password_1 === $scope.current_password_2 && $scope.current_password_1 != undefined){
+    if($scope.currentPassword1 === $scope.currentPassword2 && $scope.currentPassword1 != undefined){
       $http.post('api/changePassword/'+user._id,{
-        password: $scope.current_password_1
+        password: $scope.currentPassword1
       }).success(function(data) {
         $scope.form_change_password.$setPristine();
-        $scope.current_password_1 = null;
-        $scope.current_password_2 = null;
-        $scope.password_match_error = null;
-        $scope.password_change_msg = data.msg;
+        $scope.currentPassword1 = null;
+        $scope.currentPassword2 = null;
+        $scope.passwordMatchError = null;
+        $scope.passwordChangeMsg = data.msg;
         // this clears focus from the form!
         $('#chngPassword2').focus();
         $('#chngPassword2').blur();
       })
       .error(function(data) {
-        $scope.password_match_error = null;
-        $scope.password_change_msg = data.msg;
+        $scope.passwordMatchError = null;
+        $scope.passwordChangeMsg = data.msg;
       });
     }else{
-      $scope.password_match_error = "Passwords do not match";
-      $scope.password_change_msg = null;
+      $scope.passwordMatchError = "Passwords do not match";
+      $scope.passwordChangeMsg = null;
     }
   }
 });
