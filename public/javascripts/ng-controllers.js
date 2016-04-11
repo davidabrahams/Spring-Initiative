@@ -70,6 +70,15 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   $scope.showStudent = function(student){
     $rootScope.currentStudent = student;
     $rootScope.editStudent = angular.copy(student);
+    $http.get('/api/student/data/'+ $rootScope.currentStudent._id)
+      .success(function(data){
+        $scope.studentData = data;
+        console.log($scope.studentData)
+      })
+      .error(function(data) {
+          console.log('Error: ' + data);
+      });
+    console.log($scope.studentData);
   }
 
 });
@@ -82,9 +91,11 @@ springInitiative.controller('programController', function($scope, $rootScope, $h
 });
 
 springInitiative.controller('studentController', function($scope,  $rootScope, $http) {
-  console.log($rootScope)
+  console.log($rootScope.studentData, 'rootScope data')
+
   $scope.options = {width: 500, height: 300, 'bar': 'aaa'};
-  $scope.data = $rootScope.currentStudent.attendence;
+  $scope.data = $scope.studentData
+  console.log($scope.data);
   $scope.hovered = function(d){
       $scope.barValue = d;
       $scope.$apply();
