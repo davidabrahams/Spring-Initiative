@@ -41,9 +41,6 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
         'content': {
           templateUrl: 'views/content/student.html',
           controller: 'studentController'
-        },
-        'studentView@index.student': {
-          templateUrl: 'views/content/studentView.html'
         }
       }
     })
