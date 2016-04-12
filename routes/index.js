@@ -131,12 +131,14 @@ routes.POSTeditstudent = function(req, res, next) {
     Student.find({}, function(err, allStudents) {
       if (err) {
         res.send(err)
+        return res.status(200).json({msg: 'Error editing student data'});
       }
       Student.findOne({_id: studentID}, function(err, currentStudent) {
-        res.json({allStudents:allStudents, currentStudent: currentStudent})
+        res.json({allStudents:allStudents, currentStudent: currentStudent, msg: 'Student data edited successfully!'})
       })
     })
   })
+  
 }
 
 routes.POSTaddstudent = function(req, res, next) {
@@ -151,13 +153,16 @@ routes.POSTaddstudent = function(req, res, next) {
   }, function(err, newStudent) {
     if (err) {
       res.send(err)
+      return res.status(500).json({msg: 'Error adding student'});
     }
     Student.find({}, function(err, allStudents) {
       res.json({
         allStudents: allStudents,
-        newStudent: newStudent
+        newStudent: newStudent,
+
       });
     })
+  return res.status(200).json({msg: 'Student added successfully!'});
   });
 }
 
@@ -187,11 +192,12 @@ routes.POSTnewEntry = function(req, res, next) {
     if (err) {
       console.log(err)
       res.send(err)
+      return res.status(500).json({msg: 'Error submitting entry'});
     }
     console.log("new form entry", newEntryObj)
     console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
 
-    res.json(newEntryObj)
+    res.json(newEntryObj, {msg: 'Entry submitted successfully!'});
   })
 };
 

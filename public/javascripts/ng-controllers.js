@@ -91,19 +91,23 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
         $scope.$parent.students = data.allStudents;
         $rootScope.currentStudent = data.currentStudent;
         // $scope.currentStudent = data.currentStudent;
+        $scope.studentEditMsg = data.msg;
       })
       .error(function(data) {
         console.log('Error: ' + data);
+        $scope.studentEditMsg = data.msg;
       });
   }
 
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
+        $scope.entrySubmittedMsg = data.msg;
         // TODO: do something on success?
       })
       .error(function(data) {
         console.log('Error: ' + data);
+        $scope.entrySubmittedMsg = data.msg;
       });
   }
 
@@ -127,9 +131,11 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
       .success(function(data) {
         $scope.$parent.students = data.allStudents;
         $scope.newStudent = data.newStudent;
+        $scope.studentAddedMsg = data.msg;
       })
       .error(function(data) {
         console.log('Error: ' + data);
+        $scope.studentAddedMsg = data.msg;
       })
   };
 });
