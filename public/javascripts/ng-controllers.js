@@ -111,7 +111,6 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
         legend: { margin: { top: 5, right: 35, bottom: 5, left: 0 } }
       }
     };
-
     $scope.data = dataList;
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
