@@ -41,9 +41,6 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
         'content': {
           templateUrl: 'views/content/student.html',
           controller: 'studentController'
-        },
-        'studentView@index.student': {
-          templateUrl: 'views/content/studentView.html'
         }
       }
     })
@@ -57,6 +54,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
     .state('index.student.addEntry', {
       views: {
         'studentView@index.student': {
+          controller: 'addEntryController',
           templateUrl: 'views/content/entryForm.html'
         }
       }

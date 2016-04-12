@@ -40,7 +40,9 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
   }
 });
 
-springInitiative.controller('indexController', function($scope, $rootScope, $http, $location, $state) {
+
+springInitiative.controller('indexController', function($scope, $http,
+                            $location, $state) {
 
   $scope.students = [];
 
@@ -51,13 +53,11 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   })
 
   $scope.logout = function(){
-    $http.post("/api/logout")
-    .success(function(data){
-      $state.go('login')
-    })
-    .error(function(data){
-      console.log("Error: "+data);
-    })
+    $http.post("/api/logout").then(function successCallback(response) {
+      $state.go('login');
+    }, function errorCallback(response) {
+      console.log("Error: " + data);
+    });
   }
 
   $http.get('/api/allStudents').then(function(data) {
@@ -67,32 +67,39 @@ springInitiative.controller('indexController', function($scope, $rootScope, $htt
   });
 
   $scope.showStudent = function(student){
-    $rootScope.currentStudent = student;
-    $rootScope.editStudent = angular.copy(student);
+    $scope.currentStudent = student;
+    $scope.editStudent = angular.copy(student);
   }
 });
 
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
+springInitiative.controller('overviewController', function($scope, $http, $location) {});
 
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('programController', function($scope, $http, $location) {
   $scope.programName = 'something spring';
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http, $state) {
+springInitiative.controller('studentController', function($scope,  $http, $state) {
 
   $scope.$state = $state;
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
-      .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
-        // $scope.currentStudent = data.currentStudent;
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
+    .then(function successCallback(response) {
+      $scope.$parent.students = response.data.allStudents;
+      $scope.$parent.currentStudent = response.data.currentStudent;
+    }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
+  }
+
+  // TODO: .success and .error are deprecated
+  $scope.getArchive = function() {
+    $http.get('api/index/archive').then(function successCallback(response) {
+      $scope.allArchivedStudents = response.data;
+    }, function errorCallback(response) {
+      console.log('Error:' + response.data);
+    });
   }
 
   $scope.showData = function(currentStudent){
@@ -144,62 +151,44 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
           console.log('Error: ' + data);
       });
   }
-  $scope.submitNewEntry = function(student) {
-
-    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
-      .success(function(data) {
-        // console.log(currentStudent)
-        //TODO: need to test these since I don't know how to show/see new edits
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  }
-
-  // TODO: .success and .error are deprecated
-  $scope.getArchive = function() {
-    $http.get('api/index/archive')
-      .success(function(data) {
-        $scope.allArchivedStudents = data;
-        //TODO: update archived stuff
-      })
-      .error(function(data) {
-        console.log('Error:' + data);
-      });
-  }
 
 })
 
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('addEntryController', function($scope, $http, $location) {
+  $scope.submitNewEntry = function(student) {
+    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
+    .then(function successCallback(response) {
+      // TODO: do something on success?
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+    });
+  }
+});
+
+springInitiative.controller('addStudentController', function($scope, $http, $location) {
   $scope.addStudent = function() {
-    $http.post('api/student/add', $scope.newStudent)
-      .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $scope.newStudent = data.newStudent;
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      })
+    $http.post('api/student/add', $scope.newStudent).then(function successCallback(response) {
+      $scope.$parent.students = response.data.allStudents;
+      $scope.newStudent = response.data.newStudent;
+    }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
   };
 });
 
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('settingsController', function($scope, $http, $location){
 
-  $http.get('api/allUsers')
-  .success(function(data) {
-    $scope.allUsers = data;
-  })
-  .error(function(data) {
-    console.log('Error: ' + data);
+  $http.get('api/allUsers').then(function successCallback(response) {
+    $scope.allUsers = response.data;
+  }, function errorCallback(response) {
+    console.log('Error: ' + response.data);
   });
 
   $scope.toggleAdmin = function(username) {
-    $http.post('api/changeAdmin/'+username._id)
-    .success(function(data) {
+    $http.post('api/changeAdmin/'+username._id).then(function successCallback(response) {
       username.isAdmin = !username.isAdmin;
-    })
-    .error(function(data) {
-      console.log('Error: ' + data);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
     });
   };
 
@@ -207,21 +196,20 @@ springInitiative.controller('settingsController', function($scope, $rootScope, $
     if($scope.currentPassword1 === $scope.currentPassword2 && $scope.currentPassword1 != undefined){
       $http.post('api/changePassword/'+user._id,{
         password: $scope.currentPassword1
-      }).success(function(data) {
+      }).then(function successCallback(response) {
         $scope.form_change_password.$setPristine();
         $scope.currentPassword1 = null;
         $scope.currentPassword2 = null;
         $scope.passwordMatchError = null;
-        $scope.passwordChangeMsg = data.msg;
+        $scope.passwordChangeMsg = response.data.msg;
         // this clears focus from the form!
         $('#chngPassword2').focus();
         $('#chngPassword2').blur();
-      })
-      .error(function(data) {
+    }, function errorCallback(response) {
         $scope.passwordMatchError = null;
-        $scope.passwordChangeMsg = data.msg;
-      });
-    }else{
+        $scope.passwordChangeMsg = response.data.msg;
+    });
+    } else {
       $scope.passwordMatchError = "Passwords do not match";
       $scope.passwordChangeMsg = null;
     }
