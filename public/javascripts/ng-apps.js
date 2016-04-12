@@ -1,4 +1,4 @@
-var springInitiative = angular.module('springInitiativeApp', ['ui.router']);
+var springInitiative = angular.module('springInitiativeApp', ['ui.router', 'nvd3']);
 
 springInitiative.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -41,6 +41,14 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
         'content': {
           templateUrl: 'views/content/student.html',
           controller: 'studentController'
+        }
+      }
+    })
+    .state('index.student.showd3', {
+      views: {
+        'studentView@index.student': {
+          controller: 'd3Controller',
+          templateUrl: 'views/content/d3.html'
         }
       }
     })

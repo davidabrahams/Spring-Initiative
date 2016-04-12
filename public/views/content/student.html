@@ -9,6 +9,14 @@
     </p>
   </div>
 </div>
+<div ng-switch="$state.current.name.includes('showd3')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Show Visualizations</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".showd3">+ Show Visualizations</a>
+  </div>
+</div>
 <div ng-switch="$state.current.name.includes('addEntry')">
   <div ng-switch-when="true">
     <a ui-sref=".">- Add new entry</a>

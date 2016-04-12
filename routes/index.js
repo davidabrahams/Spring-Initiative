@@ -227,7 +227,7 @@ routes.GETallUsers = function(req, res) {
 }
 
 routes.POSTchangeAdmin = function(req, res) {
-  userid = req.params._id;
+  var userid = req.params._id;
   User.findOne({_id:userid}, function (err, user) {
     user.isAdmin = !user.isAdmin;
     user.save(function (err) {
@@ -240,8 +240,8 @@ routes.POSTchangeAdmin = function(req, res) {
 }
 
 routes.POSTchangePassword = function(req, res) {
-  userid = req.params._id;
-  newPasswordString = req.body.password;
+  var userid = req.params._id;
+  var newPasswordString = req.body.password;
   User.findOne({_id:userid}, function (err, user) {
     user.setPassword(newPasswordString, function(){
       user.save(function (err) {
@@ -253,6 +253,23 @@ routes.POSTchangePassword = function(req, res) {
       return res.status(200).json({msg: 'Password reset successful'});
     });
   });
+}
+
+routes.GETstudentEntries = function(req, res){
+  var studentID = req.params._id;
+  var attendanceList = [];
+  var starsList = [];
+  var datesList = [];
+  console.log(studentID)
+  FormDB.find({_studentID:studentID}, function(err, studentData){
+    console.log(studentData);
+    for (var i = 0; i < studentData.length; i++){
+      attendanceList.push(studentData[i].attendance);
+      starsList.push(studentData[i].stars);
+      datesList.push(studentData[i].date);
+    }
+    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList});
+  })
 }
 
 module.exports = routes;
