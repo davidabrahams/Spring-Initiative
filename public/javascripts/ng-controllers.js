@@ -40,8 +40,8 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
   }
 });
 
-springInitiative.controller('indexController', function($scope, $rootScope,
-                            $http, $location, $state) {
+springInitiative.controller('indexController', function($scope, $http,
+                            $location, $state) {
 
   $scope.students = [];
 
@@ -66,20 +66,20 @@ springInitiative.controller('indexController', function($scope, $rootScope,
   });
 
   $scope.showStudent = function(student){
-    $rootScope.currentStudent = student;
-    $rootScope.editStudent = angular.copy(student);
+    $scope.currentStudent = student;
+    $scope.editStudent = angular.copy(student);
   }
 
 });
 
-springInitiative.controller('overviewController', function($scope, $rootScope, $http, $location) {});
+springInitiative.controller('overviewController', function($scope, $http, $location) {});
 
-springInitiative.controller('programController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('programController', function($scope, $http, $location) {
   $scope.programName = 'something spring';
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $rootScope, $http, $state) {
+springInitiative.controller('studentController', function($scope,  $http, $state) {
 
   $scope.$state = $state;
   //TODO: check these and make sure they work
@@ -113,7 +113,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
 });
 
-springInitiative.controller('addStudentController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('addStudentController', function($scope, $http, $location){
   $scope.addStudent = function() {
     $http.post('api/student/add', $scope.newStudent).then(function successCallback(response) {
       $scope.$parent.students = response.data.allStudents;
@@ -124,7 +124,7 @@ springInitiative.controller('addStudentController', function($scope, $rootScope,
   };
 });
 
-springInitiative.controller('settingsController', function($scope, $rootScope, $http, $location){
+springInitiative.controller('settingsController', function($scope, $http, $location){
 
   $http.get('api/allUsers').then(function successCallback(response) {
     $scope.allUsers = response.data;
