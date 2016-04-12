@@ -87,7 +87,7 @@ springInitiative.controller('studentController', function($scope,  $http, $state
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
     .then(function successCallback(response) {
       $scope.$parent.students = response.data.allStudents;
-      $rootScope.currentStudent = response.data.currentStudent;
+      $scope.$parent.currentStudent = response.data.currentStudent;
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
     });
@@ -104,7 +104,7 @@ springInitiative.controller('studentController', function($scope,  $http, $state
 
 });
 
-springInitiative.controller('addEntryController', function($scope, $rootScope, $http, $location) {
+springInitiative.controller('addEntryController', function($scope, $http, $location) {
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
