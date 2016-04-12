@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var formSchema = Schema({
-  _studentID: String,
+  _studentID: { type: Schema.Types.ObjectId, ref: 'Student' },
   period: String,
   date: Date,
   attendance: String,

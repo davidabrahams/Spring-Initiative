@@ -104,7 +104,7 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
         console.log($scope.attendance, $scope.attendance.sort())
 
-        var  count = {}; 
+        var count = {}; 
         $scope.attendance.forEach(function(i) { count[i] = (count[i]||0)+1;  });
 
         var dataList = [];
@@ -148,8 +148,6 @@ springInitiative.controller('studentController', function($scope,  $rootScope, $
 
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
       .success(function(data) {
-        $scope.$parent.students = data.allStudents;
-        $rootScope.currentStudent = data.currentStudent;
         // console.log(currentStudent)
         //TODO: need to test these since I don't know how to show/see new edits
       })
