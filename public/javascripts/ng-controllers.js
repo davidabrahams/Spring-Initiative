@@ -150,7 +150,7 @@ springInitiative.controller('studentController', function($scope,  $http, $state
     });
   }
 
-})
+});
 
 springInitiative.controller('addEntryController', function($scope, $http, $location) {
   $scope.submitNewEntry = function(student) {
