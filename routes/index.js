@@ -74,6 +74,7 @@ routes.POSTregister = function(req, res, next) {
         authenticationURL = 'http://' + req.headers.host +
           '/verify?authTokenUser=' + secondHalfAuth + 
           '&email=' + user.email;
+
         var email2 = new sendgrid.Email();
         email2.addTo(user.email);
         email2.setFrom('SpringInitiative@olinjs.com');
@@ -91,47 +92,47 @@ routes.POSTregister = function(req, res, next) {
 }
 
 routes.GETemailver = function(req, res) {
-  User.find({email: req.query.email}, function (err, user){
+  User.findOne({email: req.query.email}, function (err, user){
     // fill in model with authTokens
     if(req.query.authTokenAdmin !== undefined){
       user.adminAuth = req.query.authTokenAdmin;
-      User.findOneAndUpdate({email: req.query.email}, user, function(err){
-        console.log('Update error:', err);
+      user.save(function (err){
+        if (err) console.log('Update error:', err);
+        else checkAuth(user, res);
       });
     } else if(req.query.authTokenUser !== undefined) {
       user.userAuth = req.query.authTokenUser;
-      User.findOneAndUpdate({email: req.query.email}, user, function(err){
-        console.log('Update error:', err);
-      });
-    }
-
-    console.log('\nUser now:', user.adminAuth, user.userAuth, '\n');
-
-    // if both halves of authToken are present
-    if(user.adminAuth !== undefined && user.userAuth !== undefined){
-      var authToken = user.adminAuth + user.userAuth;
-      User.verifyEmail(authToken, function(err, existingAuthToken) {
-        if (err) {
-          console.log('Email ver err:', err);
-          res.sendStatus(500);
-        }
-        else {
-          var email = new sendgrid.Email();
-          email.addTo(req.query.email);
-          email.addTo('nora.mohamed@students.olin.edu'); //
-          email.setFrom('SpringInitiative@olinjs.com');
-          email.setSubject('Registration complete for Spring Initiative');
-          email.setHtml('You\'ve been registered for Spring Initiative\'s website.' +
-                        '<br>This is an automated response. Do not reply.');
-          sendgrid.send(email);
-
-          console.log("Email alert sent");
-          res.redirect('/login');
-        }
+      user.save(function (err){
+        if (err) console.log('Update error:', err);
+        else checkAuth(user, res);
       });
     }
     res.redirect('/login');
   });
+}
+
+var checkAuth = function (user, res){
+  if(user.adminAuth !== null && user.userAuth !== null){
+    console.log('\n\nyay\n\n');
+    var authToken = user.adminAuth + user.userAuth;
+    User.verifyEmail(authToken, function(err, existingAuthToken) {
+      if (err) {
+        console.log('Email ver err:', err);
+        res.sendStatus(500);
+      }
+      else {
+        var email = new sendgrid.Email();
+        email.addTo(user.email);
+        email.setFrom('SpringInitiative@olinjs.com');
+        email.setSubject('Registration complete for Spring Initiative');
+        email.setHtml('You\'ve been registered for Spring Initiative\'s website.' +
+                      '<br>This is an automated response. Do not reply.');
+        sendgrid.send(email);
+
+        console.log("Email alert sent");
+      }
+    });
+  }
 }
 
 routes.GETstudent = function(req, res, next) {
@@ -283,10 +284,8 @@ routes.POSTchangeAdmin = function(req, res) {
   User.findOne({_id:userid}, function (err, user) {
     user.isAdmin = !user.isAdmin;
     user.save(function (err) {
-      if(err) {
-        console.log(err);
-      }
-    })
+      if(err) console.log(err);
+    });
     res.json(user);
   });
 }
