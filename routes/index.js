@@ -7,10 +7,9 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
                                    process.env.SENDGRID_PASSWORD);
 
 var User = require(path.join(__dirname, '../models/user'));
-var Attendance = require(path.join(__dirname, '../models/data')).attendance;
-var Entry = require(path.join(__dirname, '../models/data')).entry;
+var FormDB = require(path.join(__dirname, '../models/form'));
+var Cohort = require(path.join(__dirname, '../models/cohort'));
 var Student = require(path.join(__dirname, '../models/student'));
-var Grades = require(path.join(__dirname, '../models/data')).grades;
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
@@ -55,18 +54,18 @@ routes.POSTregister = function(req, res, next) {
         var firstHalfAuth = user.authToken.slice(0, half);
         var secondHalfAuth = user.authToken.slice(half);
         var authenticationURL = 'http://' + req.headers.host +
-          '/verify?authTokenAdmin=' + firstHalfAuth + 
+          '/verify?authTokenAdmin=' + firstHalfAuth +
           '&email=' + user.email;
         var email = new sendgrid.Email();
 
-        for (var i = admins.length - 1; i >= 0; i--) {
+        for (var i = 0; i < admins.length; i++) {
           email.addTo(admins[i].email);
         };
 
         email.setFrom('SpringInitiative@olinjs.com');
         email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
         email.setHtml('<a target=_blank href=\"' + authenticationURL +
-          '\">Confirm their registration.</a>' + 
+          '\">Confirm their registration.</a>' +
           '<br>This is an automated response. Do not reply.');
         sendgrid.send(email);
 
@@ -160,7 +159,6 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-  console.log("student attr", studentName, studentProgram, studentArchived)
 
   Student.update({
     _id: studentID
@@ -199,71 +197,59 @@ routes.POSTaddstudent = function(req, res, next) {
         newStudent: newStudent
       });
     })
-  })
+  });
 }
 
 routes.POSTnewEntry = function(req, res, next) {
-  // var currentDate = new Date();
   var studentID = req.params._id;
-  var studentAttendance = req.body.attendance;
-  var studentEntry = req.body.entry;
-  var studentGrades = req.body.grades;
   var date = req.body.date;
-  console.log("formdata", studentID, studentAttendance, studentGrades,
-    studentEntry, date)
-
-  Attendance.create({
-    student: studentID,
-    type: "attendance",
-    entry: studentAttendance,
+  var period = req.body.period;
+  var attendance = req.body.attendance;
+  var behaviorText = req.body.behaviorText;
+  var actionSteps = req.body.actionSteps;
+  var readingLevels = req.body.readingLevels;
+  var teacherFeedback = req.body.teacherFeedback;
+  var warnings = req.body.warnings;
+  var stars = req.body.stars;
+  FormDB.create({
+    _studentID: studentID,
     date: date,
-    submitted: new Date()
-  }, function(err, newAttendanceObj) {
-    console.log("new attend", newAttendanceObj)
-    Grades.create({
-      student: studentID,
-      type: "grades",
-      entry: studentGrades,
-      date: date,
-      submitted: new Date()
-    }, function(err, newGradeObj) {
-      console.log("newGradeObj", newGradeObj)
-      Entry.create({
-        student: studentID,
-        type: "entry",
-        entry: studentEntry,
-        date: date,
-        submitted: new Date()
-      }, function(err, newEntryObj) {
-        console.log("newEntryObj", newEntryObj)
-        Student.update({
-          _id: studentID
-        }, {
-          $push: {
-            'attendance': newAttendanceObj._id,
-            'grades': newGradeObj._id,
-            'entry': newEntryObj._id
-          }
-        }, function(err, record) {
-          if (err) {
-            res.send(err)
-          }
-          Student.find({
-            _id: studentID
-          }, function(err, currentStudent) {
-            Student.find({}, function(err, allStudents) {
-              res.json({
-                allStudents: allStudents,
-                currentStudent: currentStudent
-              })
-            })
-          })
-        })
-      })
-    })
-  })
+    period: period,
+    attendance: attendance,
+    behaviorText: behaviorText,
+    warnings: warnings,
+    stars: stars,
+    actionSteps: actionSteps,
+    readingLevels: readingLevels,
+    teacherFeedback: teacherFeedback
+  }, function(err, newEntryObj) {
+    if (err) {
+      console.log(err)
+      res.send(err)
+    }
+    console.log("new form entry", newEntryObj)
+    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
 
-}
+    res.json(newEntryObj)
+  })
+};
+
+
+routes.POSTnewCohortEntry = function(req, res, next) {
+  var cohortName = req.body.name;
+  var cohortComment = req.body.comment;
+
+  Cohort.create({
+    name: cohortName,
+    comment: cohortComment
+  }, function(err, newCohortEntryObj) {
+    if (err) {
+      res.send(err)
+    }
+    console.log("new cohort entry", newCohortEntryObj)
+    res.json(newCohortEntryObj)
+  })
+};
 
 routes.GETarchive = function(req, res, next) {
   Student.find({
@@ -287,6 +273,22 @@ routes.POSTchangeAdmin = function(req, res) {
       if(err) console.log(err);
     });
     res.json(user);
+  });
+}
+
+routes.POSTchangePassword = function(req, res) {
+  userid = req.params._id;
+  newPasswordString = req.body.password;
+  User.findOne({_id:userid}, function (err, user) {
+    user.setPassword(newPasswordString, function(){
+      user.save(function (err) {
+        if(err) {
+          console.log(err);
+          return res.status(500).json({msg: 'Password reset unsuccessful'})
+        }
+      });
+      return res.status(200).json({msg: 'Password reset successful'});
+    });
   });
 }
 

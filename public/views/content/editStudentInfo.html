@@ -1,0 +1,29 @@
+<form class="studentform">
+
+  <h2>Edit {{currentStudent.name}}'s Info</h2>
+  <br>
+  <div class="form-group">
+    <label for="name_input">Name:</label>
+    <input type="text" class="form-control" ng-model="$parent.editStudent.name" id="name_input" required autofocus> </input>
+  </div>
+  <div class="form-group">
+    <label for="sel1">Program:</label>
+    <select class="form-control" id="sel1" ng-model="$parent.editStudent.program">
+      <option value="Little Spring">Little Spring</option>
+      <option value="Big Spring">Big Spring</option>
+      <option value="Baby Spring">Baby Spring</option>
+    </select>
+  </div>
+  <div class="form-group control-group">
+    <label class="control-label">Archived:</label>
+    <div class="controls">
+      <label class="radio-inline">
+        <input ng-model="$parent.editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
+      <label class="radio-inline">
+        <input ng-model="$parent.editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
+    </div>
+  </div>
+  <button class="btn btn-default" ui-sref="^">Cancel</button>
+  <button class="btn btn-default" ng-click="submitEditStudent($parent.editStudent, currentStudent)" type="submit">Submit</button>
+
+</form>

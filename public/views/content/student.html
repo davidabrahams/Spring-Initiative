@@ -1,86 +1,28 @@
 <div class="row">
-  <div class="col-sm-6">
-    <div id="content-title" class="content">
-      <h3>{{currentStudent.name}}</h3>
-    </div>
-    <div id="content-text" class="content">
-      <p>
-        Student info goes here
-        <!-- {{currentStudent.info}} -->
-      </p>
-
-      <a ng-click="showAddEntry = !showAddEntry">+ Add new entry</a>
-      <br>
-      <div class="entry-form" ng-show="showAddEntry">
-
-        <h2> Add a new entry </h2>
-        <form class="entryform">
-          <div class="form-group">
-            <label for="date">Date:</label>
-            <input type="date" id="date" class="form-control" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
-          </div>
-          <div class="form-group control-group">
-            <label class="control-label">Attendance:</label>
-            <div class="controls">
-              <label class="radio-inline">
-                <input ng-model="newEntry.attendance" type="radio" name="optradio" value="true">Present
-              </label>
-              <label class="radio-inline">
-                <input ng-model="newEntry.attendance" type="radio" name="optradio" value="false">Absent</label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>GPA:</label>
-            <input type="text" ng-model="newEntry.grades" placeholder="3.5" class="form-control" required/>
-          </div>
-          <div class="form-group">
-            <label>Additional Info:</label>
-            <input type="text" ng-model="newEntry.data" placeholder="Input more data" class="form-control" />
-          </div>
-          <button class="btn btn-default" ng-click="submitNewEntry(currentStudent)" type="submit">Submit</button>
-        </form>
-        <br>
-      </div>
-
-      <a ng-click="showEditEntry = !showEditEntry">+ Edit entry</a>
-      <br>
-      <div ng-show="showEditEntry">
-        Edit some entry here
-      </div>
-
-      <a ng-click="showEditStudent = !showEditStudent">+ Edit student</a>
-      <br>
-      <div class="edit-form" ng-show="showEditStudent">
-        <form class="studentform">
-
-          <h2>Edit {{currentStudent.name}}'s Info</h2>
-          <br>
-          <div class="form-group">
-            <label for="name_input">Name:</label>
-            <input type="text" class="form-control" ng-model="$root.editStudent.name" id="name_input" required autofocus> </input>
-          </div>
-          <div class="form-group">
-            <label for="sel1">Program:</label>
-            <select class="form-control" id="sel1" ng-model="$root.editStudent.program">
-              <option value="Little Spring">Little Spring</option>
-              <option value="Big Spring">Big Spring</option>
-              <option value="Baby Spring">Baby Spring</option>
-            </select>
-          </div>
-          <div class="form-group control-group">
-            <label class="control-label">Archived:</label>
-            <div class="controls">
-              <label class="radio-inline">
-                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="true">Yes</label>
-              <label class="radio-inline">
-                <input ng-model="$root.editStudent.archived" type="radio" name="optradio" ng-value="false">No</label>
-            </div>
-          </div>
-          <button class="btn btn-default" ng-click="submitEditStudent($root.editStudent, currentStudent)" type="submit">Submit</button>
-
-        </form>
-      </div>
-
-    </div>
+  <div id="content-title" class="content">
+    <h3>{{currentStudent.name}}</h3>
+  </div>
+  <div id="content-text" class="content">
+    <p>
+      Student info goes here
+      <!-- {{currentStudent.info}} -->
+    </p>
   </div>
 </div>
+<div ng-switch="$state.current.name.includes('addEntry')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Add new entry</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".addEntry">+ Add new entry</a>
+  </div>
+</div>
+<div ng-switch="$state.current.name.includes('editStudent')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Edit student</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".editStudent">+ Edit student</a>
+  </div>
+</div>
+<div ui-view="studentView"></div>
