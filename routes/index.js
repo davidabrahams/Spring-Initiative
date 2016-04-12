@@ -159,10 +159,10 @@ routes.POSTaddstudent = function(req, res, next) {
       res.json({
         allStudents: allStudents,
         newStudent: newStudent,
+        msg: 'Student added successfully!',
 
       });
     })
-  return res.status(200).json({msg: 'Student added successfully!'});
   });
 }
 
