@@ -47,7 +47,8 @@ springInitiative.config(function($stateProvider, $urlRouterProvider, $locationPr
     .state('index.student.showd3', {
       views: {
         'studentView@index.student': {
-          templateUrl: 'views/content/d3.html',
+          controller: 'd3Controller',
+          templateUrl: 'views/content/d3.html'
         }
       }
     })

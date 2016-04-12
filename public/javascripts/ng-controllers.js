@@ -79,31 +79,8 @@ springInitiative.controller('programController', function($scope, $http, $locati
   $scope.programInfo = ':3';
 });
 
-springInitiative.controller('studentController', function($scope,  $http, $state) {
-
-  $scope.$state = $state;
-  //TODO: check these and make sure they work
-  $scope.submitEditStudent = function(editStudent, currentStudent) {
-    $http.post('api/student/edit/' + currentStudent._id, editStudent)
-    .then(function successCallback(response) {
-      $scope.$parent.students = response.data.allStudents;
-      $scope.$parent.currentStudent = response.data.currentStudent;
-    }, function errorCallback(response) {
-        console.log('Error: ' + response.data);
-    });
-  }
-
-  // TODO: .success and .error are deprecated
-  $scope.getArchive = function() {
-    $http.get('api/index/archive').then(function successCallback(response) {
-      $scope.allArchivedStudents = response.data;
-    }, function errorCallback(response) {
-      console.log('Error:' + response.data);
-    });
-  }
-
-  $scope.showData = function(currentStudent){
-    $http.get('/api/student/data/'+ currentStudent._id)
+springInitiative.controller('d3Controller', function($scope, $http, $state){
+    $http.get('/api/student/data/'+ $scope.parent.currentStudent._id)
       .success(function(data){
         $scope.attendance = data.attendanceList;
         $scope.dates = data.datesList;
@@ -126,30 +103,53 @@ springInitiative.controller('studentController', function($scope,  $http, $state
         console.log(dataList)
          $scope.options = {
             chart: {
-                type: 'pieChart',
-                height: 500,
-                x: function(d){return d.key;},
-                y: function(d){return d.y;},
-                showLabels: true,
-                duration: 500,
-                labelThreshold: 0.01,
-                labelSunbeamLayout: true,
-                legend: {
-                    margin: {
-                        top: 5,
-                        right: 35,
-                        bottom: 5,
-                        left: 0
-                    }
+              type: 'pieChart',
+              height: 500,
+              x: function(d){return d.key;},
+              y: function(d){return d.y;},
+              showLabels: true,
+              duration: 500,
+              labelThreshold: 0.01,
+              labelSunbeamLayout: true,
+              legend: {
+                margin: {
+                  top: 5,
+                  right: 35,
+                  bottom: 5,
+                  left: 0
                 }
+              }
             }
-        };
+          };
 
         $scope.data = dataList;
       })
       .error(function(data) {
           console.log('Error: ' + data);
       });
+});
+
+springInitiative.controller('studentController', function($scope,  $http, $state) {
+
+  $scope.$state = $state;
+  //TODO: check these and make sure they work
+  $scope.submitEditStudent = function(editStudent, currentStudent) {
+    $http.post('api/student/edit/' + currentStudent._id, editStudent)
+    .then(function successCallback(response) {
+      $scope.$parent.students = response.data.allStudents;
+      $scope.$parent.currentStudent = response.data.currentStudent;
+    }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
+  }
+
+  // TODO: .success and .error are deprecated
+  $scope.getArchive = function() {
+    $http.get('api/index/archive').then(function successCallback(response) {
+      $scope.allArchivedStudents = response.data;
+    }, function errorCallback(response) {
+      console.log('Error:' + response.data);
+    });
   }
 
 })
