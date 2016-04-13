@@ -111,7 +111,6 @@ springInitiative.controller('addEntryController', function($scope, $http, $locat
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
