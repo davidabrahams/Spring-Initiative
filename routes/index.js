@@ -202,7 +202,9 @@ routes.POSTaddstudent = function(req, res, next) {
 
 routes.POSTnewEntry = function(req, res, next) {
   var studentID = req.params._id;
-  var date = req.body.date;
+  var date = req.body.date.slice(0,10);
+  var currentDate = Date.parse(date);
+  console.log(currentDate)
   var period = req.body.period;
   var attendance = req.body.attendance;
   var behaviorText = req.body.behaviorText;
@@ -213,7 +215,7 @@ routes.POSTnewEntry = function(req, res, next) {
   var stars = req.body.stars;
   FormDB.create({
     _studentID: studentID,
-    date: date,
+    date: currentDate,
     period: period,
     attendance: attendance,
     behaviorText: behaviorText,
@@ -227,8 +229,6 @@ routes.POSTnewEntry = function(req, res, next) {
       console.log(err)
       res.send(err)
     }
-    console.log("new form entry", newEntryObj)
-    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
 
     res.json(newEntryObj)
   })
