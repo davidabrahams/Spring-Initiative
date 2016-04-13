@@ -8,7 +8,7 @@ var formSchema = Schema({
   attendance: String,
   behaviorText: String,
   warnings: String,
-  stars: String,
+  stars: Number,
   engagingContent: Number,
   engagingPeers: Number,
   schoolBehavior: [Boolean],
