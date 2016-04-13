@@ -32,8 +32,6 @@ springInitiative.controller('indexController', function($scope, $http,
   }
 });
 
-springInitiative.controller('overviewController', function($scope, $http, $location) {});
-
 springInitiative.controller('d3Controller', function($scope, $http, $state) {
   $http.get('/api/student/data/' + $scope.currentStudent._id).then(function successCallback(
     response) {

@@ -24,8 +24,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
         controller: 'indexController',
       },
       'content@index': {
-        templateUrl: 'views/content/overview.html',
-        controller: 'overviewController'
+        templateUrl: 'views/content/overview.html'
       }
     }
   })
