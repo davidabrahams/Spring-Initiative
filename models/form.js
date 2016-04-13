@@ -11,7 +11,7 @@ var formSchema = Schema({
   stars: Number,
   engagingContent: Number,
   engagingPeers: Number,
-  schoolBehavior: [Boolean],
+  schoolBehavior: Schema.Types.Mixed,
   actionSteps: String,
   grades: String,
   readingLevels: String,

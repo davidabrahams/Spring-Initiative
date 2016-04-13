@@ -209,6 +209,8 @@ routes.POSTnewEntry = function(req, res, next) {
   var attendance = req.body.attendance;
   var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
+  var schoolBehavior= req.body.schoolBehavior;
+  console.log(schoolBehavior)
   var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
   var warnings = req.body.warnings;
@@ -221,6 +223,7 @@ routes.POSTnewEntry = function(req, res, next) {
     behaviorText: behaviorText,
     warnings: warnings,
     stars: stars,
+    schoolBehavior: schoolBehavior,
     actionSteps: actionSteps,
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
@@ -229,7 +232,7 @@ routes.POSTnewEntry = function(req, res, next) {
       console.log(err)
       res.send(err)
     }
-
+    console.log(newEntryObj)
     res.json(newEntryObj)
   })
 };
@@ -297,6 +300,7 @@ routes.GETstudentEntries = function(req, res){
   var attendanceList = [];
   var starsList = [];
   var datesList = [];
+  var behaviorList = []
   console.log(studentID)
   FormDB.find({_studentID:studentID}, function(err, studentData){
     console.log(studentData);
@@ -304,7 +308,9 @@ routes.GETstudentEntries = function(req, res){
       attendanceList.push(studentData[i].attendance);
       starsList.push(studentData[i].stars);
       datesList.push(studentData[i].date);
+      behaviorList.push(studentData[i].schoolBehavior);
     }
+    console.log(behaviorList, 'behaviorList')
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList});
   })
 }
