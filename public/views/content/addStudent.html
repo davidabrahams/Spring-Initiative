@@ -7,7 +7,7 @@
 
     <br>
 
-    <div class="form-group">
+    <div class="form-group" name="addStudentForm">
         <label for="sel1">Program:</label>
         <select class="form-control" id="sel1" ng-model="newStudent.program">
             <option value="Little Spring">Little Spring</option>
@@ -29,5 +29,12 @@
     <br>
     <br>
     <button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
+  
+    <br>
+    <br>
+    <div class="alert alert-info" ng-show="studentAddedMsg">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{studentAddedMsg}}
+    </div>
+
 
 </form>

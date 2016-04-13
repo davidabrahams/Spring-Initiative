@@ -126,8 +126,10 @@ springInitiative.controller('studentController', function($scope,  $http, $state
     .then(function successCallback(response) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
+      $scope.studentEditMsg = response.data.msg;
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
+        $scope.studentEditMsg = response.data.msg;
     });
   }
 
@@ -146,21 +148,28 @@ springInitiative.controller('addEntryController', function($scope, $http, $locat
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
-      // TODO: do something on success?
+      $scope.entrySubmittedMsg = response.data.msg;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
+      $scope.entrySubmittedMsg = response.data.msg;
+
     });
   }
 });
 
-springInitiative.controller('addStudentController', function($scope, $http, $location) {
+springInitiative.controller('addStudentController', function($scope, $http,
+  $location) {
   $scope.addStudent = function() {
-    $http.post('api/student/add', $scope.newStudent).then(function successCallback(response) {
+    $http.post('api/student/add', $scope.newStudent).then(function successCallback(
+      response) {
       $scope.$parent.students = response.data.allStudents;
       $scope.newStudent = response.data.newStudent;
+      $scope.studentAddedMsg = response.data.msg;
     }, function errorCallback(response) {
-        console.log('Error: ' + response.data);
+      console.log('Error: ' + response.data);
+      $scope.studentAddedMsg = response.data.msg;
     });
+
   };
 });
 
