@@ -155,6 +155,7 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     response) {
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
+
     $scope.stars = response.data.starsList;
 
     var count = {};
@@ -168,7 +169,6 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     var keys = Object.keys(count);
 
     for (var i = 0; i < keys.length; i++) {
-      console.log(count)
       dataList.push({
         key: keys[i],
         y: count[keys[i]]
@@ -190,64 +190,67 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     $scope.data = dataList;
 
     $scope.options2 = {
-            chart: {
-                type: 'historicalBarChart',
-                height: 450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 65,
-                    left: 50
-                },
-                x: function(d){return d[0];},
-                y: function(d){return d[1]},
-                showValues: true,
-                valueFormat: function(d){
-                    return d3.format(',.1f')(d);
-                },
-                duration: 100,
-                xAxis: {
-                    axisLabel: 'Dates',
-                    tickFormat: function(d) {
-                        return d3.time.format('%x')(new Date(d))
-                    },
-                    rotateLabels: 30,
-                    showMaxMin: false
-                },
-                yAxis: {
-                    axisLabel: 'Stars Achived',
-                    axisLabelDistance: -10,
-                    tickFormat: function(d){
-                        return d3.format(',.1f')(d);
-                    }
-                },
-                tooltip: {
-                    keyFormatter: function(d) {
-                        return d3.time.format('%x')(new Date(d));
-                    }
-                },
-                zoom: {
-                    enabled: true,
-                    scaleExtent: [1, 10],
-                    useFixedDomain: false,
-                    useNiceScale: false,
-                    horizontalOff: false,
-                    verticalOff: true,
-                    unzoomEventType: 'dblclick.zoom'
-                }
-            }
-        };
-        var datalist2 = [];
-        for (var i =0; i < $scope.stars.length; i++){
-          datalist2.push([$scope.dates[i], $scope.stars[i]])
+      chart: {
+        type: 'historicalBarChart',
+        height: 450,
+        margin: {
+          top: 20,
+          right: 20,
+          bottom: 65,
+          left: 50
+        },
+        x: function(d) {
+          return d[0];
+        },
+        y: function(d) {
+          return d[1]
+        },
+        showValues: true,
+        valueFormat: function(d) {
+          return d3.format(',.1f')(d);
+        },
+        duration: 100,
+        xAxis: {
+          axisLabel: 'Dates',
+          tickFormat: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          },
+          rotateLabels: 30,
+          showMaxMin: false
+        },
+        yAxis: {
+          axisLabel: 'Stars Achived',
+          axisLabelDistance: -10,
+          tickFormat: function(d) {
+            return d3.format(',.1f')(d);
+          }
+        },
+        tooltip: {
+          keyFormatter: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          }
+        },
+        zoom: {
+          enabled: true,
+          scaleExtent: [1, 10],
+          useFixedDomain: false,
+          useNiceScale: false,
+          horizontalOff: false,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
-        console.log(datalist2)
-        $scope.data2 = [
-            {
-                "key" : "Quantity" ,
-                "bar": true,
-                "values": datalist2
-            }];
+      }
+    };
+    var datalist2 = [];
+    for (var i =0; i < $scope.stars.length; i++){
+      datalist2.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
+    }
+    // console.log(datalist2)
+    $scope.data2 = [{
+      "key" : "Quantity" ,
+      "bar": true,
+      "values": datalist2
+    }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
   })
