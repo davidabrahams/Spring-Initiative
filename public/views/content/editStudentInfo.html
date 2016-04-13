@@ -26,4 +26,11 @@
   <button class="btn btn-default" ui-sref="^">Cancel</button>
   <button class="btn btn-default" ng-click="submitEditStudent($parent.editStudent, currentStudent)" type="submit">Submit</button>
 
+  <br>
+  <br>
+  <div class="alert alert-info" ng-show="studentEditMsg">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{studentEditMsg}}
+  </div>
+
+
 </form>
