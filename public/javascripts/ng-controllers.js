@@ -32,7 +32,6 @@ springInitiative.controller('loginController', function($scope, $http, $state) {
       password: $scope.password
     };
     $http.post('api/register', data).then(function(response) {
-      $scope.registerEmail = angular.copy($scope.email);
       $scope.verification_alert = true;
     }, function(response) {
       console.log('error: %s', response.data);
