@@ -119,16 +119,18 @@ springInitiative.controller('addEntryController', function($scope, $http, $locat
   }
 });
 
-springInitiative.controller('addStudentController', function($scope, $http, $location) {
+springInitiative.controller('addStudentController', function($scope, $http,
+  $location) {
   $scope.addStudent = function() {
-     $http.post('api/student/add', $scope.newStudent).then(function successCallback(response) {
-       $scope.$parent.students = response.data.allStudents;
-       $scope.newStudent = response.data.newStudent;
-       $scope.studentAddedMsg = response.data.msg;
-     }, function errorCallback(response) {
-         console.log('Error: ' + response.data);
-         $scope.studentAddedMsg = response.data.msg;
-     });
+    $http.post('api/student/add', $scope.newStudent).then(function successCallback(
+      response) {
+      $scope.$parent.students = response.data.allStudents;
+      $scope.newStudent = response.data.newStudent;
+      $scope.studentAddedMsg = response.data.msg;
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+      $scope.studentAddedMsg = response.data.msg;
+    });
 
   };
 });
