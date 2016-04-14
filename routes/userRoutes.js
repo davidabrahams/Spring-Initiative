@@ -1,4 +1,3 @@
-var express = require('express');
 var routes = {};
 var path = require('path');
 var passport = require('passport');
