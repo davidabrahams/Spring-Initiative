@@ -1,9 +1,6 @@
 var express = require('express');
 var path = require('path');
 var routes = {};
-var passport = require('passport');
-var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
-                                   process.env.SENDGRID_PASSWORD);
 var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
