@@ -81,24 +81,29 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
 
-    var count = {};
+    var attendenceCount = {};
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
     $scope.attendance.forEach(function(i) {
-      count[i] = (count[i] || 0) + 1;
+      attendenceCount[i] = (attendenceCount[i] || 0) + 1;
     });
 
-    var dataList = [];
-    var keys = Object.keys(count);
+    var attendanceDataList = [];
+    //finding the keys for each item in the object just created 
+    //to be used in the data set up for the viz
+    var attendenceKeys = Object.keys(attendenceCount);
 
-    for (var i = 0; i < keys.length; i++) {
-      console.log(count)
-      dataList.push({
-        key: keys[i],
-        y: count[keys[i]]
+    //creating the necessary data set up for the viz
+    //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
+    for (var i = 0; i < attendenceKeys.length; i++) {
+      attendanceDataList.push({
+        key: attendenceKeys[i],
+        y: attendenceCount[attendenceKeys[i]]
       })
     }
-    $scope.options = {
+
+    //options to create pie chart
+    $scope.pieOptions = {
       chart: {
         type: 'pieChart',
         height: 500,
@@ -111,9 +116,11 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
         legend: { margin: { top: 5, right: 35, bottom: 5, left: 0 } }
       }
     };
-    $scope.data = dataList;
+    //setting attendance data for plotting to angular var
+    $scope.attendanceData = attendanceDataList;
 
-    $scope.options2 = {
+    //options to create time based chart
+    $scope.histOptions = {
             chart: {
                 type: 'historicalBarChart',
                 height: 450,
@@ -161,16 +168,20 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
                 }
             }
         };
-        var datalist2 = [];
+
+        //creating a list in format for viz
+        //[[num, num], [num, num]] where first num corresponds to date and second is value
+        var dateData = [];
         for (var i =0; i < $scope.stars.length; i++){
-          datalist2.push([$scope.dates[i], $scope.stars[i]])
+          dateData.push([$scope.dates[i], $scope.stars[i]])
         }
-        console.log(datalist2)
-        $scope.data2 = [
+
+        //setting this new datalist to angular var for plotting
+        $scope.histData = [
             {
                 "key" : "Quantity" ,
                 "bar": true,
-                "values": datalist2
+                "values": dateData
             }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
