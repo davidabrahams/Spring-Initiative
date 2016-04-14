@@ -20,13 +20,13 @@ routes.POSTlogin = function(req, res, next) {
       return res.sendStatus(200);
     });
   })(req, res, next);
-}
+};
 
 routes.POSTlogout = function(req, res){
   console.log("logged out")
   req.logout();
   res.sendStatus(200);
-}
+};
 
 routes.POSTregister = function(req, res, next) {
   User.register(new User({
@@ -78,7 +78,7 @@ routes.POSTregister = function(req, res, next) {
       });
 
     });
-}
+};
 
 routes.GETemailver = function(req, res) {
   User.findOne({email: req.query.email}, function (err, user){
@@ -98,7 +98,7 @@ routes.GETemailver = function(req, res) {
     }
     res.redirect('/login');
   });
-}
+};
 
 var checkAuth = function (user, res){
   if(user.adminAuth !== null && user.userAuth !== null){
@@ -122,13 +122,13 @@ var checkAuth = function (user, res){
       }
     });
   }
-}
+};
 
 routes.GETallUsers = function(req, res) {
   User.find({}, function(err, allUsers) {
     res.json(allUsers);
   })
-}
+};
 
 routes.POSTchangeAdmin = function(req, res) {
   var userid = req.params._id;
@@ -139,7 +139,7 @@ routes.POSTchangeAdmin = function(req, res) {
     });
     res.json(user);
   });
-}
+};
 
 routes.POSTchangePassword = function(req, res) {
   var userid = req.params._id;
@@ -155,6 +155,6 @@ routes.POSTchangePassword = function(req, res) {
       return res.status(200).json({msg: 'Password reset successful'});
     });
   });
-}
+};
 
 module.exports = routes;
