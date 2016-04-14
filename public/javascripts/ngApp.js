@@ -31,60 +31,60 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
 
   /* Content views */
   .state('index.program', {
-      views: {
-        'content': {
-          templateUrl: 'views/content/program.html',
-          controller: 'programController'
-        }
+    views: {
+      'content': {
+        templateUrl: 'views/content/program.html',
+        controller: 'programController'
       }
-    })
-    .state('index.student', {
-      views: {
-        'content': {
-          templateUrl: 'views/content/student.html',
-          controller: 'studentController'
-        }
+    }
+  })
+  .state('index.student', {
+    views: {
+      'content': {
+        templateUrl: 'views/content/student.html',
+        controller: 'studentController'
       }
-    })
-    .state('index.student.showd3', {
-      views: {
-        'studentView@index.student': {
-          controller: 'd3Controller',
-          templateUrl: 'views/content/d3.html'
-        }
+    }
+  })
+  .state('index.student.showd3', {
+    views: {
+      'studentView@index.student': {
+        controller: 'd3Controller',
+        templateUrl: 'views/content/d3.html'
       }
-    })
-    .state('index.student.addEntry', {
-      views: {
-        'studentView@index.student': {
-          controller: 'addEntryController',
-          templateUrl: 'views/content/entryForm.html'
-        }
+    }
+  })
+  .state('index.student.addEntry', {
+    views: {
+      'studentView@index.student': {
+        controller: 'addEntryController',
+        templateUrl: 'views/content/entryForm.html'
       }
-    })
-    .state('index.student.editStudent', {
-      views: {
-        'studentView@index.student': {
-          templateUrl: 'views/content/editStudentInfo.html'
-        }
+    }
+  })
+  .state('index.student.editStudent', {
+    views: {
+      'studentView@index.student': {
+        templateUrl: 'views/content/editStudentInfo.html'
       }
-    })
-    .state('index.addStudent', {
-      views: {
-        'content': {
-          templateUrl: 'views/content/addStudent.html',
-          controller: 'addStudentController'
-        }
+    }
+  })
+  .state('index.addStudent', {
+    views: {
+      'content': {
+        templateUrl: 'views/content/addStudent.html',
+        controller: 'addStudentController'
       }
-    })
-    .state('index.settings', {
-      views: {
-        'content': {
-          templateUrl: 'views/content/settings.html',
-          controller: 'settingsController'
-        }
+    }
+  })
+  .state('index.settings', {
+    views: {
+      'content': {
+        templateUrl: 'views/content/settings.html',
+        controller: 'settingsController'
       }
-    });
+    }
+  });
 
   $locationProvider.html5Mode(true);
 
