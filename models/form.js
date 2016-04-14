@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var formSchema = Schema({
   _studentID: { type: Schema.Types.ObjectId, ref: 'Student' },
   period: String,
-  date: Number,
+  date: Date,
   attendance: String,
   behaviorText: String,
   warnings: String,

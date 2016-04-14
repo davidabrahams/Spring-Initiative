@@ -79,6 +79,7 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     response) {
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
+
     $scope.stars = response.data.starsList;
 
     var attendenceCount = {};
@@ -173,7 +174,7 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
         //[[num, num], [num, num]] where first num corresponds to date and second is value
         var dateData = [];
         for (var i =0; i < $scope.stars.length; i++){
-          dateData.push([$scope.dates[i], $scope.stars[i]])
+          dateData.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
         }
 
         //setting this new datalist to angular var for plotting
