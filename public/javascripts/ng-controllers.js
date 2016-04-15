@@ -90,7 +90,7 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     });
 
     var attendanceDataList = [];
-    //finding the keys for each item in the object just created 
+    //finding the keys for each item in the object just created
     //to be used in the data set up for the viz
     var attendenceKeys = Object.keys(attendenceCount);
 
@@ -122,68 +122,71 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
 
     //options to create time based chart
     $scope.histOptions = {
-            chart: {
-                type: 'historicalBarChart',
-                height: 450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 65,
-                    left: 50
-                },
-                x: function(d){return d[0];},
-                y: function(d){return d[1]},
-                showValues: true,
-                valueFormat: function(d){
-                    return d3.format(',.1f')(d);
-                },
-                duration: 100,
-                xAxis: {
-                    axisLabel: 'Dates',
-                    tickFormat: function(d) {
-                        return d3.time.format('%x')(new Date(d))
-                    },
-                    rotateLabels: 30,
-                    showMaxMin: false
-                },
-                yAxis: {
-                    axisLabel: 'Stars Achived',
-                    axisLabelDistance: -10,
-                    tickFormat: function(d){
-                        return d3.format(',.1f')(d);
-                    }
-                },
-                tooltip: {
-                    keyFormatter: function(d) {
-                        return d3.time.format('%x')(new Date(d));
-                    }
-                },
-                zoom: {
-                    enabled: true,
-                    scaleExtent: [1, 10],
-                    useFixedDomain: false,
-                    useNiceScale: false,
-                    horizontalOff: false,
-                    verticalOff: true,
-                    unzoomEventType: 'dblclick.zoom'
-                }
-            }
-        };
-
-        //creating a list in format for viz
-        //[[num, num], [num, num]] where first num corresponds to date and second is value
-        var dateData = [];
-        for (var i =0; i < $scope.stars.length; i++){
-          dateData.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
+      chart: {
+        type: 'historicalBarChart',
+        height: 450,
+        margin: {
+          top: 20,
+          right: 20,
+          bottom: 65,
+          left: 50
+        },
+        x: function(d) {
+          return d[0];
+        },
+        y: function(d) {
+          return d[1]
+        },
+        showValues: true,
+        valueFormat: function(d) {
+          return d3.format(',.1f')(d);
+        },
+        duration: 100,
+        xAxis: {
+          axisLabel: 'Dates',
+          tickFormat: function(d) {
+            return d3.time.format('%x')(new Date(d))
+          },
+          rotateLabels: 30,
+          showMaxMin: false
+        },
+        yAxis: {
+          axisLabel: 'Stars Achived',
+          axisLabelDistance: -10,
+          tickFormat: function(d) {
+            return d3.format(',.1f')(d);
+          }
+        },
+        tooltip: {
+          keyFormatter: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          }
+        },
+        zoom: {
+          enabled: true,
+          scaleExtent: [1, 10],
+          useFixedDomain: false,
+          useNiceScale: false,
+          horizontalOff: false,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
+      }
+    };
 
-        //setting this new datalist to angular var for plotting
-        $scope.histData = [
-            {
-                "key" : "Quantity" ,
-                "bar": true,
-                "values": dateData
-            }];
+    //creating a list in format for viz
+    //[[num, num], [num, num]] where first num corresponds to date and second is value
+    var dateData = [];
+    for (var i = 0; i < $scope.stars.length; i++) {
+      dateData.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
+    }
+
+    //setting this new datalist to angular var for plotting
+    $scope.histData = [{
+      "key": "Quantity",
+      "bar": true,
+      "values": dateData
+    }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
   })
