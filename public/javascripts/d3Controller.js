@@ -6,6 +6,13 @@ var d3Controller = function($scope, $http, $state) {
     $scope.stars = response.data.starsList;
     $scope.warnings = response.data.warningList;
 
+    //creating a dictionary mapping elements to their counts in a list
+    //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
+    //finding the keys for each item in the object just created
+    //to be used in the data set up for the viz
+    //creating the necessary data set up for the viz
+    //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
+
     function formatPieData(data, newList){
       var dataDict = {};
       data.forEach(function(i) {
@@ -25,13 +32,6 @@ var d3Controller = function($scope, $http, $state) {
 
     var warningsList = [];
     $scope.warningData = formatPieData($scope.warnings, warningsList)
-
-    //creating a dictionary mapping elements to their counts in a list
-    //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
-    //finding the keys for each item in the object just created
-    //to be used in the data set up for the viz
-    //creating the necessary data set up for the viz
-    //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
 
     //options to create pie chart
     $scope.pieOptions = {
