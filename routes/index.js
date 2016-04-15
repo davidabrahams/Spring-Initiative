@@ -233,15 +233,15 @@ routes.POSTnewEntry = function(req, res, next) {
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
   }, function(err, newEntryObj) {
-    if (err) {
-      console.log(err)
-      res.send(err)
-      return res.status(500).json({msg: 'Error submitting entry'});
-    }
-    console.log("new form entry", newEntryObj)
-    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
+      if (err) {
+        console.log(err)
+        res.send(err)
+        return res.status(500).json({msg: 'Error submitting entry'});
+      }
+      console.log("new form entry", newEntryObj)
+      console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
 
-    res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
+      res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
   })
 };
 
