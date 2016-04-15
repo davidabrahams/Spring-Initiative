@@ -155,4 +155,18 @@ routes.POSTchangePassword = function(req, res) {
   });
 };
 
+routes.POSTdelUser = function(req, res) {
+  var userid = req.params._id;
+  console.log('userid: '+userid);
+  User.findOneAndRemove({_id:userid}, function (err, u) {
+    if(err) {
+      console.log(err);
+      return res.status(500).json({msg: 'User delete unsuccessful'});
+    } else {
+      console.log("Success delete")
+      return res.status(200).json({msg: 'User delete successful'});
+    }
+  });
+};
+
 module.exports = routes;
