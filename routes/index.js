@@ -71,7 +71,7 @@ routes.POSTregister = function(req, res, next) {
 
         // send email verification to user
         authenticationURL = 'http://' + req.headers.host +
-          '/verify?authTokenUser=' + secondHalfAuth + 
+          '/verify?authTokenUser=' + secondHalfAuth +
           '&email=' + user.email;
 
         var email2 = new sendgrid.Email();
@@ -79,7 +79,7 @@ routes.POSTregister = function(req, res, next) {
         email2.setFrom('SpringInitiative@olinjs.com');
         email2.setSubject('Register for Spring Initiative\'s website.');
         email2.setHtml('<a target=_blank href=\"' + authenticationURL +
-          '\">Confirm your registration.</a>' + 
+          '\">Confirm your registration.</a>' +
           '<br>This is an automated response. Do not reply.');
         sendgrid.send(email2);
 
@@ -112,7 +112,6 @@ routes.GETemailver = function(req, res) {
 
 var checkAuth = function (user, res){
   if(user.adminAuth !== null && user.userAuth !== null){
-    console.log('\n\nyay\n\n');
     var authToken = user.adminAuth + user.userAuth;
     User.verifyEmail(authToken, function(err, existingAuthToken) {
       if (err) {
@@ -207,35 +206,33 @@ routes.POSTaddstudent = function(req, res, next) {
 
 routes.POSTnewEntry = function(req, res, next) {
   var studentID = req.params._id;
-  var date = req.body.date;
+  var date = req.body.date.slice(0,10);
+  var currentDate = Date.parse(date);
   var period = req.body.period;
   var attendance = req.body.attendance;
   var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
+  var schoolBehavior= req.body.schoolBehavior;
   var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
   var warnings = req.body.warnings;
   var stars = req.body.stars;
   FormDB.create({
     _studentID: studentID,
-    date: date,
+    date: currentDate,
     period: period,
     attendance: attendance,
     behaviorText: behaviorText,
     warnings: warnings,
     stars: stars,
+    schoolBehavior: schoolBehavior,
     actionSteps: actionSteps,
     readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
   }, function(err, newEntryObj) {
     if (err) {
-      console.log(err)
-      res.send(err)
       return res.status(500).json({msg: 'Error submitting entry'});
     }
-    console.log("new form entry", newEntryObj)
-    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
-
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
   })
 };
@@ -303,6 +300,7 @@ routes.GETstudentEntries = function(req, res){
   var attendanceList = [];
   var starsList = [];
   var datesList = [];
+  var behaviorList = []
   console.log(studentID)
   FormDB.find({_studentID:studentID}, function(err, studentData){
     console.log(studentData);
@@ -310,7 +308,9 @@ routes.GETstudentEntries = function(req, res){
       attendanceList.push(studentData[i].attendance);
       starsList.push(studentData[i].stars);
       datesList.push(studentData[i].date);
+      behaviorList.push(studentData[i].schoolBehavior);
     }
+    console.log(behaviorList, 'behaviorList')
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList});
   })
 }
