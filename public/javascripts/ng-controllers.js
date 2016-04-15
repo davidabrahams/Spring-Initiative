@@ -101,7 +101,7 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
 
     var warningsList = [];
     $scope.warningData = formatPieData($scope.warnings, warningsList)
-    
+
     // var attendenceCount = {};
     // //creating a dictionary mapping elements to their counts in a list
     // //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
@@ -240,6 +240,9 @@ springInitiative.controller('studentController', function($scope,  $http, $state
 });
 
 springInitiative.controller('addEntryController', function($scope, $http, $location) {
+  $scope.minSlider = {
+    value: 10
+  };
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {

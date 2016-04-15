@@ -90,6 +90,14 @@
         <label>Teacher Feedback:</label>
         <input type="text" ng-model="newEntry.teacherFeedback" placeholder="Input any teach feedback." class="form-control" />
       </div>
+
+      <div class="form-group">
+        Model:
+        <input type="number" ng-model="minSlider.value" />
+        <br/>
+        <rzslider rz-slider-model="minSlider.value"></rzslider>
+      </div>
+
     </div>
   </div>
   <div class="row">
