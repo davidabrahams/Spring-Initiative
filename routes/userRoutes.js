@@ -101,7 +101,6 @@ routes.GETemailver = function(req, res) {
 
 var checkAuth = function (user, res){
   if(user.adminAuth !== null && user.userAuth !== null){
-    console.log('\n\nyay\n\n');
     var authToken = user.adminAuth + user.userAuth;
     User.verifyEmail(authToken, function(err, existingAuthToken) {
       if (err) {
