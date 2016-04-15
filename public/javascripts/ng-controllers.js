@@ -78,29 +78,49 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
     response) {
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
-
     $scope.stars = response.data.starsList;
+    $scope.warnings = response.data.warningList;
 
-    var attendenceCount = {};
-    //creating a dictionary mapping elements to their counts in a list
-    //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
-    $scope.attendance.forEach(function(i) {
-      attendenceCount[i] = (attendenceCount[i] || 0) + 1;
-    });
-
-    var attendanceDataList = [];
-    //finding the keys for each item in the object just created
-    //to be used in the data set up for the viz
-    var attendenceKeys = Object.keys(attendenceCount);
-
-    //creating the necessary data set up for the viz
-    //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
-    for (var i = 0; i < attendenceKeys.length; i++) {
-      attendanceDataList.push({
-        key: attendenceKeys[i],
-        y: attendenceCount[attendenceKeys[i]]
-      })
+    function formatPieData(data, newList){
+      var dataDict = {};
+      data.forEach(function(i) {
+        dataDict[i] = (dataDict[i] || 0) + 1;
+      });
+      var keys = Object.keys(dataDict);
+      for (var i = 0; i < keys.length; i++) {
+        newList.push({
+          key: keys[i],
+          y: dataDict[keys[i]]
+        })
+      } 
+      return newList
     }
+    var attendanceList = [];
+    $scope.attendanceData = formatPieData($scope.attendance, attendanceList)
+
+    var warningsList = [];
+    $scope.warningData = formatPieData($scope.warnings, warningsList)
+    
+    // var attendenceCount = {};
+    // //creating a dictionary mapping elements to their counts in a list
+    // //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
+    // $scope.attendance.forEach(function(i) {
+    //   attendenceCount[i] = (attendenceCount[i] || 0) + 1;
+    // });
+
+    // var attendanceDataList = [];
+    // //finding the keys for each item in the object just created
+    // //to be used in the data set up for the viz
+    // var attendenceKeys = Object.keys(attendenceCount);
+
+    // //creating the necessary data set up for the viz
+    // //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
+    // for (var i = 0; i < attendenceKeys.length; i++) {
+    //   attendanceDataList.push({
+    //     key: attendenceKeys[i],
+    //     y: attendenceCount[attendenceKeys[i]]
+    //   })
+    // }
 
     //options to create pie chart
     $scope.pieOptions = {
@@ -116,8 +136,8 @@ springInitiative.controller('d3Controller', function($scope, $http, $state) {
         legend: { margin: { top: 5, right: 35, bottom: 5, left: 0 } }
       }
     };
-    //setting attendance data for plotting to angular var
-    $scope.attendanceData = attendanceDataList;
+    // //setting attendance data for plotting to angular var
+    // $scope.attendanceData = attendanceDataList;
 
     //options to create time based chart
     $scope.histOptions = {

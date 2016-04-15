@@ -300,18 +300,19 @@ routes.GETstudentEntries = function(req, res){
   var attendanceList = [];
   var starsList = [];
   var datesList = [];
-  var behaviorList = []
-  console.log(studentID)
+  var behaviorList = [];
+  var warningList = [];
+
   FormDB.find({_studentID:studentID}, function(err, studentData){
-    console.log(studentData);
     for (var i = 0; i < studentData.length; i++){
       attendanceList.push(studentData[i].attendance);
       starsList.push(studentData[i].stars);
       datesList.push(studentData[i].date);
       behaviorList.push(studentData[i].schoolBehavior);
+      warningList.push(studentData[i].warnings);
     }
     console.log(behaviorList, 'behaviorList')
-    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList});
+    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
   })
 }
 
