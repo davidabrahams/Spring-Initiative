@@ -47,9 +47,9 @@
       <div class="form-group">
         <label for="sel1">Stars at Spring:</label>
         <select class="form-control" id="sel1" ng-model="newEntry.stars">
-          <option value=""></option>
-          <option value="1 Star">1 Star</option>
-          <option value="2 Stars">2 Stars</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
         </select>
       </div>
 
@@ -60,19 +60,19 @@
         <label>Issues at School:</label>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Write-Up">Write-Up</label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior['Write-Up']" value="Write-Up">Write-Up</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Detention">Detention</label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior['Detention']" value="Detention">Detention</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="In-School Suspension">In-School Suspension</label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior['In-School Suspension']" value="In-School Suspension">In-School Suspension</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior" value="Out-of-School Suspension">Out-of-School Suspension</label>
+            <input type="checkbox" ng-model="newEntry.schoolBehavior['Out-of-School Suspension']" value="Out-of-School Suspension">Out-of-School Suspension</label>
         </div>
       </div>
 
