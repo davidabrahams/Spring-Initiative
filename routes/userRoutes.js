@@ -155,9 +155,8 @@ routes.POSTchangePassword = function(req, res) {
   });
 };
 
-routes.POSTdelUser = function(req, res) {
+routes.DELETEdelUser = function(req, res) {
   var userid = req.params._id;
-  console.log('userid: '+userid);
   User.findOneAndRemove({_id:userid}, function (err, u) {
     if(err) {
       console.log(err);
