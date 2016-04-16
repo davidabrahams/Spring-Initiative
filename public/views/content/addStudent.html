@@ -1,11 +1,10 @@
 <form class="student-form">
     <h3>Add New Student</h3>
 
-    <br>
-    <label>Name:</label>
-    <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
-
-    <br>
+    <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
+    </div>
 
     <div class="form-group" name="addStudentForm">
         <label for="sel1">Program:</label>
@@ -16,10 +15,19 @@
         </select>
     </div>
 
+    <div class="form-group control-group">
+      <label class="control-label">Archived:</label>
+      <div class="controls">
+        <label class="radio-inline">
+          <input ng-model="newEntry.period" type="radio" name="optradio" value="Daily">Daily
+        </label>
+        <label class="radio-inline">
+          <input ng-model="newEntry.period" type="radio" name="optradio" value="Long Term">Long Term</label>
+      </div>
+    </div>
 
     <!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
-    <label>Archived:</label> <br>
-
+    <label>Archived:</label>
     <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true">Yes</label>
     <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "false">No</label>
     
