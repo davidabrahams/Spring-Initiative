@@ -65,6 +65,7 @@ app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
 app.get('/api/allUsers', index.GETallUsers);
 app.post('/api/changeAdmin/:_id', index.POSTchangeAdmin);
 app.post('/api/changePassword/:_id', index.POSTchangePassword);
+app.delete('/api/delUser/:_id', index.DELETEdelUser);
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
   res.sendFile('main.html', { root: path.join(__dirname, 'views') });

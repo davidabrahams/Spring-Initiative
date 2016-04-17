@@ -1,3 +1,18 @@
-<nvd3 options="pieOptions" data="attendanceData"></nvd3>
+<div class="viz-form">
 
-<nvd3 options="histOptions" data="histData"></nvd3>
+  <div class="form-group col-md-4">
+    <label for="sel1">Data Type:</label>
+    <select class="form-control" id="sel1" ng-model="chosenData">
+      <option value="Stars">Stars</option>
+      <option value="Attendance">Attendance</option>
+      <option value="Warnings">Warnings</option>
+    </select>
+  </div>
+
+  <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
+  <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
+  <nvd3 ng-if="chosenData=='Stars'" options="histOptions" data="histData"></nvd3>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">

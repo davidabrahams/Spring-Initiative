@@ -26,6 +26,9 @@ var studentController = function($scope,  $http, $state) {
 };
 
 var addEntryController = function($scope, $http, $location) {
+  // $scope.minSlider = {
+  //   value: 10
+  // };
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
