@@ -25,7 +25,7 @@ var studentController = function($scope,  $http, $state) {
     });
   }
 
-};
+}
 
 var addEntryController = function($scope, $http, $location) {
   // $scope.minSlider = {
@@ -41,7 +41,7 @@ var addEntryController = function($scope, $http, $location) {
 
     });
   }
-};
+}
 
 var addStudentController = function($scope, $http, $location) {
   $scope.addStudent = function() {
@@ -57,5 +57,40 @@ var addStudentController = function($scope, $http, $location) {
       $scope.studentAddedMsg = response.data.msg;
     });
 
-  };
-};
+  }
+}
+
+var studentDataController = function($scope, $http, $location) {
+  $scope.dataTypes = ['daily', 'monthly', 'bimonthly', '9 weeks', 'semester'];
+  $scope.dailyEntries = ['sunday','monday','wednesday','friday','saturday'];
+  $scope.monthlyEntries = ['april', 'may', 'june', 'july', 'august'];
+  // Initial state views last daily entry
+  $scope.dataTypeSelected = 'daily';
+  $scope.dateSelected = $scope.dailyEntries[0];
+
+  $scope.currentDateList = $scope.dailyEntries;
+
+  $scope.setType = function(dataType){
+    $scope.dataTypeSelected = dataType;
+    if(dataType === 'daily'){
+      $scope.currentDateList = $scope.dailyEntries;
+      $scope.dateSelected = $scope.dailyEntries[0];
+    } else if(dataType === 'monthly'){
+      $scope.currentDateList = $scope.monthlyEntries;
+      $scope.dateSelected = $scope.monthlyEntries[0];
+    } else if(dataType === 'bimonthly') {
+      $scope.currentDateList = $scope.monthlyEntries;
+      $scope.dateSelected = $scope.monthlyEntries[0];
+    } else if(dataType === '9 weeks') {
+      $scope.currentDateList = $scope.monthlyEntries;
+      $scope.dateSelected = $scope.monthlyEntries[0];
+    } else if(dataType === 'semester') {
+      $scope.currentDateList = $scope.monthlyEntries;
+      $scope.dateSelected = $scope.monthlyEntries[0];
+    }
+  }
+
+  $scope.setDate = function(date){
+    $scope.dateSelected = date;
+  }
+}

@@ -1,14 +1,15 @@
-<div class="row">
-  <div id="content-title" class="content">
-    <h3>{{currentStudent.name}}</h3>
-  </div>
-  <div id="content-text" class="content">
-    <p>
-      Student info goes here
-      <!-- {{currentStudent.info}} -->
-    </p>
-  </div>
+
+<div class="student-header" style="width: 100%;">
+  <h3>{{currentStudent.name}}
+  <span style="float: right; text-align: right;"><a ui-sref=".showData">View</a> | <a ui-sref=".showd3">Visualise</a> | <a ui-sref=".editStudent">Edit</a></span></h3>
 </div>
+
+<div id="content-text" class="content">
+   <a ui-sref=".addEntry">+ Add new entry</a><br>
+  <div ui-view="studentView"></div>
+</div>
+
+<!-- 
 <div ng-switch="$state.current.name.includes('showd3')">
   <div ng-switch-when="true">
     <a ui-sref=".">- Show Visualizations</a>
@@ -33,4 +34,4 @@
     <a ui-sref=".editStudent">+ Edit student</a>
   </div>
 </div>
-<div ui-view="studentView"></div>
+ -->

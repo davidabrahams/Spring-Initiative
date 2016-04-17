@@ -1,0 +1,34 @@
+<div class="data-chooser">
+	<!-- Choose type -->
+	View 
+    <span class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        	{{dataTypeSelected}} <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+        	<div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
+            	<li><a ng-click="setType(dataType)">{{dataType}}</a></li>
+        	</div>
+
+        </ul>
+    </span>
+	data for 
+    <span class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        	{{dateSelected}} <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+        	<div ng-repeat="date in currentDateList" style="padding-left:10px;">
+            	<li><a ng-click="setDate(date)">{{date}}</a></li>
+        	</div>
+
+        </ul>
+    </span>
+
+</div>
+
+
+
+<div class="data">
+	some data gets shown here
+</div>
