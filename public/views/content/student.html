@@ -19,10 +19,18 @@
 </div>
 <div ng-switch="$state.current.name.includes('addEntry')">
   <div ng-switch-when="true">
-    <a ui-sref=".">- Add new entry</a>
+    <a ui-sref=".">- Add new Daily Entry</a>
   </div>
   <div ng-switch-when="false">
-    <a ui-sref=".addEntry">+ Add new entry</a>
+    <a ui-sref=".addEntry">+ Add new Daily Entry</a>
+  </div>
+</div>
+<div ng-switch="$state.current.name.includes('addLongEntry')">
+  <div ng-switch-when="true">
+    <a ui-sref=".">- Add new Long Term Entry</a>
+  </div>
+  <div ng-switch-when="false">
+    <a ui-sref=".addLongEntry">+ Add new Long Term Entry</a>
   </div>
 </div>
 <div ng-switch="$state.current.name.includes('editStudent')">

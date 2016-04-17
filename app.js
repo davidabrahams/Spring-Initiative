@@ -60,6 +60,7 @@ app.post('/api/student/edit/:_id', index.POSTeditstudent);
 app.get('/api/index/archive', index.GETarchive);
 app.get('/api/student/data/:_id', index.GETstudentEntries);
 app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
+app.post('/api/student/newLongEntry/:_id', index.POSTnewLongEntry);
 app.get('/api/allUsers', index.GETallUsers);
 app.post('/api/changeAdmin/:_id', index.POSTchangeAdmin);
 app.post('/api/changePassword/:_id', index.POSTchangePassword);

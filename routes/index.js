@@ -23,6 +23,7 @@ routes.POSTchangePassword = userRoutes.POSTchangePassword;
 routes.DELETEdelUser = userRoutes.DELETEdelUser;
 
 routes.POSTnewEntry = entryRoutes.POSTnewEntry;
+routes.POSTnewLongEntry = entryRoutes.POSTnewLongEntry;
 routes.GETstudentEntries = entryRoutes.GETstudentEntries;
 
 routes.POSTnewCohortEntry = cohortRoutes.POSTnewCohortEntry;

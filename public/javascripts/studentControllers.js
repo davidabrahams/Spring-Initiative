@@ -8,6 +8,7 @@ var studentController = function($scope,  $http, $state) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
       $scope.studentEditMsg = response.data.msg;
+      // Need to clear the form after submission
       $('.submit').focus();
       $('.submit').blur();      
     }, function errorCallback(response) {
@@ -16,7 +17,6 @@ var studentController = function($scope,  $http, $state) {
     });
   }
 
-  // TODO: .success and .error are deprecated
   $scope.getArchive = function() {
     $http.get('api/index/archive').then(function successCallback(response) {
       $scope.allArchivedStudents = response.data;
@@ -28,17 +28,26 @@ var studentController = function($scope,  $http, $state) {
 };
 
 var addEntryController = function($scope, $http, $location) {
-  // $scope.minSlider = {
-  //   value: 10
-  // };
+  $scope.newEntry = {engageContent: 5, engagePeer: 5};
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
+      $scope.newEntry = {engageContent: 5, engagePeer: 5};
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
+    });
+  }
 
+  $scope.submitLongEntry = function(student) {
+    $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
+    .then(function successCallback(response) {
+      $scope.newLongEntry = null;
+      $scope.entrySubmittedMsg = response.data.msg;
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+      $scope.entrySubmittedMsg = response.data.msg;
     });
   }
 };
