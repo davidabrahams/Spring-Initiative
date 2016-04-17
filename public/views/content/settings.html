@@ -7,7 +7,10 @@
       <div class="col-md-2" ng-if="!username.isAdmin">Staff</div>
       <div class="col-md-3">
         <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button> 
-             </div>
+      </div>
+      <div class="col-md-3">
+        <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button> 
+      </div>
     </div>
   </div>
 

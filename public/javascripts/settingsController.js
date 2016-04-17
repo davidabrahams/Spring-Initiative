@@ -14,6 +14,14 @@ var settingsController = function($scope, $http, $location) {
     });
   };
 
+  $scope.delUser = function(username, userArray, delUserIdx) {
+    $http.delete('api/delUser/'+username._id).then(function successCallback(response) {
+      userArray.splice(delUserIdx, 1);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+    });
+  };
+
   $scope.changePassword = function(user) {
     if($scope.currentPassword1 === $scope.currentPassword2 && $scope.currentPassword1 != undefined){
       $http.post('api/changePassword/'+user._id,{
