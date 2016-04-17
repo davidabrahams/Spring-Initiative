@@ -1,15 +1,15 @@
 <h2> Add a new Short Term Entry </h2>
-<form class="entryform" ng-submit="submitNewEntry(currentStudent)">
+<form class="entryform" ng-submit="submitNewDailyEntry(currentStudent)">
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
         <label for="date">Date:</label>
-        <input type="date" id="date" class="form-control" ng-model="newEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
+        <input type="date" id="date" class="form-control" ng-model="newDailyEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
       </div>
 
       <div class="form-group">
         <label for="sel1">Attendance:</label>
-        <select class="form-control" id="sel1" ng-model="newEntry.attendance">
+        <select class="form-control" id="sel1" ng-model="newDailyEntry.attendance">
           <option value="Present">Present</option>
           <option value="Absent">Absent</option>
           <option value="Suspended">Suspended</option>
@@ -19,12 +19,12 @@
 
       <div class="form-group">
         <label>Behavior at Spring Today:</label>
-        <input type="text" ng-model="newEntry.behaviorText" placeholder="John Doe was ..." class="form-control" required/>
+        <input type="text" ng-model="newDailyEntry.behaviorText" placeholder="John Doe was ..." class="form-control" required/>
       </div>
 
       <div class="form-group">
         <label for="sel1">Warnings at Spring:</label>
-        <select class="form-control" id="sel1" ng-model="newEntry.warnings">
+        <select class="form-control" id="sel1" ng-model="newDailyEntry.warnings">
           <option value=""></option>
           <option value="1 Warning">1 Warning</option>
           <option value="2 Warnings">2 Warnings</option>
@@ -35,7 +35,7 @@
 
       <div class="form-group">
         <label for="sel1">Stars at Spring:</label>
-        <select class="form-control" id="sel1" ng-model="newEntry.stars">
+        <select class="form-control" id="sel1" ng-model="newDailyEntry.stars">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -49,44 +49,44 @@
         <label>Issues at School:</label>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior['Write-Up']" value="Write-Up">Write-Up</label>
+            <input type="checkbox" ng-model="newDailyEntry.schoolBehavior['Write-Up']" value="Write-Up">Write-Up</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior['Detention']" value="Detention">Detention</label>
+            <input type="checkbox" ng-model="newDailyEntry.schoolBehavior['Detention']" value="Detention">Detention</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior['In-School Suspension']" value="In-School Suspension">In-School Suspension</label>
+            <input type="checkbox" ng-model="newDailyEntry.schoolBehavior['In-School Suspension']" value="In-School Suspension">In-School Suspension</label>
         </div>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="newEntry.schoolBehavior['Out-of-School Suspension']" value="Out-of-School Suspension">Out-of-School Suspension</label>
+            <input type="checkbox" ng-model="newDailyEntry.schoolBehavior['Out-of-School Suspension']" value="Out-of-School Suspension">Out-of-School Suspension</label>
         </div>
       </div>
 
       <div class="form-group">
         <label>Action Steps:</label>
-        <input type="text" ng-model="newEntry.actionSteps" placeholder="Input action steps" class="form-control" />
+        <input type="text" ng-model="newDailyEntry.actionSteps" placeholder="Input action steps" class="form-control" />
       </div>
 
       <div class="form-group">
         <label>Teacher Feedback:</label>
-        <input type="text" ng-model="newEntry.teacherFeedback" placeholder="Input any teach feedback." class="form-control" />
+        <input type="text" ng-model="newDailyEntry.teacherFeedback" placeholder="Input any teacher feedback." class="form-control" />
       </div>
 
       <div class="form-group">
         <label>Engaging with content:</label>
-        <input type="number" ng-model="newEntry.engageContent" />
+        <input type="number" ng-model="newDailyEntry.engageContent" />
         <br/>
-        <rzslider rz-slider-model="newEntry.engageContent"></rzslider>
+        <rzslider rz-slider-model="newDailyEntry.engageContent"></rzslider>
       </div>
 
       <div class="form-group">
         <label>Engaging with peers:</label>
-        <input type="number" ng-model="newEntry.engagePeer" />
+        <input type="number" ng-model="newDailyEntry.engagePeer" />
         <br/>
-        <rzslider rz-slider-model="newEntry.engagePeer"></rzslider>
+        <rzslider rz-slider-model="newDailyEntry.engagePeer"></rzslider>
       </div>
     </div>
   </div>

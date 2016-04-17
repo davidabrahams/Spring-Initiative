@@ -27,19 +27,21 @@ var studentController = function($scope,  $http, $state) {
 
 };
 
-var addEntryController = function($scope, $http, $location) {
-  $scope.newEntry = {engageContent: 5, engagePeer: 5};
-  $scope.submitNewEntry = function(student) {
-    $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
+var addDailyEntryController = function($scope, $http, $location) {
+  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
+  $scope.submitNewDailyEntry = function(student) {
+    $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      $scope.newEntry = {engageContent: 5, engagePeer: 5};
+      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
   }
+}
 
+var addLongEntryController = function($scope, $http, $location) {
   $scope.submitLongEntry = function(student) {
     $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
     .then(function successCallback(response) {

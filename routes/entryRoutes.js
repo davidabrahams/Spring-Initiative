@@ -3,7 +3,7 @@ var routes = {};
 
 var FormDB = require(path.join(__dirname, '../models/form'));
 
-routes.POSTnewEntry = function(req, res, next) {
+routes.POSTnewDailyEntry = function(req, res, next) {
   // This route only handles short term
   var studentID = req.params._id;
   var period = 'Daily';
@@ -41,7 +41,7 @@ routes.POSTnewEntry = function(req, res, next) {
 };
 
 routes.POSTnewLongEntry = function(req, res, next) {
-  // This route only handles short term
+  // This route only handles long term
   var studentID = req.params._id;
   var period = 'Long Term';
   var date = req.body.date.slice(0,10);
@@ -82,7 +82,6 @@ routes.GETstudentEntries = function(req, res){
       behaviorList.push(studentData[i].schoolBehavior);
       warningList.push(studentData[i].warnings);
     }
-    console.log(behaviorList, 'behaviorList')
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
   })
 }
