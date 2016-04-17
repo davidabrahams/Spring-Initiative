@@ -157,7 +157,7 @@ routes.POSTchangePassword = function(req, res) {
 
 routes.DELETEdelUser = function(req, res) {
   var userid = req.params._id;
-  User.findOneAndRemove({_id:userid}, function (err, u) {
+  User.findOneAndRemove({_id:userid}, function (err, user) {
     if(err) {
       console.log(err);
       return res.status(500).json({msg: 'User delete unsuccessful'});
