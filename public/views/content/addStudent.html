@@ -1,48 +1,41 @@
 <form class="student-form">
     <h3>Add New Student</h3>
+    <div class="col-sm-6">
+      <div class="form-group">
+          <label>Name:</label>
+          <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
+      </div>
 
-    <div class="form-group">
-        <label>Name:</label>
-        <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
-    </div>
+      <div class="form-group" name="addStudentForm">
+          <label for="sel1">Program:</label>
+          <select class="form-control" id="sel1" ng-model="newStudent.program">
+              <option value="Little Spring">Little Spring</option>
+              <option value="Big Spring">Big Spring</option>
+              <option value="Baby Spring">Baby Spring</option>
+          </select>
+      </div>
 
-    <div class="form-group" name="addStudentForm">
-        <label for="sel1">Program:</label>
-        <select class="form-control" id="sel1" ng-model="newStudent.program">
-            <option value="Little Spring">Little Spring</option>
-            <option value="Big Spring">Big Spring</option>
-            <option value="Baby Spring">Baby Spring</option>
-        </select>
-    </div>
+      <!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
+      <div class="form-group control-group">
+        <label for="archiveRadio" class="control-label">Archived:</label>
+        <div class="controls">
+          <label class="radio-inline">
+            <input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true">Yes
+          </label>
+          <label class="radio-inline">
+            <input ng-model = "newStudent.archived" type="radio" name="optradio" value = "false">No
+          </label>
+        </div>
+      </div>
 
-    <div class="form-group control-group">
-      <label class="control-label">Archived:</label>
-      <div class="controls">
-        <label class="radio-inline">
-          <input ng-model="newEntry.period" type="radio" name="optradio" value="Daily">Daily
-        </label>
-        <label class="radio-inline">
-          <input ng-model="newEntry.period" type="radio" name="optradio" value="Long Term">Long Term</label>
+      <div class="form-group">
+          <button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
+      </div>
+
+      <div class="form-group">
+        <div class="alert alert-info form-space" ng-show="studentAddedMsg">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{studentAddedMsg}}
+        </div>
       </div>
     </div>
-
-    <!-- http://www.bootstrap-switch.org/ if we want to be fancy B-) -->
-    <label>Archived:</label>
-    <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true">Yes</label>
-    <label class="radio-inline"><input ng-model = "newStudent.archived" type="radio" name="optradio" value = "false">No</label>
-    
-<!--     <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "true"> Yes </input>
-    <input type="radio" ng-model = "newStudent.archived" name="radAnswer" value = "false"> No </input> -->
-
-    <br>
-    <br>
-    <button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
-  
-    <br>
-    <br>
-    <div class="alert alert-info" ng-show="studentAddedMsg">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{studentAddedMsg}}
-    </div>
-
-
 </form>
