@@ -1,11 +1,10 @@
 var indexController = function($scope, $http, $location, $state) {
 
   $scope.students = [];
-
+  $scope.cohorts = [];
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
     console.log("Current user: " + $scope.user.email);
-
   })
 
   $scope.logout = function(){
@@ -27,3 +26,16 @@ var indexController = function($scope, $http, $location, $state) {
     $scope.editStudent = angular.copy(student);
   }
 };
+
+$http.get('/api/allCohorts').then(function(data) {
+   console.log ('Data: ' + data);
+   console.log ('All Cohorts Data: ' + data.allCohorts);
+   $scope.currentCohort= data.currentCohort;
+   $scope.cohorts = data.allCohorts;
+   console.log('Scope Cohorts' + $scope.cohorts)
+ }, function(err) {
+   console.log('Error: in GET \'/cohort\'', err);
+ });
+$scope.showCohort = function(cohortName){
+$scope.currentCohortName = cohortName;
+}

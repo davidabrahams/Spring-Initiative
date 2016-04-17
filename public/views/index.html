@@ -64,13 +64,16 @@
       </li>
 
       <li>
-        <a ui-sref=".program">Big Spring</a>
+        <a ui-sref=".cohort" ng-click="showCohort('Little Spring')">Little Spring </a>
       </li>
       <li>
-        <a ui-sref=".program">Spring Spring</a>
+        <a ui-sref=".cohort" ng-click="showCohort('Junior Spring')">Junior Spring </a>
       </li>
       <li>
-        <a ui-sref=".program">Little Spring</a>
+        <a ui-sref=".cohort" ng-click="showCohort('Big Spring')">Big Spring </a>
+      </li>
+      <li>
+        <a ui-sref=".cohort" ng-click="showCohort('Baby Spring')">Baby University </a>
       </li>
       <li>
         <a ui-sref="index" ng-click="logout()">Logout</a> | {{user.email}}
