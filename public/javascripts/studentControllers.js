@@ -70,7 +70,6 @@ var studentDataController = function($scope, $http, $location) {
 
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
-      $scope.studentAddedMsg = response.data.msg;
   });
 
   $scope.dataTypes = ['daily', 'monthly', 'bimonthly', '9 weeks', 'semester'];
