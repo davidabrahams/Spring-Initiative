@@ -2,7 +2,7 @@ var routes = {};
 var path = require('path');
 var Cohort = require(path.join(__dirname, '../models/cohort'));
 
-console.log('cohortRoutes.js')
+
 
 
 routes.POSTnewCohortEntry = function(req, res, next) {

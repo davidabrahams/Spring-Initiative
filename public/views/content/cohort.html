@@ -1,5 +1,5 @@
 <div id="content-title" class="content" >
-	<h3>{{cohortName}}</h3>
+	<h3>{{currentCohortName}}</h3>
 </div>
 <div id="content-text" class="content" >
 	Info: {{cohortInfo}}
@@ -13,7 +13,7 @@
       <div class="form-group">
         <label for="sel1">Cohort:</label>
         <select class="form-control" id="sel1">
-          <option value="{{cohortName}}" ng-model="newCohortEntry.name" >{{cohortName}}</option>
+          <option value="{{currentCohortName}}" ng-model="newCohortEntry.name" >{{currentCohortName}}</option>
         </select>
       </div>
       <div class="form-group">
@@ -43,6 +43,6 @@
   <br>
   <br>
   <div class="alert alert-info" ng-show="cohortEntrySubmittedMsg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{entrySubmittedMsg}}
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{cohortEntrySubmittedMsg}}
   </div>
 </form>
