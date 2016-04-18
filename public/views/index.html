@@ -38,10 +38,6 @@
                 <div class="navbar-form" role="search">
                     <div class="input-group">
                       <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
-                      <div class="input-group-btn">
-                        <button class="btn btn-default" ui-sref=".settings"><i class="glyphicon glyphicon-cog"></i>
-                        </button>
-                      </div>
                     </div>
                 </div>
 
@@ -80,7 +76,7 @@
                       <ul>
                         <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
                           <li>
-                            <a ui-sref=".students">{{student.name}}</a>
+                            <a ui-sref=".student.addEntry">{{student.name}}</a>
                           </li>
                         </div>
                       </ul>
