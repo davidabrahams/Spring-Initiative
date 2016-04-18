@@ -10,7 +10,7 @@ var studentController = function($scope,  $http, $state) {
       $scope.studentEditMsg = response.data.msg;
       // Need to clear the form after submission
       $('.submit').focus();
-      $('.submit').blur();      
+      $('.submit').blur();
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
@@ -28,6 +28,11 @@ var studentController = function($scope,  $http, $state) {
 };
 
 var addDailyEntryController = function($scope, $http, $location) {
+  $('.datepicker').datepicker({
+    format: 'mm/dd/yyyy',
+    autoclose: true,
+    todayHighlight: true
+  });
   $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
   $scope.submitNewDailyEntry = function(student) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
