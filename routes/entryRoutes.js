@@ -3,39 +3,64 @@ var routes = {};
 
 var FormDB = require(path.join(__dirname, '../models/form'));
 
-routes.POSTnewEntry = function(req, res, next) {
-  
+routes.POSTnewDailyEntry = function(req, res, next) {
+  // This route only handles short term
   var studentID = req.params._id;
+  var period = 'Daily';
   var date = req.body.date.slice(0,10);
   var currentDate = Date.parse(date);
-  var period = req.body.period;
   var attendance = req.body.attendance;
   var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
   var schoolBehavior= req.body.schoolBehavior;
-  var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
   var warnings = req.body.warnings;
   var stars = req.body.stars;
+  var engageContent = parseInt(req.body.engageContent);
+  var engagePeer = parseInt(req.body.engagePeer);
   FormDB.create({
     _studentID: studentID,
     date: currentDate,
     period: period,
     attendance: attendance,
     behaviorText: behaviorText,
+    actionSteps: actionSteps,
+    schoolBehavior: schoolBehavior,
+    teacherFeedback: teacherFeedback,
     warnings: warnings,
     stars: stars,
-    schoolBehavior: schoolBehavior,
-    actionSteps: actionSteps,
-    readingLevels: readingLevels,
-    teacherFeedback: teacherFeedback
+    engageContent: engageContent,
+    engagePeer: engagePeer
   }, function(err, newEntryObj) {
     if (err) {
       return res.status(500).json({msg: 'Error submitting entry'});
     }
-    console.log("new form entry", newEntryObj)
-    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
+    res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
+  })
+};
 
+routes.POSTnewLongEntry = function(req, res, next) {
+  // This route only handles long term
+  var studentID = req.params._id;
+  var period = 'Long Term';
+  var date = req.body.date.slice(0,10);
+  var currentDate = Date.parse(date);
+  var gradesSchool = req.body.grades;
+  var timeLength = req.body.timeLength;
+  var readingLevels= req.body.readingLevels;
+  var parentTeachFeedback = req.body.parentTeachFeedback;
+  FormDB.create({
+    _studentID: studentID,
+    date: currentDate,
+    period: period,
+    gradesSchool: gradesSchool,
+    timeLength: timeLength,
+    readingLevels: readingLevels,
+    parentTeachFeedback: parentTeachFeedback
+  }, function(err, newEntryObj) {
+    if (err) {
+      return res.status(500).json({msg: 'Error submitting entry'});
+    }
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
   })
 };
@@ -56,7 +81,6 @@ routes.GETstudentEntries = function(req, res){
       behaviorList.push(studentData[i].schoolBehavior);
       warningList.push(studentData[i].warnings);
     }
-    console.log(behaviorList, 'behaviorList')
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
   })
 }
