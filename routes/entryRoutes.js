@@ -24,7 +24,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
     period: period,
     attendance: attendance,
     behaviorText: behaviorText,
-    actionSteps: actionSteps,
+    actionSteps: actionSteps,    
     schoolBehavior: schoolBehavior,
     teacherFeedback: teacherFeedback,
     warnings: warnings,
@@ -35,6 +35,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
     if (err) {
       return res.status(500).json({msg: 'Error submitting entry'});
     }
+    console.log(studentID, date, period, attendance, warnings, behaviorText, stars, actionSteps)
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
   })
 };
