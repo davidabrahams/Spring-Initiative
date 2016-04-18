@@ -11,7 +11,69 @@
     </p>
   </div>
 </div>
-<div ng-switch="$state.current.name.includes('showd3')">
+
+<div id="exTab3" class="container"> 
+    <ul  class="nav nav-pills">
+      <li  ui-sref-active="active" class="tab active">
+        <a ui-sref=".addEntry">Add Entry</a>
+      </li>
+      <li ui-sref-active="active" class="tab">
+        <a ui-sref=".showd3">Visualizations</a>
+      </li>
+      <li ui-sref-active="active" class="tab">
+        <a ui-sref=".editStudent">Edit Student</a>
+      </li>
+    </ul>
+
+      <div class="tab-content clearfix">
+        <div class="tab-pane active">
+          <div ui-view="studentView"></div>
+        </div>
+        <div class="tab-pane">
+          <div ui-view="studentView"></div>
+        </div>
+          <div class="tab-pane">
+            <div ui-view="studentView"></div>
+        </div>
+      </div>
+  </div>
+
+
+
+
+<!--   <div id="exTab3" class="container"> 
+    <ul  class="nav nav-pills">
+      <li class="active">
+        <a href="1b" ui-sref=".addEntry" data-toggle="tab" >Daily Entry</a>
+      </li>
+      <li><a href="1b" ui-sref=".addEntry" data-toggle="tab">Long Term Entry</a>
+      </li>
+      <li><a href="3b" ui-sref=".showd3" data-toggle="tab">Visualizations</a>
+      </li>
+      <li><a href="4b" ui-sref=".editStudent" data-toggle="tab">Edit Student</a>
+      </li>
+    </ul>
+
+      <div class="tab-content clearfix">
+        <div class="tab-pane active" id="#1b">
+          <div ui-view="studentView"></div>
+        </div>
+        <div class="tab-pane" id="#2b">
+          <div ui-view="studentView"></div>
+        </div>
+        <div class="tab-pane" id="#3b">
+          <div ui-view="studentView"></div>
+        </div>
+          <div class="tab-pane" id="#4b">
+          <div ui-view="studentView"></div>
+        </div>
+      </div>
+  </div>
+ -->
+
+
+
+<!-- <div ng-switch="$state.current.name.includes('showd3')">
   <div ng-switch-when="true">
     <a ui-sref=".">- Show Visualizations</a>
   </div>
@@ -35,4 +97,7 @@
     <a ui-sref=".editStudent">+ Edit student</a>
   </div>
 </div>
-<div ui-view="studentView"></div>
+<div ui-view="studentView"></div> -->
+
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link href="stylesheets/tabs.css" rel="stylesheet">
