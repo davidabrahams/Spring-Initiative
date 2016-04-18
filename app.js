@@ -58,6 +58,7 @@ app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);
 app.get('/api/index/archive', index.GETarchive);
+app.get('/api/student/dataList/:_id', index.GETstudentEntriesList);
 app.get('/api/student/data/:_id', index.GETstudentEntries);
 app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
 app.get('/api/allUsers', index.GETallUsers);

@@ -1,6 +1,7 @@
 var studentController = function($scope,  $http, $state) {
 
   $scope.$state = $state;
+  $scope.currentStudent = $scope.$parent.currentStudent;
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
@@ -61,6 +62,17 @@ var addStudentController = function($scope, $http, $location) {
 }
 
 var studentDataController = function($scope, $http, $location) {
+  $scope.currentStudent = $scope.$parent.currentStudent;
+
+  $http.get('/api/student/data/'+$scope.currentStudent._id)
+    .then(function successCallback(response) {
+      console.log('get student response:', response.data);
+
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+      $scope.studentAddedMsg = response.data.msg;
+  });
+
   $scope.dataTypes = ['daily', 'monthly', 'bimonthly', '9 weeks', 'semester'];
   $scope.dailyEntries = ['sunday','monday','wednesday','friday','saturday'];
   $scope.monthlyEntries = ['april', 'may', 'june', 'july', 'august'];

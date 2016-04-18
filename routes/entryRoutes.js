@@ -39,7 +39,7 @@ routes.POSTnewEntry = function(req, res, next) {
   })
 };
 
-routes.GETstudentEntries = function(req, res){
+routes.GETstudentEntriesList = function(req, res){
   var studentID = req.params._id;
   var attendanceList = [];
   var starsList = [];
@@ -55,8 +55,14 @@ routes.GETstudentEntries = function(req, res){
       behaviorList.push(studentData[i].schoolBehavior);
       warningList.push(studentData[i].warnings);
     }
-    console.log(behaviorList, 'behaviorList')
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
+  })
+}
+
+routes.GETstudentEntries = function(req, res){
+  var studentID = req.params._id;
+  FormDB.find({_studentID:studentID}, function(err, studentData){
+    res.json(studentData);
   })
 }
 
