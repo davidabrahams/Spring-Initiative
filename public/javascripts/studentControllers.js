@@ -31,6 +31,13 @@ var addEntryController = function($scope, $http, $location) {
   // $scope.minSlider = {
   //   value: 10
   // };
+
+  $('.datepicker').datepicker({
+    format: 'mm/dd/yyyy',
+    autoclose: true,
+    todayHighlight: true
+  });
+
   $scope.submitNewEntry = function(student) {
     $http.post('api/student/newEntry/' + student._id, $scope.newEntry)
     .then(function successCallback(response) {
