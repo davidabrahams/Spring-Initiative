@@ -2,10 +2,12 @@ var routes = {};
 var path = require('path');
 var Cohort = require(path.join(__dirname, '../models/cohort'));
 
-
+console.log('cohortRoutes.js')
 
 
 routes.POSTnewCohortEntry = function(req, res, next) {
+
+  console.log('Posting New Cohort Entry')
   //var cohortName = req.body.name;
   var cohortComment = req.body.comment;
   var actionSteps = req.body.actionSteps;
