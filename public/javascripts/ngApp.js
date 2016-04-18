@@ -38,14 +38,14 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
-  .state('index.cohort.addCohortEntry', {
-    views: {
-      'content': {
-        templateUrl: 'views/content/cohort.html',
-        controller: 'addCohortEntryControllers'
-      }
-    }
-  })
+  // .state('index.cohort.addCohortEntry', {
+  //   views: {
+  //     'content': {
+  //       templateUrl: 'views/content/cohort.html',
+  //       controller: 'addCohortEntryController'
+  //     }
+  //   }
+  // })
   .state('index.student', {
     views: {
       'content': {

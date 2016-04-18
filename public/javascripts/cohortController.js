@@ -15,14 +15,14 @@ var cohortController = function($scope,  $http, $state) {
   if ($scope.cohortName == 'Baby Spring'){
     $scope.cohortInfo = 'Baby Spring information here <3';
   };
-
   $scope.cohortActionSteps = 'ActionStepsHere';
-};
+//};
 
-var addCohortEntryController = function($scope, $http, $location) {
+
+//var addCohortEntryController = function($scope, $http, $location) {
   console.log('ADD COHORT ENTRY CONTROLLER')
   console.log('andCohortEntryController_CohortNameScope: ' + $scope.cohortName);
-  console.log('andCohortEntryController_CohortName: ' + cohortName);
+  //console.log('andCohortEntryController_CohortName: ' + cohortName);
   $scope.submitNewCohortEntry = function(cohortName) {
     console.log('Controller submitting new cohort entry')
     $http.post('api/cohort/newCohortEntry/' + cohortName, $scope.newCohortEntry)
@@ -35,3 +35,4 @@ var addCohortEntryController = function($scope, $http, $location) {
     });
   }
 };
+//};
