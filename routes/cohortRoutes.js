@@ -16,11 +16,14 @@ routes.POSTnewCohortEntry = function(req, res, next) {
     actionSteps: actionSteps
   }, function(err, newCohortEntryObj) {
     if (err) {
-      res.send(err)
+       return res.status(500).json({msg: 'Error submitting entry'});
     }
     console.log("new cohort entry", newCohortEntryObj)
-    res.json(newCohortEntryObj)
+    res.json({newCohortEntryObj:newCohortEntryObj, msg: 'Entry submitted successfully!'});  
+    
   })
 };
 
 module.exports = routes;
+
+
