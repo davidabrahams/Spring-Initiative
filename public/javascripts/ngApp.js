@@ -30,11 +30,11 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
   })
 
   /* Content views */
-  .state('index.program', {
+  .state('index.cohort', {
     views: {
       'content': {
-        templateUrl: 'views/content/program.html',
-        controller: 'programController'
+        templateUrl: 'views/content/cohort.html',
+        controller: 'cohortController'
       }
     }
   })
@@ -70,6 +70,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
+
   .state('index.student.editStudent', {
     views: {
       'studentView@index.student': {
