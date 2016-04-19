@@ -104,7 +104,7 @@ springInitiative.run(function($rootScope, $state, $http) {
       $http.get('/user').then(function(data) {
         if (data.data.user == null) {
           console.log('No one logged in, redirecting to /login');
-          // $state.go('login');
+          $state.go('login');
         }
       }, function(err) {
         console.log('Error: in GET \'/user\'', err);
