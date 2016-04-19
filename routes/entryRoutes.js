@@ -74,7 +74,8 @@ routes.POSTnewLongEntry = function(req, res, next) {
 routes.GETallStudentEntries = function(req, res) {
   var studentID = req.query.studentID;
   FormDB.find({_studentID:studentID}, function(err, entries) {
-    //TODO: err
+    if (err)
+      res.sendStatus(500);
     res.json(entries);
   });
 
