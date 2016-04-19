@@ -43,6 +43,17 @@ var addDailyEntryController = function($scope, $http, $location) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
+  };
+
+  $scope.dateChange = function() {
+    var req = {studentID: $scope.currentStudent._id, date: $scope.newDailyEntry.date};
+    console.log(req)
+    $http.get('/api/student/allEntries', {params: req})
+    .then(function successCallback(response) {
+      console.log(response);
+    }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
   }
 }
 
