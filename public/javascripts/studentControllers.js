@@ -47,6 +47,11 @@ var addDailyEntryController = function($scope, $http, $location) {
 }
 
 var addLongEntryController = function($scope, $http, $location) {
+  $('.datepicker').datepicker({
+    format: 'mm/dd/yyyy',
+    autoclose: true,
+    todayHighlight: true
+  });
   $scope.submitLongEntry = function(student) {
     $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
     .then(function successCallback(response) {
