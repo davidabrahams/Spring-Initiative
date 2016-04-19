@@ -7,7 +7,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
   // This route only handles short term
   var studentID = req.params._id;
   var period = 'Daily';
-  var date = req.body.date.slice(0,10);
+  var date = req.body.date;
   var currentDate = Date.parse(date);
   var attendance = req.body.attendance;
   var behaviorText = req.body.behaviorText;
@@ -18,7 +18,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
   var stars = req.body.stars;
   var engageContent = parseInt(req.body.engageContent);
   var engagePeer = parseInt(req.body.engagePeer);
-  FormDB.create({
+  var querry = {
     _studentID: studentID,
     date: currentDate,
     period: period,
@@ -31,12 +31,19 @@ routes.POSTnewDailyEntry = function(req, res, next) {
     stars: stars,
     engageContent: engageContent,
     engagePeer: engagePeer
-  }, function(err, newEntryObj) {
+  }
+  var callback = function(err, newEntryObj) {
     if (err) {
       return res.status(500).json({msg: 'Error submitting entry'});
     }
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
-  })
+  };
+  if (req.body._id == null) {
+    FormDB.create(querry, callback)
+  } else {
+    console.log('UPDATING')
+    FormDB.findByIdAndUpdate(req.body._id, {$set: querry}, {new: true}, callback);
+  }
 };
 
 routes.POSTnewLongEntry = function(req, res, next) {

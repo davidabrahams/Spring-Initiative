@@ -28,36 +28,44 @@ var studentController = function($scope,  $http, $state) {
 };
 
 var addDailyEntryController = function($scope, $http, $location) {
+
+  // Ititialize the datepicker with settings
   $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',
     autoclose: true,
     todayHighlight: true
   });
+
+  // get all entries for the current student to make sure we dont make an entry
+  // for a date that already has one
+  var req = {studentID: $scope.currentStudent._id};
+  $http.get('/api/student/allEntries', {params: req})
+  .then(function successCallback(response) {
+    $scope.allEntries = response.data;
+  }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+  });
+
   $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
+  $scope.dateMatch = -1;
+
   $scope.submitNewDailyEntry = function(student) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
       $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
+      // update the document locally too
+      if ($scope.dateMatch !== -1) {
+        $scope.allEntries[$scope.dateMatch] = response.data.newEntryObj;
+      }
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
   };
 
-  var req = {studentID: $scope.currentStudent._id};
-  console.log(req)
-  $http.get('/api/student/allEntries', {params: req})
-  .then(function successCallback(response) {
-    $scope.allEntries = response.data;
-    console.log(response);
-  }, function errorCallback(response) {
-      console.log('Error: ' + response.data);
-  });
-
   $scope.dateChange = function() {
-    var dateMatch = -1;
-    console.log($scope.allEntries)
+    $scope.dateMatch = -1;
     $scope.allEntries.forEach(function (entry, i) {
       var date = entry.date;
       var year1 = date.substring(0, 4);
@@ -67,36 +75,21 @@ var addDailyEntryController = function($scope, $http, $location) {
       var month2 = $scope.newDailyEntry.date.substring(0, 2)
       var day2 = $scope.newDailyEntry.date.substring(3, 5)
       if (year1 == year2 && month1 == month2 && day1 == day2) {
-        dateMatch = i;
+        $scope.dateMatch = i;
       }
     });
-    if (dateMatch !== -1)
-    {
+    if ($scope.dateMatch !== -1) {
       var prepopulate = window.confirm("A entry for this date already exists. Would you like to edit your existing entry?");
-      if (prepopulate)
-      {
-        var currentDate = $scope.allEntries[dateMatch];
-        $scope.newDailyEntry.attendance = currentDate.attendance;
-        $scope.newDailyEntry.behaviorText = currentDate.behaviorText;
-        $scope.newDailyEntry.warnings = currentDate.warnings;
-        $scope.newDailyEntry.stars = currentDate.stars;
-        if ($scope.newDailyEntry.schoolBehavior == null) {
-          $scope.newDailyEntry.schoolBehavior = {}
-        }
-        $scope.newDailyEntry.schoolBehavior['Write-Up'] = currentDate.schoolBehavior['Write-Up'];
-        $scope.newDailyEntry.schoolBehavior['Detention'] = currentDate.schoolBehavior['Detention'];
-        $scope.newDailyEntry.schoolBehavior['In-School Suspension'] = currentDate.schoolBehavior['In-School Suspension'];
-        $scope.newDailyEntry.schoolBehavior['Out-of-School Suspension'] = currentDate.schoolBehavior['Out-of-School Suspension'];
-        $scope.newDailyEntry.actionSteps = currentDate.actionSteps;
-        $scope.newDailyEntry.teacherFeedback = currentDate.teacherFeedback;
-        $scope.newDailyEntry.engageContent = currentDate.engageContent;
-        $scope.newDailyEntry.engagePeer = currentDate.engagePeer;
+      if (prepopulate) {
+        var currentDate = $scope.allEntries[$scope.dateMatch];
+        $scope.newDailyEntry = currentDate;
       }
       else {
         $scope.newDailyEntry.date = null;
       }
+    } else {
+      $scope.newDailyEntry._id = null;
     }
-    console.log($scope.newDailyEntry.date)
   }
 }
 
