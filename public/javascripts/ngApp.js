@@ -38,8 +38,6 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
-
-
   .state('index.student', {
     views: {
       'content': {
