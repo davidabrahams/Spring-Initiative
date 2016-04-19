@@ -1,25 +1,15 @@
-<div id="content-title" class="content" >
-	<h3>{{currentCohortName}}</h3>
-</div>
-<div id="content-text" class="content" >
-	Info: {{currentCohortInfo}}
-</div>
-
 <h2> Add a new cohort entry </h2>
-<form class="entryform" ng-submit="submitNewCohortEntry(currentCohort)">
+<form class="entryform" ng-submit="submitNewCohortEntry(currentCohortName)">
   <div class="row">
     <div class="col-sm-6">
 
       <div class="form-group">
         <label for="sel1">Cohort:</label>
-        <select class="form-control" id="sel1" ng-model="newCohortEntry.cohortName">
-          <option value="Little Spring" >Little Spring</option>
-          <option value="Junior Spring" >Junior Spring</option>
-          <option value="Big Spring" >Big Spring</option>
-          <option value="Baby Spring" >Baby Spring</option>
+
+        <select class="form-control" id="sel1" ng-model="newCohortEntry.cohortName" >
+          <option value="{{currentCohortName}}"> {{currentCohortName}}</option>
         </select>
 
-     
 
       </div>
       <div class="form-group">
@@ -40,7 +30,7 @@
   <div class="row">
     <div class="col-sm-12">
       <button class="btn btn-default" ui-sref="^">Cancel</button>
-      <button class="btn btn-default" type="submit">Submit</button>
+      <button class="btn btn-default"  ng-click="form.$setPristine()" type="submit">Submit</button>
     </div>
   </div>
   <br>
