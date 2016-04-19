@@ -24,7 +24,6 @@ var studentController = function($scope,  $http, $state) {
       console.log('Error:' + response.data);
     });
   }
-
 };
 
 var addDailyEntryController = function($scope, $http, $location) {
