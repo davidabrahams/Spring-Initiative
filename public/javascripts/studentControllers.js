@@ -28,13 +28,11 @@ var studentController = function($scope,  $http, $state) {
 };
 
 var addDailyEntryController = function($scope, $http, $location) {
-
   $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',
     autoclose: true,
     todayHighlight: true
   });
-
   $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
   $scope.submitNewDailyEntry = function(student) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
