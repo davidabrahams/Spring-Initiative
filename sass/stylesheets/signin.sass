@@ -28,3 +28,73 @@ body
       margin-bottom: 10px
       border-top-left-radius: 0
       border-top-right-radius: 0
+
+.my-btn
+  color: #FFFFFF
+  background-color: #41AFA5
+  border-color: #308A83
+  &:hover, &:focus, &:active, &.active
+    color: #FFFFFF
+    background-color: #76C4BD
+    border-color: #308A83
+
+.open .dropdown-toggle.my-btn
+  color: #FFFFFF
+  background-color: #76C4BD
+  border-color: #308A83
+
+.my-btn
+  &:active, &.active
+    background-image: none
+
+.open .dropdown-toggle.my-btn
+  background-image: none
+
+.my-btn
+  &.disabled, &[disabled]
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:hover, &[disabled]:hover
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:hover
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:focus, &[disabled]:focus
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:focus
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:active, &[disabled]:active
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:active
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled.active, &[disabled].active
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn.active
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn .badge
+  color: #41AFA5
+  background-color: #FFFFFF

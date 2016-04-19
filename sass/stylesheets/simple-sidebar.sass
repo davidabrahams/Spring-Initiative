@@ -25,34 +25,33 @@
   position: absolute
   margin-right: -250px
 
-.sidebar-nav
-  position: absolute
+#sidebar
+  position: relative
   top: 0
   margin: 0
   padding: 0
   list-style: none
+  ul
+    padding-left: 0px
   li
-    text-indent: 20px
-    line-height: 40px
+    text-indent: 10px
+    line-height: 25px
     a, h1
       display: block
       text-decoration: none
-      color: #999999
+      color: #fff
       &:hover
         text-decoration: none
         color: #fff
         background: rgba(255, 255, 255, 0.2)
       &:active, &:focus
         text-decoration: none
-  > .sidebar-brand
-    height: 65px
-    font-size: 18px
-    line-height: 60px
-    a
-      color: #999999
-      &:hover
-        color: #fff
-        background: none
+  .panel-title
+    color: #fff
+    &:hover
+      color: #dedede
+    &:focus
+      color: #dedede
 
 @media (min-width: 768px)
   #wrapper

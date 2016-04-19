@@ -3,8 +3,10 @@ body
   overflow: hidden
 
 .navbar-default 
+  border-color: #41afa5
   .navbar-collapse
     background: #41afa5
+    border-color: #41afa5
   .navbar-brand
     color: #fff
     &:hover
@@ -13,16 +15,19 @@ body
       color: #D3F2EF
   .navbar-nav > li > a
     color: #fff
-    background-color: #41afa5;
+    background-color: #41afa5
     &:hover
       color: #D3F2EF
     &:focus
       color: #D3F2EF
   .navbar-nav > .open > a
-    background-color: #41afa5;
+    background-color: #41afa5
     &:hover 
-      color: #fff;
-      background-color: #D3F2EF;
+      color: #D3F2EF;
+      background-color: #41afa5
+    &:focus
+      background-color: #41afa5
+      color: #D3F2EF
 
 .navbar-form
   padding: 10px 15px 10px 0px;
@@ -52,18 +57,8 @@ body
   height: 100%
   padding: 50px 0 0px 15px
   position: fixed
-  background: #eee
+  background: #999999
   width: 250px
-
-#sidebar
-  position: relative
-  height: 100%
-  overflow: hidden
-  .list-group-item
-    border-radius: 0
-    border-left: 0
-    border-right: 0
-    border-top: 0
 
 @media (max-width: 992px)
   body
@@ -84,8 +79,92 @@ body
     max-height: 300px
     border-right: 0
 
+
+#accordion
+  .panel-body
+    > ul 
+      list-style: none
+    color: #fff
+  .panel-body > a
+    color: #fff
+    &:hover
+      color: #D3F2EF
+    &:focus
+      color: #D3F2EF
+
 .footer
   background-color: #ffffff
   bottom: 0
   position: fixed
   padding: 10px
+
+
+.my-btn
+  color: #FFFFFF
+  background-color: #41AFA5
+  border-color: #308A83
+  &:hover, &:focus, &:active, &.active
+    color: #FFFFFF
+    background-color: #76C4BD
+    border-color: #308A83
+
+.open .dropdown-toggle.my-btn
+  color: #FFFFFF
+  background-color: #76C4BD
+  border-color: #308A83
+
+.my-btn
+  &:active, &.active
+    background-image: none
+
+.open .dropdown-toggle.my-btn
+  background-image: none
+
+.my-btn
+  &.disabled, &[disabled]
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:hover, &[disabled]:hover
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:hover
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:focus, &[disabled]:focus
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:focus
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled:active, &[disabled]:active
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn:active
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn
+  &.disabled.active, &[disabled].active
+    background-color: #41AFA5
+    border-color: #308A83
+
+fieldset[disabled] .my-btn.active
+  background-color: #41AFA5
+  border-color: #308A83
+
+.my-btn .badge
+  color: #41AFA5
+  background-color: #FFFFFF
