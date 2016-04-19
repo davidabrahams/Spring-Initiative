@@ -67,11 +67,9 @@ routes.POSTnewLongEntry = function(req, res, next) {
 
 routes.GETallStudentEntries = function(req, res) {
   var studentID = req.query.studentID;
-  var date = req.query.date;
-  console.log(date)
-  console.log(JSON.stringify(req.query))
-  FormDB.findOne({_studentID:studentID, date:date}, function(err, entries) {
-    console.log(entries);
+  FormDB.find({_studentID:studentID}, function(err, entries) {
+    //TODO: err
+    res.json(entries);
   });
 
 }
@@ -84,10 +82,7 @@ routes.GETstudentEntries = function(req, res) {
   var behaviorList = [];
   var warningList = [];
 
-  console.log('poop2')
-
   FormDB.find({_studentID:studentID}, function(err, studentData) {
-    console.log(studentData)
     for (var i = 0; i < studentData.length; i++){
       attendanceList.push(studentData[i].attendance);
       starsList.push(studentData[i].stars);
