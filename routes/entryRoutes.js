@@ -41,7 +41,6 @@ routes.POSTnewDailyEntry = function(req, res, next) {
   if (req.body._id == null) {
     FormDB.create(querry, callback)
   } else {
-    console.log('UPDATING')
     FormDB.findByIdAndUpdate(req.body._id, {$set: querry}, {new: true}, callback);
   }
 };
