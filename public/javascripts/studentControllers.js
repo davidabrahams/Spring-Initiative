@@ -1,4 +1,4 @@
-var studentController = function($scope,  $http, $state) {
+var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
   $scope.currentStudent = $scope.$parent.currentStudent;
@@ -61,44 +61,36 @@ var addStudentController = function($scope, $http, $location) {
   }
 }
 
-var studentDataController = function($scope, $http, $location) {
+var studentDataController = function($scope, $http, $state) {
+  $scope.$state = $state;
   $scope.currentStudent = $scope.$parent.currentStudent;
 
-  $http.get('/api/student/data/'+$scope.currentStudent._id)
-    .then(function successCallback(response) {
-      console.log('get student response:', response.data);
+  var getDataEntries = function(dataType){
+    $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
+      .then(function successCallback(response) {
+        $scope.currentDateList = response.data;
+        $scope.dateSelected = response.data[0] || "No dates available";
+      }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
+  }
 
-    }, function errorCallback(response) {
-      console.log('Error: ' + response.data);
-  });
+  $scope.getDateString = function(dateString){
+    var date = new Date(dateString);
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate(); 
+  }
 
-  $scope.dataTypes = ['daily', 'monthly', 'bimonthly', '9 weeks', 'semester'];
-  $scope.dailyEntries = ['sunday','monday','wednesday','friday','saturday'];
-  $scope.monthlyEntries = ['april', 'may', 'june', 'july', 'august'];
+  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
-  $scope.dataTypeSelected = 'daily';
-  $scope.dateSelected = $scope.dailyEntries[0];
-
-  $scope.currentDateList = $scope.dailyEntries;
+  $scope.dataTypeSelected = 'Daily';
+  $scope.currentDateList = [];
+  getDataEntries($scope.dataTypeSelected);
 
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
-    if(dataType === 'daily'){
-      $scope.currentDateList = $scope.dailyEntries;
-      $scope.dateSelected = $scope.dailyEntries[0];
-    } else if(dataType === 'monthly'){
-      $scope.currentDateList = $scope.monthlyEntries;
-      $scope.dateSelected = $scope.monthlyEntries[0];
-    } else if(dataType === 'bimonthly') {
-      $scope.currentDateList = $scope.monthlyEntries;
-      $scope.dateSelected = $scope.monthlyEntries[0];
-    } else if(dataType === '9 weeks') {
-      $scope.currentDateList = $scope.monthlyEntries;
-      $scope.dateSelected = $scope.monthlyEntries[0];
-    } else if(dataType === 'semester') {
-      $scope.currentDateList = $scope.monthlyEntries;
-      $scope.dateSelected = $scope.monthlyEntries[0];
-    }
+    getDataEntries($scope.dataTypeSelected);
   }
 
   $scope.setDate = function(date){
