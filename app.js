@@ -54,6 +54,7 @@ app.post('/api/login', index.POSTlogin);
 app.post('/api/logout', index.POSTlogout);
 app.post('/api/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
+app.get('/api/student/allEntries', index.GETallStudentEntries);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);

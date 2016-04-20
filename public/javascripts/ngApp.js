@@ -101,15 +101,16 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
 
 springInitiative.run(function($rootScope, $state, $http) {
   $rootScope.$on('$stateChangeStart', function(event, next, current) {
-    if (next.name !== 'login') {
-      $http.get('/user').then(function(data) {
-        if (data.data.user == null) {
-          console.log('No one logged in, redirecting to /login');
-          $state.go('login');
-        }
-      }, function(err) {
-        console.log('Error: in GET \'/user\'', err);
-      });
-    }
+    $http.get('/user').then(function(data) {
+      if (data.data.user == null && next.name !== 'login') {
+        console.log('No one logged in, redirecting to /login');
+        $state.go('login');
+      } else if (data.data.user != null && next.name === 'login') {
+        console.log('Already logged in. Redirecting home.');
+        $state.go('index');
+      }
+    }, function(err) {
+      console.log('Error: in GET \'/user\'', err);
+    });
   });
 });

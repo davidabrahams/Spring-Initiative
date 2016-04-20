@@ -25,6 +25,7 @@ routes.DELETEdelUser = userRoutes.DELETEdelUser;
 routes.POSTnewDailyEntry = entryRoutes.POSTnewDailyEntry;
 routes.POSTnewLongEntry = entryRoutes.POSTnewLongEntry;
 routes.GETstudentEntries = entryRoutes.GETstudentEntries;
+routes.GETallStudentEntries = entryRoutes.GETallStudentEntries;
 
 routes.POSTnewCohortEntry = cohortRoutes.POSTnewCohortEntry;
 
