@@ -23,7 +23,7 @@
     </div>
     <div class="action-steps">
         <h2>Action steps</h2>
-        <br><input type="checkbox"> feed
+        <input type="checkbox"> feed
         <br><input type="checkbox"> bathe
     </div>
 
@@ -78,7 +78,7 @@
         <br>
         <b>Action steps</b>: {{dateSelected.actionSteps}}
         <br>
-        <b>Issues at school</b>: {{ifEmpty(dateSelected.schoolBehavior)}}
+        <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
         <br>
         <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
         <br>

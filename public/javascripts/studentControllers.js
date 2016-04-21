@@ -100,6 +100,16 @@ var studentDataController = function($scope, $http, $state) {
     } else return data;
   }
 
+  $scope.showIssues = function(issues){
+    issues = $scope.ifEmpty(issues);
+    if(issues === 'No data.') return issues;
+    else {
+      newIssues = '';
+      for(var k in issues) newIssues = newIssues + ', ' + k;
+      return newIssues.substring(2);
+    }
+  }
+
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
   $scope.dataTypeSelected = 'Daily';
