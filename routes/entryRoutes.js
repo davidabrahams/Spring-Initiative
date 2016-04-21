@@ -36,7 +36,7 @@ routes.POSTnewEntry = function(req, res, next) {
     console.log(studentID, date, period, attendance, warnings, behaviorText, stars, warnings, actionSteps, teacherFeedback)
 
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
-  })
+  });
 };
 
 routes.GETstudentEntriesList = function(req, res){
@@ -56,7 +56,7 @@ routes.GETstudentEntriesList = function(req, res){
       warningList.push(studentData[i].warnings);
     }
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
-  })
+  });
 }
 
 routes.GETstudentEntries = function(req, res){
@@ -68,7 +68,7 @@ routes.GETstudentEntries = function(req, res){
       return new Date(b.date) - new Date(a.date);
     });
     res.json(studentData);
-  })
+  });
 }
 
 module.exports = routes;

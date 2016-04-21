@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
 var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
@@ -63,13 +67,21 @@ var addStudentController = function($scope, $http, $location) {
 
 var studentDataController = function($scope, $http, $state) {
   $scope.$state = $state;
+  $scope.isData = false;
   $scope.currentStudent = $scope.$parent.currentStudent;
 
   var getDataEntries = function(dataType){
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
-        $scope.currentDateList = response.data;
-        $scope.dateSelected = response.data[0] || "No dates available";
+        console.log(response.data);
+        if(response.data[0] == undefined){
+          $scope.dateSelected = "No data available";
+          $scope.isData = false;
+        } else{
+          $scope.currentDateList = response.data;
+          $scope.dateSelected = response.data[0];
+          $scope.isData = true;
+        }
       }, function errorCallback(response) {
         console.log('Error: ' + response.data);
     });
@@ -80,6 +92,12 @@ var studentDataController = function($scope, $http, $state) {
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate(); 
+  }
+
+  $scope.ifEmpty = function(data){
+    if(data === '' || data === null || data === undefined){
+      return 'No data.';
+    } else return data;
   }
 
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
