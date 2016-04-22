@@ -12,7 +12,6 @@ routes.POSTnewEntry = function(req, res, next) {
   var behaviorText = req.body.behaviorText;
   var actionSteps = req.body.actionSteps;
   var schoolBehavior= req.body.schoolBehavior;
-  var readingLevels = req.body.readingLevels;
   var teacherFeedback = req.body.teacherFeedback;
   var warnings = req.body.warnings;
   var stars = req.body.stars;
@@ -26,7 +25,6 @@ routes.POSTnewEntry = function(req, res, next) {
     stars: stars,
     schoolBehavior: schoolBehavior,
     actionSteps: actionSteps,
-    readingLevels: readingLevels,
     teacherFeedback: teacherFeedback
   }, function(err, newEntryObj) {
     if (err) {

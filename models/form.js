@@ -17,7 +17,6 @@ var formSchema = Schema({
                     'Out-of-School Suspension': Boolean},
   actionSteps: String,
   grades: String,
-  readingLevels: String,
   teacherFeedback: String
 });
 
