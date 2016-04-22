@@ -40,6 +40,20 @@ var addDailyEntryController = function($scope, $http, $location) {
     todayHighlight: true
   });
 
+
+   $scope.slider = {
+      value: 3,
+      options: {
+          showSelectionBar: true,
+          getPointerColor: function(value) {
+              return '#308a83';
+          },
+          getSelectionBarColor: function(value) {
+            return '#eee';
+          }
+      }
+  };
+
   // get all entries for the current student to make sure we dont make an entry
   // for a date that already has one
   var req = {studentID: $scope.currentStudent._id};

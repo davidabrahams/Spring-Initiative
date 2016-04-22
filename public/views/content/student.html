@@ -1,8 +1,40 @@
-<div class="student-header" style="width: 100%;">
-  <h2>{{currentStudent.name}}
-  <span style="float: right; text-align: right;"><a ui-sref=".showData">View data</a> | <a ui-sref=".addEntry">Add daily data</a> | <a ui-sref=".addLongEntry">Add longterm data</a> | <a ui-sref=".showd3">Visualise</a> | <a ui-sref=".editStudent">Edit</a></span></h2>
+<div id="exTab3" class="container">
+  <ul class="nav nav-pills">
+    <li style="float: right;">
+      <h3>{{currentStudent.name}}</h3>
+    </li>
+    <li ui-sref-active="active" class="tab active">
+      <a ui-sref=".showData">View data</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".addEntry">Daily Entry</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".addLongEntry">Long-Term Entry</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".showd3">Visualizations</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".editStudent">Edit Student</a>
+    </li>
+  </ul>
+
+  <div class="tab-content clearfix">
+    <div class="tab-pane active">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
+  </div>
 </div>
 
-<div id="content-text" class="content">
-  <div ui-view="studentView"></div>
-</div>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<link href="stylesheets/tabs.css" rel="stylesheet">
