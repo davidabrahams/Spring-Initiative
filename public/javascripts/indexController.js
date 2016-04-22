@@ -28,7 +28,6 @@ var indexController = function($scope, $http, $location, $state) {
     $scope.editStudent = angular.copy(student);
   }
 
-
   $scope.showCohort = function(cohortName){
     $scope.currentCohortName = cohortName;
     if ($scope.currentCohortName == 'Little Spring'){
@@ -44,7 +43,5 @@ var indexController = function($scope, $http, $location, $state) {
       $scope.currentCohortInfo = 'Baby Spring information here <3';
     };
   }
-
-  
 
 };
