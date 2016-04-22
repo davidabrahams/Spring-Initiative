@@ -11,6 +11,7 @@ var formSchema = Schema({
   stars: Number,
   engageContent: Number,
   engagePeer: Number,
+  engageAdult: Number,
   schoolBehavior: {'Write-Up': Boolean, 
                     'Detention': Boolean,
                     'In-School Suspension': Boolean,
