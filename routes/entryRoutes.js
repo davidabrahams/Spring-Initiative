@@ -2,6 +2,7 @@ var path = require('path');
 var routes = {};
 
 var FormDB = require(path.join(__dirname, '../models/form'));
+var Student = require(path.join(__dirname, '../models/student'));
 
 routes.POSTnewDailyEntry = function(req, res, next) {
   // This route only handles short term
@@ -98,6 +99,34 @@ routes.GETstudentEntries = function(req, res) {
       warningList.push(studentData[i].warnings);
     }
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
+  })
+}
+
+
+routes.GETcohortEntries = function(req, res) {
+  var cohort = req.params.cohort;
+  var attendanceList = [];
+  var starsList = [];
+  var datesList = [];
+  var behaviorList = [];
+  var warningList = [];
+
+  console.log(cohort);
+
+  Student.find({program: cohort}, function(err, studentList){
+    for(var i = 0; i < studentList.length; i++){
+      FormDB.find({_studentID:studentList[i]._id}, function(err, studentData) {
+        for (var i = 0; i < studentData.length; i++){
+          attendanceList.push(studentData[i].attendance);
+          starsList.push(studentData[i].stars);
+          datesList.push(studentData[i].date);
+          behaviorList.push(studentData[i].schoolBehavior);
+          warningList.push(studentData[i].warnings);
+        }
+        console.log(attendanceList, starsList, datesList, warningList)
+        res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
+      })
+    }
   })
 }
 
