@@ -1,5 +1,3 @@
-
-
 <div class="row">
   <div id="content-title" class="content">
     <h3>{{currentStudent.name}}</h3>
@@ -12,37 +10,37 @@
   </div>
 </div>
 
-<div id="exTab3" class="container"> 
-    <ul  class="nav nav-pills">
-      <li  ui-sref-active="active" class="tab active">
-        <a ui-sref=".addEntry">Daily Entry</a>
-      </li>
-      <li ui-sref-active="active" class="tab">
-        <a ui-sref=".addLongEntry">Long-Term Entry</a>
-      </li>
-      <li ui-sref-active="active" class="tab">
-        <a ui-sref=".showd3">Visualizations</a>
-      </li>
-      <li ui-sref-active="active" class="tab">
-        <a ui-sref=".editStudent">Edit Student</a>
-      </li>
-    </ul>
+<div id="exTab3" class="container">
+  <ul class="nav nav-pills">
+    <li ui-sref-active="active" class="tab active">
+      <a ui-sref=".addEntry">Daily Entry</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".addLongEntry">Long-Term Entry</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".showd3">Visualizations</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".editStudent">Edit Student</a>
+    </li>
+  </ul>
 
-      <div class="tab-content clearfix">
-        <div class="tab-pane active">
-          <div ui-view="studentView"></div>
-        </div>
-        <div class="tab-pane">
-          <div ui-view="studentView"></div>
-        </div>
-        <div class="tab-pane">
-          <div ui-view="studentView"></div>
-        </div>
-          <div class="tab-pane">
-            <div ui-view="studentView"></div>
-        </div>
-      </div>
+  <div class="tab-content clearfix">
+    <div class="tab-pane active">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="studentView"></div>
+    </div>
   </div>
+</div>
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <link href="stylesheets/tabs.css" rel="stylesheet">
