@@ -114,20 +114,26 @@ routes.GETcohortEntries = function(req, res) {
   console.log(cohort);
 
   Student.find({program: cohort}, function(err, studentList){
+    var i,j;
     for(var i = 0; i < studentList.length; i++){
       FormDB.find({_studentID:studentList[i]._id}, function(err, studentData) {
-        for (var i = 0; i < studentData.length; i++){
-          attendanceList.push(studentData[i].attendance);
-          starsList.push(studentData[i].stars);
-          datesList.push(studentData[i].date);
-          behaviorList.push(studentData[i].schoolBehavior);
-          warningList.push(studentData[i].warnings);
+        for (var j = 0; j < studentData.length; j++){
+          console.log(studentData[j].attendance);
+          attendanceList.push(studentData[j].attendance);
+          starsList.push(studentData[j].stars);
+          datesList.push(studentData[j].date);
+          behaviorList.push(studentData[j].schoolBehavior);
+          warningList.push(studentData[j].warnings);
         }
-        console.log(attendanceList, starsList, datesList, warningList)
-        res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
+        // if(i===studentList.length && j===studentData.length){
+        //   console.log('i: '+i+' j: '+j);
+        // }
       })
     }
+    console.log('i: '+i+' j: '+j);
   })
 }
+    // console.log('attendance: '+attendanceList);
+    // res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
 
 module.exports = routes;
