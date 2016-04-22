@@ -9,15 +9,19 @@ var formSchema = Schema({
   behaviorText: String,
   warnings: String,
   stars: Number,
-  engagingContent: Number,
-  engagingPeers: Number,
+  engageContent: Number,
+  engagePeer: Number,
   schoolBehavior: {'Write-Up': Boolean, 
                     'Detention': Boolean,
                     'In-School Suspension': Boolean,
                     'Out-of-School Suspension': Boolean},
   actionSteps: String,
   grades: String,
-  teacherFeedback: String
+  teacherFeedback: String,
+  readingLevels: String,
+  timeLength: String,
+  gradesSchool: String,
+  parentTeachFeedback: String
 });
 
 module.exports = mongoose.model('Form', formSchema);
