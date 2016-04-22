@@ -64,24 +64,20 @@
 
     <div class="data" ng-show="isData">
         <div><h3>
-            <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
+            <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
             <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} | 
             <span data-toggle="tooltip" title="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
             </h4>
         </div>
         <br>
-    	<div>
-            <b>Attendance</b>: {{dateSelected.attendance}}
-            <br>
-            <b>Behavior</b>: {{dateSelected.behaviorText}}
-        </div>
+        <b>Attendance</b>: {{dateSelected.attendance}}
+        <br>
+        <b>Behavior</b>: {{dateSelected.behaviorText}}
         <br>
         <b>Action steps</b>: {{dateSelected.actionSteps}}
         <br>
         <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
         <br>
         <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
-        <br>
-        <b>eading level</b>: {{dateSelected.readingLevels}}
     </div>
 </div>
