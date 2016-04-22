@@ -20,9 +20,12 @@ routes.GETemailver = userRoutes.GETemailver;
 routes.GETallUsers = userRoutes.GETallUsers;
 routes.POSTchangeAdmin = userRoutes.POSTchangeAdmin;
 routes.POSTchangePassword = userRoutes.POSTchangePassword;
+routes.DELETEdelUser = userRoutes.DELETEdelUser;
 
-routes.POSTnewEntry = entryRoutes.POSTnewEntry;
+routes.POSTnewDailyEntry = entryRoutes.POSTnewDailyEntry;
+routes.POSTnewLongEntry = entryRoutes.POSTnewLongEntry;
 routes.GETstudentEntries = entryRoutes.GETstudentEntries;
+routes.GETallStudentEntries = entryRoutes.GETallStudentEntries;
 
 routes.POSTnewCohortEntry = cohortRoutes.POSTnewCohortEntry;
 

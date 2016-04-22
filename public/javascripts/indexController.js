@@ -1,6 +1,7 @@
 var indexController = function($scope, $http, $location, $state) {
 
   $scope.students = [];
+  $scope.cohorts = [];
 
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user
@@ -26,4 +27,24 @@ var indexController = function($scope, $http, $location, $state) {
     $scope.currentStudent = student;
     $scope.editStudent = angular.copy(student);
   }
+
+
+  $scope.showCohort = function(cohortName){
+    $scope.currentCohortName = cohortName;
+    if ($scope.currentCohortName == 'Little Spring'){
+      $scope.currentCohortInfo = 'Little Spring information here <3';
+    };
+    if ($scope.currentCohortName == 'Junior Spring'){
+      $scope.currentCohortInfo = 'Junior Spring information here <3';
+    };
+    if ($scope.currentCohortName == 'Big Spring'){
+      $scope.currentCohortInfo = 'Big Spring information here <3';
+    };
+    if ($scope.currentCohortName == 'Baby Spring'){
+      $scope.currentCohortInfo = 'Baby Spring information here <3';
+    };
+  }
+
+  
+
 };

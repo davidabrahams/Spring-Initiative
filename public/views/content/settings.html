@@ -7,7 +7,10 @@
       <div class="col-md-2" ng-if="!username.isAdmin">Staff</div>
       <div class="col-md-3">
         <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button> 
-             </div>
+      </div>
+      <div class="col-md-3">
+        <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button> 
+      </div>
     </div>
   </div>
 
@@ -15,6 +18,7 @@
   <div class="change-password row">
     <div class="col-sm-4">
       <form role="form" name="form_change_password" class="form_change_password" ng-submit="changePassword(user)">
+        
         <div class='form-group'>
           <label for="chngPassword1">New password</label>
           <input type="password" ng-model="currentPassword1" id="chngPassword1" class='form-control' required>
@@ -27,7 +31,7 @@
 
         <span ng-show="passwordMatchError" class="help-block">{{passwordMatchError}}</span>
 
-        <div class="alert alert-info" ng-show="passwordChangeMsg">
+        <div class="alert alert-info form-group" ng-show="passwordChangeMsg">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{passwordChangeMsg}}
         </div>
 

@@ -1,5 +1,5 @@
 var springInitiative = angular.module('springInitiativeApp', ['ui.router',
-  'nvd3'
+  'nvd3', 'rzModule', 'ui.bootstrap'
 ]);
 
 springInitiative.config(function($stateProvider, $urlRouterProvider,
@@ -30,11 +30,11 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
   })
 
   /* Content views */
-  .state('index.program', {
+  .state('index.cohort', {
     views: {
       'content': {
-        templateUrl: 'views/content/program.html',
-        controller: 'programController'
+        templateUrl: 'views/content/cohort.html',
+        controller: 'cohortController'
       }
     }
   })
@@ -57,11 +57,20 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
   .state('index.student.addEntry', {
     views: {
       'studentView@index.student': {
-        controller: 'addEntryController',
-        templateUrl: 'views/content/entryForm.html'
+        controller: 'addDailyEntryController',
+        templateUrl: 'views/content/dailyEntry.html'
       }
     }
   })
+  .state('index.student.addLongEntry', {
+    views: {
+      'studentView@index.student': {
+        controller: 'addLongEntryController',
+        templateUrl: 'views/content/longTermEntry.html'
+      }
+    }
+  })
+
   .state('index.student.editStudent', {
     views: {
       'studentView@index.student': {
@@ -92,15 +101,16 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
 
 springInitiative.run(function($rootScope, $state, $http) {
   $rootScope.$on('$stateChangeStart', function(event, next, current) {
-    if (next.name !== 'login') {
-      $http.get('/user').then(function(data) {
-        if (data.data.user == null) {
-          console.log('No one logged in, redirecting to /login');
-          $state.go('login');
-        }
-      }, function(err) {
-        console.log('Error: in GET \'/user\'', err);
-      });
-    }
+    $http.get('/user').then(function(data) {
+      if (data.data.user == null && next.name !== 'login') {
+        console.log('No one logged in, redirecting to /login');
+        $state.go('login');
+      } else if (data.data.user != null && next.name === 'login') {
+        console.log('Already logged in. Redirecting home.');
+        $state.go('index');
+      }
+    }, function(err) {
+      console.log('Error: in GET \'/user\'', err);
+    });
   });
 });
