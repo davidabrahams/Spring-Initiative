@@ -1,91 +1,100 @@
-
-<div id="wrapper">
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <a ui-sref="index">Spring Initiative</a>
+<div id="header" class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+      <i class="icon-reorder"></i>
+    </button>
+    <a class="navbar-brand" ui-sref="index">
+            Spring Initiative
+        </a>
+  </div>
+  <nav class="collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cohorts<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a ui-sref=".cohort" ng-click="showCohort('Little Spring')">Little Spring</a>
+          </li>
+          <li>
+            <a ui-sref=".cohort" ng-click="showCohort('Junior Spring')">Junior Spring</a>
+          </li>
+          <li>
+            <a ui-sref=".cohort" ng-click="showCohort('Big Spring')">Big Spring</a>
+          </li>
+          <li>
+            <a ui-sref=".cohort" ng-click="showCohort('Baby Spring')">Baby Spring</a>
+          </li>
+        </ul>
       </li>
-
-      <div class="navbar-form" role="search">
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i>{{user.email}}  ▾<i class="icon-sort-down"></i></a>
+        <ul class="dropdown-menu pull-right">
+          <li><a ui-sref=".settings">Settings</a>
+          </li>
+          <li><a ui-sref="index" ng-click="logout()">Log Out</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+<div id="wrapper">
+  <div id="sidebar-wrapper" class="col-md-1">
+    <div id="sidebar">
+      <div class="navbar-form nav" role="search">
         <div class="input-group">
           <input type="search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchbar">
-          <div class="input-group-btn">
-            <button class="btn btn-default" ui-sref=".settings"><i class="glyphicon glyphicon-cog"></i>
-            </button>
+        </div>
+      </div>
+
+      <div id="accordion">
+        <div class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Current Students<span class="caret"></span></a>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:false}" ng-click="showStudent(student)">
+                <li>
+                  <a ui-sref=".student.addEntry">{{student.name}}</a>
+                </li>
+              </div>
+            </ul>
           </div>
         </div>
       </div>
 
-      <li>
-        <div id="accordion">
-          <div class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                Current Students
-                <span class="caret"></span>
-            </a>
-          </div>
-          <div id="collapseOne" class="panel-collapse collapse">
-            <div class="panel-body">
-              <ul>
-                <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:false}" ng-click="showStudent(student)">
-                  <li>
-                    <a ui-sref=".student">{{student.name}}</a>
-                  </li>
-                </div>
-              </ul>
-            </div>
+      <div id="accordion">
+        <div class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Past Students<span class="caret"></span></a>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
+                <li>
+                  <a ui-sref=".student.addEntry">{{student.name}}</a>
+                </li>
+              </div>
+            </ul>
           </div>
         </div>
-      </li>
+      </div>
 
-      <li>
-        <div id="accordion">
-          <div class="panel-title">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                Past Students
-                <span class="caret"></span>
-            </a>
-          </div>
-          <div id="collapseTwo" class="panel-collapse collapse">
-            <div class="panel-body">
-              <ul>
-                <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
-                  <li>
-                    <a ui-sref=".student">{{student.name}}</a>
-                  </li>
-                </div>
-              </ul>
-            </div>
-          </div>
+      <div id="accordion">
+        <div class="panel-title">
+          <a ui-sref=".addStudent">+ Add new student</a>
         </div>
-      </li>
-      <li>
-        <a ui-sref=".addStudent">+ Add new student</a>
-      </li>
-
-      <li>
-        <a ui-sref=".cohort" ng-click="showCohort('Little Spring')">Little Spring</a>
-      </li>
-      <li>
-        <a ui-sref=".cohort" ng-click="showCohort('Junior Spring')">Junior Spring</a>
-      </li>
-      <li>
-        <a ui-sref=".cohort" ng-click="showCohort('Big Spring')">Big Spring</a>
-      </li>
-      <li>
-        <a ui-sref=".cohort" ng-click="showCohort('Baby Spring')">Baby Spring</a>
-      </li>
-      <li>
-        <a ui-sref="index" ng-click="logout()">Logout</a> | {{user.email}}
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
-
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
+  <div id="main-wrapper" class="col-md-11 pull-right">
+    <div id="main">
       <div ui-view="content"></div>
     </div>
   </div>
 </div>
-
 <link href="stylesheets/simple-sidebar.css" rel="stylesheet">
+<link href="stylesheets/main.css" rel="stylesheet">
