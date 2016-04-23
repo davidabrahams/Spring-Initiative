@@ -2,10 +2,13 @@
 <form class="entryform" ng-submit="submitNewDailyEntry(currentStudent)">
   <div class="row">
     <div class="col-sm-6">
-      <div class="form-group">
-        <label for="date">Date:</label>
-        <input data-provide="datepicker" type="text" class="form-control datepicker" ng-model="newDailyEntry.date" value="{{ date | date: 'mm/dd/yyyy' }}" ng-change="dateChange();" required>
-      </div>
+
+        <p class="input-group">
+          <input type="text" class="form-control" uib-datepicker-popup ng-model="newDailyEntry.date" is-open="popup1.opened" ng-required="true" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
 
       <div class="form-group">
         <label for="sel1">Attendance:</label>

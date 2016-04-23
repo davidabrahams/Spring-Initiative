@@ -29,11 +29,28 @@ var studentController = function($scope,  $http, $state) {
 var addDailyEntryController = function($scope, $http, $location) {
 
   // Ititialize the datepicker with settings
-  $('.datepicker').datepicker({
-    format: 'mm/dd/yyyy',
-    autoclose: true,
-    todayHighlight: true
-  });
+  // $('.datepicker').datepicker({
+  //   format: 'mm/dd/yyyy',
+  //   autoclose: true,
+  //   todayHighlight: true
+  // });
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    maxDate: new Date(2020, 5, 22),
+    minDate: new Date(),
+    startingDay: 1
+  };
+
+  $scope.popup1 = {
+    opened: false
+  };
+
+  $scope.open1 = function() {
+    $scope.popup1.opened = true;
+  };
 
   $scope.slider = {
     value: 3,
