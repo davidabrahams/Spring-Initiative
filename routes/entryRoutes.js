@@ -110,24 +110,18 @@ routes.GETcohortEntries = function(req, res) {
   var datesList = [];
   var behaviorList = [];
   var warningList = [];
-  console.log('cohort: '+cohort);
 
-  //var studentIds = cohort.map(function(student){return student._id});
   Student.find({program:cohort}, function(err, students){
     var studentIds = students.map(function(student){return student._id});
     console.log('studentIds: '+studentIds);
     FormDB.find({_studentID:{$in:studentIds}}, function(err, forms){
-      console.log('forms: '+forms);
       forms.reduce(function(prev,form){
-        console.log('form: '+form.attendance);
         attendanceList.push(form.attendance);
         starsList.push(form.stars);
         datesList.push(form.date);
         warningList.push(form.warnings);
       }, {})
-      console.log('HELLYEAH: '+attendanceList);
       res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
-      //res.json(result);
     })
   })
 }

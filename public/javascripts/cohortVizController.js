@@ -1,23 +1,12 @@
 var cohortVizController = function($scope, $http, $state) {
-  // console.log("cohortVizController being CALLED!!!");
-  // if ($scope.currentCohortName==='Baby Spring') {
-  //   $scope.currentCohortViz=$scope.babySpring
-  // }else if ($scope.currentCohortName==='Little Spring') {
-  //   $scope.currentCohortViz=$scope.littleSpring
-  // }else if ($scope.currentCohortName==='Junior Spring') {
-  //   $scope.currentCohortViz= $scope.juniorSpring
-  // }else if ($scope.currentCohortName==='Big Spring') {
-  //   $scope.currentCohortViz= $scope.bigSpring
-  // }
-
+  
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
-    console.log(response);
+    
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
     $scope.warnings = response.data.warningList;
-    console.log(response.data.attendanceList);
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
