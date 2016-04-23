@@ -18,6 +18,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
   var stars = req.body.stars;
   var engageContent = parseInt(req.body.engageContent);
   var engagePeer = parseInt(req.body.engagePeer);
+  var engageAdult = parseInt(req.body.engageAdult);
   var querry = {
     _studentID: studentID,
     date: currentDate,
@@ -30,7 +31,8 @@ routes.POSTnewDailyEntry = function(req, res, next) {
     warnings: warnings,
     stars: stars,
     engageContent: engageContent,
-    engagePeer: engagePeer
+    engagePeer: engagePeer,
+    engageAdult:engageAdult
   }
   var callback = function(err, newEntryObj) {
     if (err) {

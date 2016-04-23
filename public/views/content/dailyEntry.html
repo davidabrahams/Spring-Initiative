@@ -88,6 +88,14 @@
         <br/>
         <rzslider rz-slider-model="newDailyEntry.engagePeer" rz-slider-options="slider.options" ng-disabled="!newDailyEntry.date"></rzslider>
       </div>
+
+       <div class="form-group">
+        <label>Engaging with adults:</label>
+        <input style="color: #555555" type="number" ng-model="newDailyEntry.engageAdult" ng-disabled="!newDailyEntry.date"/>
+        <br/>
+        <rzslider rz-slider-model="newDailyEntry.engageAdult" rz-slider-options="slider.options" ng-disabled="!newDailyEntry.date"></rzslider>
+      </div>
+
     </div>
   </div>
 
