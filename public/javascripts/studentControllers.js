@@ -35,32 +35,18 @@ var addDailyEntryController = function($scope, $http, $location) {
     todayHighlight: true
   });
 
-
-   $scope.slider = {
-      value: 3,
-      options: {
-          showSelectionBar: true,
-          getPointerColor: function(value) {
-              return '#308a83';
-          },
-          getSelectionBarColor: function(value) {
-            return '#eee';
-          }
-      }
+  $scope.slider = {
+    value: 3,
+    options: {
+      showSelectionBar: true,
+      getPointerColor: function(value) { return '#308a83'; },
+      getSelectionBarColor: function(value) { return '#eee'; }
+    }
   };
-
-  // get all entries for the current student to make sure we dont make an entry
-  // for a date that already has one
-  var req = {studentID: $scope.currentStudent._id};
-  $http.get('/api/student/allEntries', {params: req})
-  .then(function successCallback(response) {
-    $scope.allEntries = response.data;
-  }, function errorCallback(response) {
-      console.log('Error: ' + response.data);
-  });
 
   $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
   $scope.dateMatch = -1;
+  // updateLocalEntries();
 
   $scope.submitNewDailyEntry = function(student) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
@@ -68,9 +54,13 @@ var addDailyEntryController = function($scope, $http, $location) {
       $scope.entrySubmittedMsg = response.data.msg;
       $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
       // update the document locally too
+      // updateLocalEntries();
       if ($scope.dateMatch !== -1) {
-        $scope.allEntries[$scope.dateMatch] = response.data.newEntryObj;
+        $scope.$parent.allEntries[$scope.dateMatch] = response.data.newEntryObj;
+      } else {
+        $scope.$parent.allEntries.push(response.data.newEntryObj);
       }
+      console.log('UPDATING LOCAL ENTRIES');
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
@@ -79,7 +69,7 @@ var addDailyEntryController = function($scope, $http, $location) {
 
   $scope.dateChange = function() {
     $scope.dateMatch = -1;
-    $scope.allEntries.forEach(function (entry, i) {
+    $scope.$parent.allEntries.forEach(function (entry, i) {
       var date = entry.date;
       var year1 = date.substring(0, 4);
       var month1 = date.substring(5, 7);
@@ -94,7 +84,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     if ($scope.dateMatch !== -1) {
       var prepopulate = window.confirm("A entry for this date already exists. Would you like to edit your existing entry?");
       if (prepopulate) {
-        var currentDate = $scope.allEntries[$scope.dateMatch];
+        var currentDate = $scope.$parent.allEntries[$scope.dateMatch];
         $scope.newDailyEntry = currentDate;
       }
       else {

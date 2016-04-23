@@ -26,6 +26,7 @@ var indexController = function($scope, $http, $location, $state) {
   $scope.showStudent = function(student){
     $scope.currentStudent = student;
     $scope.editStudent = angular.copy(student);
+    $scope.updateLocalEntries();
   }
 
   $scope.showCohort = function(cohortName){
@@ -42,6 +43,21 @@ var indexController = function($scope, $http, $location, $state) {
     if ($scope.currentCohortName == 'Baby Spring'){
       $scope.currentCohortInfo = 'Baby Spring information here <3';
     };
+  }
+
+  $scope.updateLocalEntries = function() {
+
+    $scope.allEntries = null;
+
+    // get all entries for the current student to make sure we dont make an entry
+    // for a date that already has one
+    var req = {studentID: $scope.currentStudent._id};
+    $http.get('/api/student/allEntries', {params: req})
+    .then(function successCallback(response) {
+      $scope.allEntries = response.data;
+    }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
   }
 
 };
