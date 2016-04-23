@@ -102,38 +102,28 @@ routes.GETstudentEntries = function(req, res) {
   })
 }
 
-
 routes.GETcohortEntries = function(req, res) {
   var cohort = req.params.cohort;
+  var studentListFull = [];
   var attendanceList = [];
   var starsList = [];
   var datesList = [];
   var behaviorList = [];
   var warningList = [];
-
   console.log(cohort);
 
-  Student.find({program: cohort}, function(err, studentList){
-    var i,j;
-    for(var i = 0; i < studentList.length; i++){
-      FormDB.find({_studentID:studentList[i]._id}, function(err, studentData) {
-        for (var j = 0; j < studentData.length; j++){
-          console.log(studentData[j].attendance);
-          attendanceList.push(studentData[j].attendance);
-          starsList.push(studentData[j].stars);
-          datesList.push(studentData[j].date);
-          behaviorList.push(studentData[j].schoolBehavior);
-          warningList.push(studentData[j].warnings);
-        }
-        // if(i===studentList.length && j===studentData.length){
-        //   console.log('i: '+i+' j: '+j);
-        // }
-      })
-    }
-    console.log('i: '+i+' j: '+j);
+  var studentIds = cohort.map(function(student){return student._id});
+
+  Student.find({_id:{$in:studentIds}}, function(err, students){
+    FormDB.find({_studentID:{$in:studentIds}}, function(err, forms){
+      var result =forms.reduce(function(prev,form){
+        prev.attendanceList.push(form.attendanceList)
+      }, {})
+      res.json(result);
+    })
   })
 }
-    // console.log('attendance: '+attendanceList);
+
     // res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
 
 module.exports = routes;

@@ -1,4 +1,15 @@
 var cohortVizController = function($scope, $http, $state) {
+  // console.log("cohortVizController being CALLED!!!");
+  // if ($scope.currentCohortName==='Baby Spring') {
+  //   $scope.currentCohortViz=$scope.babySpring
+  // }else if ($scope.currentCohortName==='Little Spring') {
+  //   $scope.currentCohortViz=$scope.littleSpring
+  // }else if ($scope.currentCohortName==='Junior Spring') {
+  //   $scope.currentCohortViz= $scope.juniorSpring
+  // }else if ($scope.currentCohortName==='Big Spring') {
+  //   $scope.currentCohortViz= $scope.bigSpring
+  // }
+
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
     console.log(response);
