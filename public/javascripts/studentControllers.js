@@ -41,7 +41,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     }
   };
 
-  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
+  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
   $scope.dateMatch = -1;
   $scope.allEntries = null;
 
@@ -59,7 +59,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5};
+      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
       // update the document locally too
       // updateLocalEntries();
       if ($scope.dateMatch !== -1) {
