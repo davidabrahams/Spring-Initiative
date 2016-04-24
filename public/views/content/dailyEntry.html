@@ -4,9 +4,9 @@
     <div class="col-sm-6">
 
         <p class="input-group">
-          <input type="text" class="form-control" uib-datepicker-popup ng-model="newDailyEntry.date" is-open="popup1.opened" ng-required="true" />
+          <input type="text" class="form-control" uib-datepicker-popup="MM/dd/yyyy" ng-model="newDailyEntry.date" is-open="popup1.opened" ng-required="true" />
           <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="popup1.opened=true;"><i class="glyphicon glyphicon-calendar"></i></button>
           </span>
         </p>
 
