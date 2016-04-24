@@ -5,7 +5,7 @@ $(document).ready(function(){
 var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
-  $scope.currentStudent = $scope.$parent.currentStudent;
+  // $scope.currentStudent = $scope.$parent.currentStudent;
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
@@ -29,7 +29,7 @@ var studentController = function($scope, $http, $state) {
       console.log('Error:' + response.data);
     });
   }
-};
+}
 
 var addDailyEntryController = function($scope, $http, $location) {
 
@@ -52,7 +52,7 @@ var addDailyEntryController = function($scope, $http, $location) {
             return '#eee';
           }
       }
-  };
+  }
 
   // get all entries for the current student to make sure we dont make an entry
   // for a date that already has one
@@ -80,7 +80,7 @@ var addDailyEntryController = function($scope, $http, $location) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
-  };
+  }
 
   $scope.dateChange = function() {
     $scope.dateMatch = -1;
@@ -147,11 +147,10 @@ var addStudentController = function($scope, $http, $location) {
 }
 
 var studentDataController = function($scope, $http, $state) {
-  $scope.$state = $state;
-  $scope.isData = false;
-  $scope.currentStudent = $scope.$parent.currentStudent;
 
-  var getDataEntries = function(dataType){
+  $scope.setType = function(dataType){
+    $scope.dataTypeSelected = dataType;
+    console.log('getDataEntries for', $scope.currentStudent.name);
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
         console.log(response.data);
@@ -176,9 +175,8 @@ var studentDataController = function($scope, $http, $state) {
   }
 
   $scope.ifEmpty = function(data){
-    if(data === '' || data === null || data === undefined){
-      return 'No data.';
-    } else return data;
+    if(data === '' || data === null || data === undefined) return 'No data.';
+    else return data;
   }
 
   $scope.showIssues = function(issues){
@@ -191,18 +189,13 @@ var studentDataController = function($scope, $http, $state) {
     }
   }
 
-  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
-  // Initial state views last daily entry
-  $scope.dataTypeSelected = 'Daily';
-  $scope.currentDateList = [];
-  getDataEntries($scope.dataTypeSelected);
-
-  $scope.setType = function(dataType){
-    $scope.dataTypeSelected = dataType;
-    getDataEntries($scope.dataTypeSelected);
-  }
-
   $scope.setDate = function(date){
     $scope.dateSelected = date;
   }
+
+  $scope.isData = false; // for showing 'No data available' text
+  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
+  // Initial state views last daily entry
+  $scope.currentDateList = [];
+  $scope.setType('Daily');
 }
