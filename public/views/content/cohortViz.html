@@ -6,14 +6,11 @@
       <option value="Stars">Stars</option>
       <option value="Attendance">Attendance</option>
       <option value="Warnings">Warnings</option>
-      <option value="EngageContent">Engagement with Content</option>
-
     </select>
   </div>
 
   <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
   <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
   <nvd3 ng-if="chosenData=='Stars'" options="histOptions" data="histData"></nvd3>
-  <nvd3 ng-if="chosenData=='EngageContent'" options="lineOptions" data="lineData"></nvd3>
 </div>
 <link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">

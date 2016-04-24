@@ -5,6 +5,7 @@ var d3Controller = function($scope, $http, $state) {
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
     $scope.warnings = response.data.warningList;
+    $scope.engageContent = response.data.engageContentList;
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
@@ -49,6 +50,44 @@ var d3Controller = function($scope, $http, $state) {
     };
     // //setting attendance data for plotting to angular var
     // $scope.attendanceData = attendanceDataList;
+
+    $scope.lineOptions = {
+          chart: {
+              type: 'lineChart',
+              height: 450,
+              margin : {
+                  top: 20,
+                  right: 20,
+                  bottom: 40,
+                  left: 55
+              },
+              x: function(d){ return d.x; },
+              y: function(d){ return d.y; },
+              useInteractiveGuideline: true,
+              dispatch: {
+                  stateChange: function(e){ console.log("stateChange"); },
+                  changeState: function(e){ console.log("changeState"); },
+                  tooltipShow: function(e){ console.log("tooltipShow"); },
+                  tooltipHide: function(e){ console.log("tooltipHide"); }
+              },
+              xAxis: {
+                axisLabel: 'Date',
+                tickFormat: function(d){
+                  return d3.time.format('%x')(new Date(d))
+                },
+                axisLabelDistance: -10
+            },
+            zoom: {
+              enabled: true,
+              scaleExtent: [1, 10],
+              useFixedDomain: false,
+              useNiceScale: false,
+              horizontalOff: false,
+              verticalOff: true,
+              unzoomEventType: 'dblclick.zoom'
+            }
+          }
+        }
 
     //options to create time based chart
     $scope.histOptions = {
@@ -110,6 +149,18 @@ var d3Controller = function($scope, $http, $state) {
     for (var i = 0; i < $scope.stars.length; i++) {
       dateData.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
     }
+    var lineData = [];
+    for (var i = 0; i < $scope.engageContent.length; i++) {
+      lineData.push({x:Number(new Date($scope.dates[i])), y: $scope.engageContent[i]});
+    }
+
+    $scope.lineData = [{
+      values: lineData,      //values - represents the array of {x,y} data points
+      key: 'engageContent', //key  - the name of the series.
+      color: '#ff7f0e',  //color - optional: choose your own line color.
+      strokeWidth: 2,
+      classed: 'dashed'
+    }];
 
     //setting this new datalist to angular var for plotting
     $scope.histData = [{
