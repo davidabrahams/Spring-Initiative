@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-group">
-          <button class="btn btn-default" ng-click = "addStudent()" type="submit">Submit</button>
+          <button class="btn btn-default" ng-disabled="!newStudent.archived" ng-click = "addStudent()" type="submit">Submit</button>
       </div>
 
       <div class="form-group">
