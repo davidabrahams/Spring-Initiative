@@ -51,7 +51,7 @@
 
       <div id="accordion">
         <div class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" ng-click="studentsCollapsed = !studentsCollapsed">Current Students<span class="caret"></span></a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" ng-click="studentsCollapsed=!studentsCollapsed; archivedCollapsed=false">Current Students<span class="caret"></span></a>
         </div>
         <div id="collapseOne" class="panel-collapse collapse" uib-collapse="!studentsCollapsed">
           <div class="panel-body">
@@ -68,14 +68,14 @@
 
       <div id="accordion">
         <div class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-click="archivedCollapsed = !archivedCollapsed">Past Students<span class="caret"></span></a>
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" ng-click="archivedCollapsed=!archivedCollapsed; studentsCollapsed=false">Past Students<span class="caret"></span></a>
         </div>
         <div id="collapseTwo" class="panel-collapse collapse" uib-collapse="!archivedCollapsed">
           <div class="panel-body">
             <ul>
               <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
                 <li>
-                  <a ui-sref=".student.addEntry">{{student.name}}</a>
+                  <a ui-sref=".student.addEntry" ui-sref-opts="{reload: 'index.student.addEntry'}">{{student.name}}</a>
                 </li>
               </div>
             </ul>
