@@ -157,6 +157,10 @@ var d3Controller = function($scope, $http, $state) {
       contentData.push({x:Number(new Date($scope.dates[i])), y: $scope.engageContent[i]});
     }
 
+    contentData.sort(function(a, b) {
+    return parseFloat(a.x) - parseFloat(b.x);
+    });
+
     $scope.contentData = [{
       values: contentData,      //values - represents the array of {x,y} data points
       key: 'engageContent', //key  - the name of the series.
