@@ -8,9 +8,6 @@ var studentController = function($scope,  $http, $state) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
       $scope.studentEditMsg = response.data.msg;
-      // Need to clear the form after submission
-      $('.submit').focus();
-      $('.submit').blur();
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
@@ -104,11 +101,11 @@ var addDailyEntryController = function($scope, $http, $location) {
 }
 
 var addLongEntryController = function($scope, $http, $location) {
-  $('.datepicker').datepicker({
-    format: 'mm/dd/yyyy',
-    autoclose: true,
-    todayHighlight: true
-  });
+
+  $scope.popup1 = {
+    opened: false
+  };
+
   $scope.submitLongEntry = function(student) {
     $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
     .then(function successCallback(response) {
@@ -128,8 +125,6 @@ var addStudentController = function($scope, $http, $location) {
       $scope.$parent.students = response.data.allStudents;
       $scope.newStudent = null;
       $scope.studentAddedMsg = response.data.msg;
-      $('#archiveRadio').focus();
-      $('#archiveRadio').blur();
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.studentAddedMsg = response.data.msg;
