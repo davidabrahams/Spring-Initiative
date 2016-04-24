@@ -54,7 +54,7 @@ var cohortVizController = function($scope, $http, $state) {
     // $scope.attendanceData = attendanceDataList;
 
     //options to create time based chart
-    $scope.histOptions = {
+    $scope.starOptions = {
       chart: {
         type: 'historicalBarChart',
         height: 450,
@@ -64,6 +64,7 @@ var cohortVizController = function($scope, $http, $state) {
           bottom: 65,
           left: 50
         },
+        forceY: [0, 2.5],
         x: function(d) {
           return d[0];
         },
@@ -109,17 +110,17 @@ var cohortVizController = function($scope, $http, $state) {
       
     //creating a list in format for viz
     //[[num, num], [num, num]] where first num corresponds to date and second is value
-    var dateData = [];
+    var starData = [];
     for (var i = 0; i < $scope.stars.length; i++) {
-      dateData.push([Number(new Date($scope.dates[i])), $scope.stars[i]]);
+      starData.push([Number(new Date($scope.dates[i])), $scope.stars[i]]);
     }
 
 
     //setting this new datalist to angular var for plotting
-    $scope.histData = [{
+    $scope.starData = [{
       "key": "Quantity",
       "bar": true,
-      "values": dateData
+      "values": starData
     }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
