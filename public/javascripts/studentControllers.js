@@ -67,7 +67,6 @@ var addDailyEntryController = function($scope, $http, $location) {
       } else {
         $scope.allEntries.push(response.data.newEntryObj);
       }
-      console.log('UPDATING LOCAL ENTRIES');
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;

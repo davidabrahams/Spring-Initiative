@@ -19,7 +19,6 @@ var indexController = function($scope, $http, $location, $state) {
 
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data;
-    console.log($scope.students)
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
