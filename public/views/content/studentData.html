@@ -32,11 +32,11 @@
     <h2>
       <!-- Choose data type -->
       View
-      <span class="dropdown">
-        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+      <span uib-dropdown class="dropdown">
+        <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
         {{dataTypeSelected}} <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu" aria-labelledby="dLabel">
+        <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           <div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
             <li><a ng-click="setType(dataType)">{{dataType}}</a></li>
           </div>
@@ -46,11 +46,11 @@
       data
       <span ng-show="isData"> for </span>
       <span ng-show="!isData"> - <b>no data available.</b></span>
-      <span class="dropdown" ng-show="isData">
-        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+      <span uib-dropdown class="dropdown" ng-show="isData">
+        <a uib-dropdown-toggle data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
         {{getDateString(dateSelected.date)}} <b class="caret"></b>
         </a>
-        <ul class="dropdown-menu" aria-labelledby="dLabel">
+        <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           <div ng-repeat="date in currentDateList" style="padding-left:10px;">
             <li><a ng-click="setDate(date)">{{getDateString(date.date)}}</a></li>
           </div>
@@ -78,12 +78,12 @@
     <div class="data-chooser">
       <h2>
         <!-- Choose data type -->
-        View 
-        <span class="dropdown">
-          <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        View
+        <span uib-dropdown class="dropdown">
+          <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
           	{{dataTypeSelected}} <b class="caret"></b>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           	<div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
               <li><a ng-click="setType(dataType)">{{dataType}}</a></li>
           	</div>
@@ -96,11 +96,11 @@
         <span ng-show="isData"> for </span>
         <span ng-show="!isData"> - <b>no data available.</b></span>
 
-        <span class="dropdown" ng-show="isData">
-          <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        <span uib-dropdown class="dropdown" ng-show="isData">
+          <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
             {{getDateString(dateSelected.date)}} <b class="caret"></b>
           </a>
-          <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           	<div ng-repeat="date in currentDateList" style="padding-left:10px;">
               <li><a ng-click="setDate(date)">{{getDateString(date.date)}}</a></li>
           	</div>
@@ -112,9 +112,9 @@
     <div class="data" ng-show="isData">
         <div>
           <h3>
-            <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
-            <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} | 
-            <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}  
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} |
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} |
+            <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
           </h3>
         </div>
         <br>
