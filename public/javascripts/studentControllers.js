@@ -1,6 +1,7 @@
-var studentController = function($scope,  $http, $state) {
+var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
+
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
@@ -24,7 +25,7 @@ var studentController = function($scope,  $http, $state) {
       console.log('Error:' + response.data);
     });
   }
-};
+}
 
 var addDailyEntryController = function($scope, $http, $location) {
 
@@ -34,7 +35,6 @@ var addDailyEntryController = function($scope, $http, $location) {
     autoclose: true,
     todayHighlight: true
   });
-
 
    $scope.slider = {
       value: 3,
@@ -47,7 +47,7 @@ var addDailyEntryController = function($scope, $http, $location) {
             return '#eee';
           }
       }
-  };
+  }
 
   // get all entries for the current student to make sure we dont make an entry
   // for a date that already has one
@@ -75,7 +75,7 @@ var addDailyEntryController = function($scope, $http, $location) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
-  };
+  }
 
   $scope.dateChange = function() {
     $scope.dateMatch = -1;
@@ -122,7 +122,7 @@ var addLongEntryController = function($scope, $http, $location) {
       $scope.entrySubmittedMsg = response.data.msg;
     });
   }
-};
+}
 
 var addStudentController = function($scope, $http, $location) {
   $scope.addStudent = function() {
@@ -138,5 +138,59 @@ var addStudentController = function($scope, $http, $location) {
       $scope.studentAddedMsg = response.data.msg;
     });
 
-  };
-};
+  }
+}
+
+var studentDataController = function($scope, $http, $state) {
+
+  $scope.setType = function(dataType){
+    $scope.dataTypeSelected = dataType;
+    console.log('getDataEntries for', $scope.currentStudent.name);
+    $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
+      .then(function successCallback(response) {
+        console.log(response.data);
+        if(response.data[0] == undefined){
+          $scope.dateSelected = "No data available";
+          $scope.isData = false;
+        } else{
+          $scope.currentDateList = response.data;
+          $scope.dateSelected = response.data[0];
+          $scope.isData = true;
+        }
+      }, function errorCallback(response) {
+        console.log('Error: ' + response.data);
+    });
+  }
+
+  $scope.getDateString = function(dateString){
+    var date = new Date(dateString);
+    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate(); 
+  }
+
+  $scope.ifEmpty = function(data){
+    if(data === '' || data === null || data === undefined) return 'No data.';
+    else return data;
+  }
+
+  $scope.showIssues = function(issues){
+    issues = $scope.ifEmpty(issues);
+    if(issues === 'No data.') return issues;
+    else {
+      newIssues = '';
+      for(var k in issues) newIssues = newIssues + ', ' + k;
+      return newIssues.substring(2);
+    }
+  }
+
+  $scope.setDate = function(date){
+    $scope.dateSelected = date;
+  }
+
+  $scope.isData = false; // for showing 'No data available' text
+  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
+  // Initial state views last daily entry
+  $scope.currentDateList = [];
+  $scope.setType('Daily');
+}

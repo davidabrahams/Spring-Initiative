@@ -28,18 +28,19 @@ routes.GETstudent = function(req, res, next) {
 }
 
 routes.POSTeditstudent = function(req, res, next) {
-
   var studentName = req.body.name;
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
+  var studentOverview = req.body.overview;
 
   Student.update({
     _id: studentID
   }, {
     name: studentName,
     program: studentProgram,
-    archived: studentArchived
+    archived: studentArchived,
+    overview: studentOverview
   }, function(err, record) {
     Student.find({}, function(err, allStudents) {
       if (err) {

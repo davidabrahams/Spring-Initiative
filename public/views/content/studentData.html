@@ -1,0 +1,131 @@
+<!-- Right side info -->
+<div class="listing" style="float: right;">
+  <h3>
+    <!-- Reading level -->
+    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl {{currentStudent.reading}}
+    <br>
+    <span tooltip-placement="left" uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{currentStudent.stars}}
+    <br>
+    <span tooltip-placement="left" uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{currentStudent.warnings}}
+    <br>
+    10/14 Attendances
+    <br>
+    2 skips
+    <br>
+    3 Excused
+    <br>
+    1 Detention
+  </h3>
+</div>
+<!-- Left side info -->
+<div class="left-holder" style="float: left;">
+  <div class="overview">
+    {{currentStudent.overview}}
+  </div>
+  <div class="action-steps">
+    <h2>Action steps</h2>
+    <input type="checkbox"> feed
+    <br><input type="checkbox"> bathe
+  </div>
+  <!-- Show exact information -->
+  <div class="data-chooser">
+    <h2>
+      <!-- Choose data type -->
+      View
+      <span class="dropdown">
+        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        {{dataTypeSelected}} <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
+            <li><a ng-click="setType(dataType)">{{dataType}}</a></li>
+          </div>
+        </ul>
+      </span>
+      <!-- Choose date -->
+      data
+      <span ng-show="isData"> for </span>
+      <span ng-show="!isData"> - <b>no data available.</b></span>
+      <span class="dropdown" ng-show="isData">
+        <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+        {{getDateString(dateSelected.date)}} <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+          <div ng-repeat="date in currentDateList" style="padding-left:10px;">
+            <li><a ng-click="setDate(date)">{{getDateString(date.date)}}</a></li>
+          </div>
+        </ul>
+      </span>
+    </h2>
+  </div>
+  <div class="data" ng-show="isData">
+    <div>
+      <h3>
+      <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} |
+      <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} |
+      <span data-toggle="tooltip" title="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
+      </h3>
+    </div>
+
+    <div class="action-steps">
+      <h2>Action steps</h2>
+      <input type="checkbox"> feed
+      <br><input type="checkbox"> bathe
+    </div>
+
+    <!-- Show exact information -->
+
+    <div class="data-chooser">
+      <h2>
+        <!-- Choose data type -->
+        View 
+        <span class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+          	{{dataTypeSelected}} <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dLabel">
+          	<div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
+              <li><a ng-click="setType(dataType)">{{dataType}}</a></li>
+          	</div>
+
+          </ul>
+        </span>
+
+        <!-- Choose date -->
+        data
+        <span ng-show="isData"> for </span>
+        <span ng-show="!isData"> - <b>no data available.</b></span>
+
+        <span class="dropdown" ng-show="isData">
+          <a data-toggle="dropdown" class="dropdown-toggle" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+            {{getDateString(dateSelected.date)}} <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dLabel">
+          	<div ng-repeat="date in currentDateList" style="padding-left:10px;">
+              <li><a ng-click="setDate(date)">{{getDateString(date.date)}}</a></li>
+          	</div>
+          </ul>
+        </span>
+      </h2>
+    </div>
+
+    <div class="data" ng-show="isData">
+        <div>
+          <h3>
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} | 
+            <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}  
+          </h3>
+        </div>
+        <br>
+        <b>Attendance</b>: {{dateSelected.attendance}}
+        <br>
+        <b>Behavior</b>: {{dateSelected.behaviorText}}
+        <br>
+        <b>Action steps</b>: {{dateSelected.actionSteps}}
+        <br>
+        <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
+        <br>
+        <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
+    </div>
+</div>

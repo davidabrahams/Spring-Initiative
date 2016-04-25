@@ -1,4 +1,4 @@
-<h2> Add a new Short Term Entry </h2>
+<h2> Add a new short term entry </h2>
 <form class="entryform" ng-submit="submitNewDailyEntry(currentStudent)">
   <div class="row">
     <div class="col-sm-6">
@@ -25,7 +25,7 @@
       <div class="form-group">
         <label for="sel1">Warnings at Spring:</label>
         <select class="form-control" id="sel1" ng-disabled="!newDailyEntry.date" ng-model="newDailyEntry.warnings">
-          <option value=""></option>
+          <option value="0 Warnings">0 Warnings</option>
           <option value="1 Warning">1 Warning</option>
           <option value="2 Warnings">2 Warnings</option>
           <option value="Sent Home">Sent Home</option>

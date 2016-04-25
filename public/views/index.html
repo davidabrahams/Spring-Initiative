@@ -58,7 +58,7 @@
             <ul>
               <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:false}" ng-click="showStudent(student)">
                 <li>
-                  <a ui-sref=".student.addEntry">{{student.name}}</a>
+                  <a ui-sref=".student.showData" ui-sref-opts="{reload: 'index.student.showData'}">{{student.name}}</a>
                 </li>
               </div>
             </ul>
@@ -73,9 +73,9 @@
         <div id="collapseTwo" class="panel-collapse collapse">
           <div class="panel-body">
             <ul>
-              <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)">
+              <div class="student-item" ng-repeat="student in students | filter :searchbar | filter:{archived:true}" ng-click="showStudent(student)" >
                 <li>
-                  <a ui-sref=".student.addEntry">{{student.name}}</a>
+                  <a ui-sref=".student.showData" ui-sref-opts="{reload: 'index.student.showData'}">{{student.name}}</a>
                 </li>
               </div>
             </ul>
