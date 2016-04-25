@@ -38,11 +38,20 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
+  // Note: this state won't be viewed by itself anymore
   .state('index.student', {
     views: {
       'content': {
         templateUrl: 'views/content/student.html',
         controller: 'studentController'
+      }
+    }
+  })
+  .state('index.student.showData', {
+    views: {
+      'studentView@index.student': {
+        controller: 'studentDataController',
+        templateUrl: 'views/content/studentData.html'
       }
     }
   })

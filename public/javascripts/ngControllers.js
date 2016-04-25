@@ -6,4 +6,5 @@ springInitiative.controller('addDailyEntryController', addDailyEntryController);
 springInitiative.controller('addLongEntryController', addLongEntryController);
 springInitiative.controller('addStudentController', addStudentController);
 springInitiative.controller('settingsController', settingsController);
+springInitiative.controller('studentDataController', studentDataController);
 springInitiative.controller('cohortController', cohortController);

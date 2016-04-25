@@ -1,5 +1,5 @@
 var d3Controller = function($scope, $http, $state) {
-  $http.get('/api/student/data/' + $scope.currentStudent._id).then(function successCallback(
+  $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
     response) {
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
