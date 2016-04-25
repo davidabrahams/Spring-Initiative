@@ -1,11 +1,11 @@
 <!-- Right side info -->
 <div class="listing" style="float: right;"><h3>
     <!-- Reading level -->
-    <span class="glyphicon glyphicon-book" aria-hidden="true" data-toggle="tooltip" data-placement="left" title="Current reading level"></span> Lvl {{currentStudent.reading}}
+    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl {{currentStudent.reading}}
     <br>
-    <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{currentStudent.stars}}
+    <span tooltip-placement="left" uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{currentStudent.stars}}
     <br>
-    <span data-toggle="tooltip" title="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{currentStudent.warnings}}
+    <span tooltip-placement="left" uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{currentStudent.warnings}}
     <br>
     10/14 Attendances
     <br>
@@ -64,9 +64,9 @@
 
     <div class="data" ng-show="isData">
         <div><h3>
-            <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
-            <span data-toggle="tooltip" title="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} | 
-            <span data-toggle="tooltip" title="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} | 
+            <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} | 
+            <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
             </h4>
         </div>
         <br>

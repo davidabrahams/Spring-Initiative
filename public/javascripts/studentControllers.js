@@ -1,11 +1,7 @@
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
 var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
-  // $scope.currentStudent = $scope.$parent.currentStudent;
+
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
@@ -39,7 +35,6 @@ var addDailyEntryController = function($scope, $http, $location) {
     autoclose: true,
     todayHighlight: true
   });
-
 
    $scope.slider = {
       value: 3,
