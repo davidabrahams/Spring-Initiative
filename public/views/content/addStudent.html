@@ -1,12 +1,12 @@
 <div class="row">
 
-<form class="student-form">
+<form class="student-form" ng-submit="addStudent()">
     <h3>Add New Student</h3>
 
     <div class="col-sm-6">
       <div class="form-group">
           <label>Name:</label>
-          <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" /> 
+          <input type="text" class="form-control" ng-model="newStudent.name" placeholder="First name Last name" required="" autofocus="" />
       </div>
 
       <div class="form-group" name="addStudentForm">
@@ -24,7 +24,7 @@
         <label for="archiveRadio" class="control-label">Archived:</label>
         <div class="controls">
           <label class="radio-inline">
-            <input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true">Yes
+            <input ng-model = "newStudent.archived" type="radio" name="optradio" value = "true" required>Yes
           </label>
           <label class="radio-inline">
             <input ng-model = "newStudent.archived" type="radio" name="optradio" value = "false">No
@@ -33,7 +33,7 @@
       </div>
 
       <div class="form-group">
-          <button class="btn btn-default" ng-disabled="!newStudent.archived" ng-click = "addStudent()" type="submit">Submit</button>
+          <button class="btn btn-default" type="submit">Submit</button>
       </div>
 
       <div class="form-group">
