@@ -8,3 +8,4 @@ springInitiative.controller('addStudentController', addStudentController);
 springInitiative.controller('settingsController', settingsController);
 springInitiative.controller('cohortController', cohortController);
 springInitiative.controller('cohortVizController', cohortVizController);
+springInitiative.controller('studentDataController', studentDataController);

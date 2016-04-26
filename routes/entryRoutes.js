@@ -71,7 +71,7 @@ routes.POSTnewLongEntry = function(req, res, next) {
       return res.status(500).json({msg: 'Error submitting entry'});
     }
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});
-  })
+  });
 };
 
 routes.GETallStudentEntries = function(req, res) {
@@ -84,7 +84,7 @@ routes.GETallStudentEntries = function(req, res) {
 
 }
 
-routes.GETstudentEntries = function(req, res) {
+routes.GETstudentEntriesList = function(req, res) {
   var studentID = req.params._id;
   var attendanceList = [];
   var starsList = [];
@@ -103,7 +103,19 @@ routes.GETstudentEntries = function(req, res) {
       engageContentList.push(studentData[i].engageContent)
     }
     res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
-  })
+  });
+}
+
+routes.GETstudentEntries = function(req, res){
+  var studentID = req.params._id;
+  var dataType = req.params.dataType; // i.e., daily, weekly, monthly, etc
+  console.log(studentID, dataType);
+  FormDB.find({_studentID:studentID, period: dataType}, function(err, studentData){
+    studentData.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
+    res.json(studentData);
+  });
 }
 
 routes.GETcohortEntries = function(req, res) {
