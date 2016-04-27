@@ -1,8 +1,8 @@
 var cohortVizController = function($scope, $http, $state) {
-  
+
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
-    
+
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
@@ -25,16 +25,16 @@ var cohortVizController = function($scope, $http, $state) {
         newList.push({
           key: keys[i],
           y: dataDict[keys[i]]
-        })
-      } 
-      return newList
+        });
+      }
+      return newList;
     }
 
     var attendanceList = [];
-    $scope.attendanceData = formatPieData($scope.attendance, attendanceList)
+    $scope.attendanceData = formatPieData($scope.attendance, attendanceList);
 
     var warningsList = [];
-    $scope.warningData = formatPieData($scope.warnings, warningsList)
+    $scope.warningData = formatPieData($scope.warnings, warningsList);
 
     var starsList = [];
     $scope.starData = formatPieData($scope.stars, starsList);
@@ -57,5 +57,5 @@ var cohortVizController = function($scope, $http, $state) {
 
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
-  })
+  });
 };
