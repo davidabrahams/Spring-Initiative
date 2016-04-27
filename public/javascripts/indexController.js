@@ -19,10 +19,6 @@ var indexController = function($scope, $http, $location, $state) {
 
   $http.get('/api/allStudents').then(function(data) {
     $scope.students = data.data.allStudents;
-    $scope.juniorSpring = data.data.juniorSpring;
-    $scope.babySpring = data.data.babySpring;
-    $scope.littleSpring = data.data.littleSpring;
-    $scope.bigSpring = data.data.bigSpring;
   }, function(err) {
     console.log('Error: in GET \'/student\'', err);
   });
