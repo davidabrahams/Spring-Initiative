@@ -24,15 +24,15 @@ var d3Controller = function($scope, $http, $state) {
         newList.push({
           key: keys[i],
           y: dataDict[keys[i]]
-        })
-      } 
-      return newList
+        });
+      }
+      return newList;
     }
     var attendanceList = [];
-    $scope.attendanceData = formatPieData($scope.attendance, attendanceList)
+    $scope.attendanceData = formatPieData($scope.attendance, attendanceList);
 
     var warningsList = [];
-    $scope.warningData = formatPieData($scope.warnings, warningsList)
+    $scope.warningData = formatPieData($scope.warnings, warningsList);
 
     //options to create pie chart
     $scope.pieOptions = {
@@ -52,44 +52,51 @@ var d3Controller = function($scope, $http, $state) {
     // $scope.attendanceData = attendanceDataList;
 
     $scope.contentOptions = {
-          chart: {
-              type: 'lineChart',
-              height: 450,
-              margin : {
-                  top: 20,
-                  right: 20,
-                  bottom: 40,
-                  left: 55
-              },
-              forceY: [0, 5],
-              x: function(d){ return d.x; },
-              y: function(d){ return d.y; },
-              useInteractiveGuideline: true,
-              dispatch: {
-                  stateChange: function(e){ console.log("stateChange"); },
-                  changeState: function(e){ console.log("changeState"); },
-                  tooltipShow: function(e){ console.log("tooltipShow"); },
-                  tooltipHide: function(e){ console.log("tooltipHide"); }
-              },
-              xAxis: {
-                axisLabel: 'Date',
-                tickFormat: function(d){
-                  return d3.time.format('%x')(new Date(d))
-                },
-                axisLabelDistance: -10
-            },
-            zoom: {
-              enabled: true,
-              scaleExtent: [1, 10],
-              useFixedDomain: false,
-              useNiceScale: false,
-              horizontalOff: false,
-              verticalOff: true,
-              unzoomEventType: 'dblclick.zoom'
-            }
+      chart: {
+        type: 'lineChart',
+        height: 450,
+        margin: {
+          top: 20,
+          right: 20,
+          bottom: 40,
+          left: 55
+        },
+        forceY: [0, 5],
+        x: function(d) { return d.x; },
+        y: function(d) { return d.y; },
+        useInteractiveGuideline: true,
+        dispatch: {
+          stateChange: function(e) {
+            console.log("stateChange");
+          },
+          changeState: function(e) {
+            console.log("changeState");
+          },
+          tooltipShow: function(e) {
+            console.log("tooltipShow");
+          },
+          tooltipHide: function(e) {
+            console.log("tooltipHide");
           }
+        },
+        xAxis: {
+          axisLabel: 'Date',
+          tickFormat: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          },
+          axisLabelDistance: -10
+        },
+        zoom: {
+          enabled: true,
+          scaleExtent: [1, 10],
+          useFixedDomain: false,
+          useNiceScale: false,
+          horizontalOff: false,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
-
+      }
+    };
     //options to create time based chart
     $scope.starOptions = {
       chart: {
@@ -106,7 +113,7 @@ var d3Controller = function($scope, $http, $state) {
           return d[0];
         },
         y: function(d) {
-          return d[1]
+          return d[1];
         },
         showValues: true,
         valueFormat: function(d) {
@@ -116,7 +123,7 @@ var d3Controller = function($scope, $http, $state) {
         xAxis: {
           axisLabel: 'Dates',
           tickFormat: function(d) {
-            return d3.time.format('%x')(new Date(d))
+            return d3.time.format('%x')(new Date(d));
           },
           rotateLabels: 30,
           showMaxMin: false
@@ -149,12 +156,12 @@ var d3Controller = function($scope, $http, $state) {
     //[[num, num], [num, num]] where first num corresponds to date and second is value
     var starData = [];
     for (var i = 0; i < $scope.stars.length; i++) {
-      starData.push([Number(new Date($scope.dates[i])), $scope.stars[i]])
+      starData.push([Number(new Date($scope.dates[i])), $scope.stars[i]]);
     }
 
     var contentData = [];
-    for (var i = 0; i < $scope.engageContent.length; i++) {
-      contentData.push({x:Number(new Date($scope.dates[i])), y: $scope.engageContent[i]});
+    for (var j = 0; j < $scope.engageContent.length; j++) {
+      contentData.push({x:Number(new Date($scope.dates[j])), y: $scope.engageContent[j]});
     }
 
     contentData.sort(function(a, b) {
@@ -177,5 +184,5 @@ var d3Controller = function($scope, $http, $state) {
     }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
-  })
+  });
 };

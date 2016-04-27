@@ -4,15 +4,7 @@ var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
-    Student.find({program: "Baby Spring"}, function(err, babySpringStudents){
-      Student.find({program: "Junior Spring"}, function(err, juniorSpringStudents){
-        Student.find({program: "Little Spring"}, function(err, littleSpringStudents){
-          Student.find({program: "Big Spring"}, function(err, bigSpringStudents){
-            res.json({allStudents:allStudents, juniorSpring:juniorSpringStudents, bigSpring:bigSpringStudents, littleSpring: littleSpringStudents, babySpring: babySpringStudents});
-          })
-        })
-      })
-    })
+    res.json({allStudents:allStudents});
   });
 }
 

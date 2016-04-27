@@ -13,7 +13,7 @@ var studentController = function($scope, $http, $state) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
     });
-  }
+  };
 
   $scope.getArchive = function() {
     $http.get('api/index/archive').then(function successCallback(response) {
@@ -21,8 +21,8 @@ var studentController = function($scope, $http, $state) {
     }, function errorCallback(response) {
       console.log('Error:' + response.data);
     });
-  }
-}
+  };
+};
 
 var addDailyEntryController = function($scope, $http, $location) {
 
@@ -69,7 +69,7 @@ var addDailyEntryController = function($scope, $http, $location) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
-  }
+  };
 
   $scope.dateChange = function() {
     $scope.dateMatch = -1;
@@ -90,7 +90,7 @@ var addDailyEntryController = function($scope, $http, $location) {
       if (prepopulate) {
         var currentDate = $scope.allEntries[$scope.dateMatch];
         $scope.newDailyEntry = currentDate;
-        $scope.newDailyEntry.date = new Date(currentDate.date)
+        $scope.newDailyEntry.date = new Date(currentDate.date);
       }
       else {
         $scope.newDailyEntry.date = null;
@@ -98,8 +98,8 @@ var addDailyEntryController = function($scope, $http, $location) {
     } else {
       $scope.newDailyEntry._id = null;
     }
-  }
-}
+  };
+};
 
 var addLongEntryController = function($scope, $http, $location) {
 
@@ -116,8 +116,8 @@ var addLongEntryController = function($scope, $http, $location) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
-  }
-}
+  };
+};
 
 var addStudentController = function($scope, $http, $location) {
   $scope.addStudent = function() {
@@ -131,8 +131,8 @@ var addStudentController = function($scope, $http, $location) {
       $scope.studentAddedMsg = response.data.msg;
     });
 
-  }
-}
+  };
+};
 
 var studentDataController = function($scope, $http, $state) {
 
@@ -153,19 +153,19 @@ var studentDataController = function($scope, $http, $state) {
       }, function errorCallback(response) {
         console.log('Error: ' + response.data);
     });
-  }
+  };
 
   $scope.getDateString = function(dateString){
     var date = new Date(dateString);
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate();
-  }
+  };
 
   $scope.ifEmpty = function(data){
     if(data === '' || data === null || data === undefined) return 'No data.';
     else return data;
-  }
+  };
 
   $scope.showIssues = function(issues){
     issues = $scope.ifEmpty(issues);
@@ -175,15 +175,15 @@ var studentDataController = function($scope, $http, $state) {
       for(var k in issues) newIssues = newIssues + ', ' + k;
       return newIssues.substring(2);
     }
-  }
+  };
 
   $scope.setDate = function(date){
     $scope.dateSelected = date;
-  }
+  };
 
   $scope.isData = false; // for showing 'No data available' text
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');
-}
+};
