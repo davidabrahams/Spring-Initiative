@@ -4,7 +4,7 @@ var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
-    res.json(allStudents);
+    res.json({allStudents:allStudents});
   });
 }
 

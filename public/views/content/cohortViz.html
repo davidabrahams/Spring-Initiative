@@ -8,9 +8,11 @@
       <option value="Warnings">Warnings</option>
     </select>
   </div>
-  <br>
-  <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
-  <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
-  <nvd3 ng-if="chosenData=='Stars'" options="histOptions" data="histData"></nvd3>
+
+  <div class = "viz-bkg">
+    <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
+    <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
+    <nvd3 ng-if="chosenData=='Stars'" options="pieOptions" data="starData"></nvd3>
+  </div>
 </div>
 <link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">

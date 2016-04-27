@@ -12,5 +12,5 @@ var cohortController = function($scope,  $http, $state) {
     }, function errorCallback(response) {
       $scope.cohortEntrySubmittedMsg = response.data.msg;
     });
-  }
+  };
 };

@@ -2,6 +2,7 @@ var path = require('path');
 var routes = {};
 
 var FormDB = require(path.join(__dirname, '../models/form'));
+var Student = require(path.join(__dirname, '../models/student'));
 
 routes.POSTnewDailyEntry = function(req, res, next) {
   // This route only handles short term
@@ -90,6 +91,7 @@ routes.GETstudentEntriesList = function(req, res) {
   var datesList = [];
   var behaviorList = [];
   var warningList = [];
+  var engageContentList = []
 
   FormDB.find({_studentID:studentID}, function(err, studentData) {
     for (var i = 0; i < studentData.length; i++){
@@ -98,8 +100,9 @@ routes.GETstudentEntriesList = function(req, res) {
       datesList.push(studentData[i].date);
       behaviorList.push(studentData[i].schoolBehavior);
       warningList.push(studentData[i].warnings);
+      engageContentList.push(studentData[i].engageContent)
     }
-    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList});
+    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
   });
 }
 
@@ -114,5 +117,32 @@ routes.GETstudentEntries = function(req, res){
     res.json(studentData);
   });
 }
+
+routes.GETcohortEntries = function(req, res) {
+  var cohort = req.params.cohort;
+  var studentListFull = [];
+  var attendanceList = [];
+  var starsList = [];
+  var datesList = [];
+  var behaviorList = [];
+  var warningList = [];
+  var engageContentList = []
+
+  Student.find({program:cohort}, function(err, students){
+    var studentIds = students.map(function(student){return student._id});
+    console.log('studentIds: '+studentIds);
+    FormDB.find({_studentID:{$in:studentIds}}, function(err, forms) {
+      forms.forEach(function(form) {
+        attendanceList.push(form.attendance);
+        starsList.push(form.stars);
+        datesList.push(form.date);
+        warningList.push(form.warnings);
+        engageContentList.push(form.engageContent)
+      });
+      res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
+    })
+  })
+}
+
 
 module.exports = routes;
