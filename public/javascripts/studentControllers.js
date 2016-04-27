@@ -135,6 +135,8 @@ var addStudentController = function($scope, $http, $location) {
 };
 
 var studentDataController = function($scope, $http, $state) {
+  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  $scope.thisMonth = months[new Date().getMonth()];
 
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
@@ -148,18 +150,14 @@ var studentDataController = function($scope, $http, $state) {
         } else{
           $scope.currentDateList = response.data;
           $scope.dateSelected = response.data[0];
+          $scope.yearIndexList = createYearList(response.data);
+          $scope.monthIndexList = createMonthList(response.data);
+          $scope.dayIndexList = createDayList(response.data);
           $scope.isData = true;
         }
       }, function errorCallback(response) {
         console.log('Error: ' + response.data);
     });
-  };
-
-  $scope.getDateString = function(dateString){
-    var date = new Date(dateString);
-    var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    return days[date.getDay()] + ', ' + months[date.getMonth()] + ' ' + date.getDate();
   };
 
   $scope.ifEmpty = function(data){
@@ -177,13 +175,72 @@ var studentDataController = function($scope, $http, $state) {
     }
   };
 
-  $scope.setDate = function(date){
+  $scope.setYear = function(date){
     $scope.dateSelected = date;
-  };
+    $scope.monthIndexList = createMonthList($scope.currentDateList);
+  }
+
+  $scope.setMonth = function(date){
+    $scope.dateSelected = date;
+    $scope.dayIndexList = createDayList($scope.currentDateList);
+  }
+
+  $scope.setDay = function(date){
+    $scope.dateSelected = date;
+  }
+
+  var createYearList = function(entryList){
+    var distinctYears = [];
+    var indexList = [];
+    for (var i = 0; i < entryList.length; i++) {
+      var year = new Date(entryList[i].date).getFullYear();
+      // if date is not in array
+      if(distinctYears.indexOf(year) < 0){ // indexOf does not work in IE8
+        distinctYears.push(year);
+        indexList.push(i);
+      }
+    }
+    return indexList;
+  }
+
+  var createMonthList = function(entryList){
+    var year = new Date($scope.dateSelected.date).getFullYear();
+    var distinctMonths = [];
+    var indexList = [];
+    for (var i = 0; i < entryList.length; i++) {
+      var month = new Date(entryList[i].date).getMonth();
+      // if date is not in array and is in proper year
+      if(new Date(entryList[i].date).getFullYear() === year &&
+          distinctMonths.indexOf(month) < 0){ // indexOf does not work in IE8
+        distinctMonths.push(month);
+        indexList.push(i);
+      }
+    }
+    return indexList;
+  }
+
+  var createDayList = function(entryList){
+    var year = new Date($scope.dateSelected.date).getFullYear();
+    var month = new Date($scope.dateSelected.date).getMonth();
+    var distinctDays = [];
+    var indexList = [];
+    for (var i = 0; i < entryList.length; i++) {
+      var day = new Date(entryList[i].date).getDate();
+      // if date is not in array and is in proper year and month
+      if(new Date(entryList[i].date).getFullYear() === year &&
+          new Date(entryList[i].date).getMonth() === month &&
+          distinctDays.indexOf(day) < 0){ // indexOf does not work in IE8
+        distinctDays.push(day);
+        indexList.push(i);
+      }
+    }
+    return indexList;
+  }
 
   $scope.isData = false; // for showing 'No data available' text
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');
+
 };
