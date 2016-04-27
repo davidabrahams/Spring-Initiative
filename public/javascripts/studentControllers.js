@@ -135,8 +135,7 @@ var addStudentController = function($scope, $http, $location) {
 };
 
 var studentDataController = function($scope, $http, $state) {
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  $scope.thisMonth = months[new Date().getMonth()];
+  $scope.thisMonth = new Date();
 
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
