@@ -4,7 +4,7 @@
     <!-- Reading level -->
     <center><b>{{thisMonth}}</b></center>
     <br>
-    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl {{currentStudent.reading}}
+    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl X
     <br>
     X Attendances
     <br>
@@ -98,16 +98,16 @@
   <div class="data" ng-show="isData">
       <div>
         <h3>
-          <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} |
-          <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}} | <span uib-tooltip="Adult Engagement" class="glyphicon glyphicon-user" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageAdult}} | <span uib-tooltip="Content Engagement" class="glyphicon glyphicon-apple" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageContent}} | <span uib-tooltip="Peer Engagement" class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engagePeer}}
+          <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{ifEmpty(dateSelected.stars)}} |
+          <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{ifEmpty(dateSelected.warnings)}} | <span uib-tooltip="Adult Engagement" class="glyphicon glyphicon-user" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageAdult}} | <span uib-tooltip="Content Engagement" class="glyphicon glyphicon-apple" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageContent}} | <span uib-tooltip="Peer Engagement" class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engagePeer}}
         </h3>
       </div>
       <br>
-      <b>Attendance</b>: {{dateSelected.attendance}}
+      <b>Attendance</b>: {{ifEmpty(dateSelected.attendance)}}
       <br>
-      <b>Behavior</b>: {{dateSelected.behaviorText}}
+      <b>Behavior</b>: {{ifEmpty(dateSelected.behaviorText)}}
       <br>
-      <b>Action steps</b>: {{dateSelected.actionSteps}}
+      <b>Action steps</b>: {{ifEmpty(dateSelected.actionSteps)}}
       <br>
       <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
       <br>

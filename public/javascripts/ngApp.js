@@ -38,6 +38,22 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
+  .state('index.cohort.showViz', {
+    views: {
+      'cohortView@index.cohort': {
+        templateUrl: 'views/content/cohortViz.html',
+        controller: 'cohortVizController'
+      }
+    }
+  })
+  .state('index.cohort.addEntry', {
+    views: {
+      'cohortView@index.cohort': {
+        templateUrl: 'views/content/cohortEntry.html',
+        controller: 'cohortController'
+      }
+    }
+  })
   // Note: this state won't be viewed by itself anymore
   .state('index.student', {
     views: {
@@ -59,7 +75,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
     views: {
       'studentView@index.student': {
         controller: 'd3Controller',
-        templateUrl: 'views/content/d3.html'
+        templateUrl: 'views/content/studentViz.html'
       }
     }
   })

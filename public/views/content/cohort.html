@@ -5,44 +5,25 @@
   Info: {{currentCohortInfo}}
 </div>
 
-<h2> Add a new cohort entry </h2>
-<form class="entryform" ng-submit="submitNewCohortEntry(currentCohort)">
-  <div class="row">
-    <div class="col-sm-6">
+<div id="exTab3" class="container">
+  <ul class="nav nav-pills">
+    <li ui-sref-active="active" class="tab active">
+      <a ui-sref=".addEntry">Daily Entry</a>
+    </li>
+    <li ui-sref-active="active" class="tab">
+      <a ui-sref=".showViz">Show Viz</a>
+    </li>
+  </ul>
 
-      <div class="form-group">
-        <label for="sel1">Cohort:</label>
-        <select class="form-control" id="sel1" ng-model="newCohortEntry.cohortName">
-          <option value="Little Spring" >Little Spring</option>
-          <option value="Junior Spring" >Junior Spring</option>
-          <option value="Big Spring" >Big Spring</option>
-          <option value="Baby Spring" >Baby Spring</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="date">Date:</label>
-        <input type="date" id="date" class="form-control" ng-model="newCohortEntry.date" value="{{ date | date: 'yyyy-MM-dd' }}" />
-      </div>
-
-      <div class="form-group">
-        <label>Overall Cohort Comments:</label>
-        <input type="text" ng-model="newCohortEntry.comment" placeholder="Input cohort info" class="form-control" />
-      </div>
-      <div class="form-group">
-        <label>Cohort Action Steps:</label>
-        <input type="text" ng-model="newCohortEntry.actionSteps" placeholder="Input action steps" class="form-control" />
-      </div>
+  <div class="tab-content clearfix">
+    <div class="tab-pane active">
+      <div ui-view="cohortView"></div>
+    </div>
+    <div class="tab-pane">
+      <div ui-view="cohortView"></div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <button class="btn btn-default" ui-sref="^">Cancel</button>
-      <button class="btn btn-default" type="submit">Submit</button>
-    </div>
-  </div>
-  <br>
-  <br>
-  <div class="alert alert-info" ng-show="cohortEntrySubmittedMsg">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{cohortEntrySubmittedMsg}}
-  </div>
-</form>
+</div>
+
+
+<link href="stylesheets/tabs.css" rel="stylesheet">
