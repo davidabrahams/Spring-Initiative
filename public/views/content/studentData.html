@@ -2,19 +2,15 @@
 <div class="listing" style="float: right;">
   <h3>
     <!-- Reading level -->
+    <center><b>{{thisMonth}}</b></center>
+    <br>
     <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl {{currentStudent.reading}}
     <br>
-    <span tooltip-placement="left" uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{currentStudent.stars}}
+    X Attendances
     <br>
-    <span tooltip-placement="left" uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{currentStudent.warnings}}
+    X skips
     <br>
-    10/14 Attendances
-    <br>
-    2 skips
-    <br>
-    3 Excused
-    <br>
-    1 Detention
+    X Excused
   </h3>
 </div>
 
@@ -41,7 +37,9 @@
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
         	<div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
-            <li><a ng-click="setType(dataType)">{{dataType}}</a></li>
+            <li>
+              <a ng-click="setType(dataType)">{{dataType}}</a>
+            </li>
         	</div>
 
         </ul>
@@ -52,25 +50,56 @@
       <span ng-show="isData"> for </span>
       <span ng-show="!isData"> - <b>no data available.</b></span>
 
+      <!-- Year -->
       <span uib-dropdown class="dropdown" ng-show="isData">
         <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
-          {{getDateString(dateSelected.date)}} <b class="caret"></b>
+          {{dateSelected.date | date: 'yyyy'}} <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
-        	<div ng-repeat="date in currentDateList" style="padding-left:10px;">
-            <li><a ng-click="setDate(date)">{{getDateString(date.date)}}</a></li>
+          <div ng-repeat="index in yearIndexList" style="padding-left:10px;">
+            <li>
+              <a ng-click="setYear(currentDateList[index])">{{currentDateList[index].date | date: 'yyyy'}}</a>
+            </li>
+          </div>
+        </ul>
+      </span>
+
+      <!-- Month -->
+      <span uib-dropdown class="dropdown" ng-show="isData">
+        <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+          {{dateSelected.date | date: 'MMMM'}} <b class="caret"></b>
+        </a>
+        <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
+        	<div ng-repeat="index in monthIndexList" style="padding-left:10px;">
+            <li>
+              <a ng-click="setMonth(currentDateList[index])">{{currentDateList[index].date | date: 'MMMM'}}</a>
+            </li>
         	</div>
         </ul>
       </span>
+
+      <!-- Day -->
+      <span uib-dropdown class="dropdown" ng-show="isData">
+        <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
+          {{dateSelected.date | date: 'dd'}} <b class="caret"></b>
+        </a>
+        <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
+          <div ng-repeat="index in dayIndexList" style="padding-left:10px;">
+            <li>
+              <a ng-click="setDay(currentDateList[index])">{{currentDateList[index].date | date: 'dd'}}</a>
+            </li>
+          </div>
+        </ul>
+      </span>
+
     </h2>
   </div>
 
   <div class="data" ng-show="isData">
       <div>
         <h3>
-          <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{dateSelected.readingLevels}} |
           <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{dateSelected.stars}} |
-          <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}}
+          <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{dateSelected.warnings}} | <span uib-tooltip="Adult Engagement" class="glyphicon glyphicon-user" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageAdult}} | <span uib-tooltip="Content Engagement" class="glyphicon glyphicon-apple" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageContent}} | <span uib-tooltip="Peer Engagement" class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engagePeer}}
         </h3>
       </div>
       <br>
