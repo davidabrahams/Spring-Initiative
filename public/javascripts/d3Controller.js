@@ -25,7 +25,7 @@ var d3Controller = function($scope, $http, $state) {
           key: keys[i],
           y: dataDict[keys[i]]
         })
-      } 
+      }
       return newList
     }
     var attendanceList = [];
@@ -52,44 +52,51 @@ var d3Controller = function($scope, $http, $state) {
     // $scope.attendanceData = attendanceDataList;
 
     $scope.contentOptions = {
-          chart: {
-              type: 'lineChart',
-              height: 450,
-              margin : {
-                  top: 20,
-                  right: 20,
-                  bottom: 40,
-                  left: 55
-              },
-              forceY: [0, 5],
-              x: function(d){ return d.x; },
-              y: function(d){ return d.y; },
-              useInteractiveGuideline: true,
-              dispatch: {
-                  stateChange: function(e){ console.log("stateChange"); },
-                  changeState: function(e){ console.log("changeState"); },
-                  tooltipShow: function(e){ console.log("tooltipShow"); },
-                  tooltipHide: function(e){ console.log("tooltipHide"); }
-              },
-              xAxis: {
-                axisLabel: 'Date',
-                tickFormat: function(d){
-                  return d3.time.format('%x')(new Date(d))
-                },
-                axisLabelDistance: -10
-            },
-            zoom: {
-              enabled: true,
-              scaleExtent: [1, 10],
-              useFixedDomain: false,
-              useNiceScale: false,
-              horizontalOff: false,
-              verticalOff: true,
-              unzoomEventType: 'dblclick.zoom'
-            }
+      chart: {
+        type: 'lineChart',
+        height: 450,
+        margin: {
+          top: 20,
+          right: 20,
+          bottom: 40,
+          left: 55
+        },
+        forceY: [0, 5],
+        x: function(d) { return d.x; },
+        y: function(d) { return d.y; },
+        useInteractiveGuideline: true,
+        dispatch: {
+          stateChange: function(e) {
+            console.log("stateChange");
+          },
+          changeState: function(e) {
+            console.log("changeState");
+          },
+          tooltipShow: function(e) {
+            console.log("tooltipShow");
+          },
+          tooltipHide: function(e) {
+            console.log("tooltipHide");
           }
+        },
+        xAxis: {
+          axisLabel: 'Date',
+          tickFormat: function(d) {
+            return d3.time.format('%x')(new Date(d))
+          },
+          axisLabelDistance: -10
+        },
+        zoom: {
+          enabled: true,
+          scaleExtent: [1, 10],
+          useFixedDomain: false,
+          useNiceScale: false,
+          horizontalOff: false,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
-
+      }
+    }
     //options to create time based chart
     $scope.starOptions = {
       chart: {

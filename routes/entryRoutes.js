@@ -131,14 +131,14 @@ routes.GETcohortEntries = function(req, res) {
   Student.find({program:cohort}, function(err, students){
     var studentIds = students.map(function(student){return student._id});
     console.log('studentIds: '+studentIds);
-    FormDB.find({_studentID:{$in:studentIds}}, function(err, forms){
-      forms.reduce(function(prev,form){
+    FormDB.find({_studentID:{$in:studentIds}}, function(err, forms) {
+      forms.forEach(function(form) {
         attendanceList.push(form.attendance);
         starsList.push(form.stars);
         datesList.push(form.date);
         warningList.push(form.warnings);
         engageContentList.push(form.engageContent)
-      }, {})
+      });
       res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
     })
   })
