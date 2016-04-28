@@ -14,3 +14,11 @@ var cohortController = function($scope,  $http, $state) {
     });
   };
 };
+
+var cohortStudentsController = function($scope, $http, $state) {
+
+  $scope.showStudent = function(student) {
+    $scope.$parent.$parent.currentStudent = student;
+    $state.go('index.student.showData');
+  };
+};
