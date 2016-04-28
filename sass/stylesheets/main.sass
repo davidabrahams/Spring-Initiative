@@ -1,36 +1,18 @@
 body
-  // padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  padding-top: 50px
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
   overflow: hidden
 
 .navbar-default
-  border-color: #41afa5
-  .navbar-collapse
-    background: #41afa5
-    border-color: #41afa5
-  .navbar-brand
+  background: #41afa5
+  border: none
+  .navbar-brand, .navbar-nav > li > a, .navbar-nav
     color: #fff
-    &:hover
+    &:hover, &:focus
       color: #D3F2EF
-    &:focus
-      color: #D3F2EF
-  .navbar-nav > li > a
-    color: #fff
-    background-color: #41afa5
-    &:hover
-      color: #D3F2EF
-    &:focus
-      color: #D3F2EF
-  .navbar-nav > .open > a
-    background-color: #41afa5
-    &:hover
-
-      color: #D3F2EF;
-      background-color: #41afa5
-    &:focus
-      background-color: #41afa5
-      color: #D3F2EF
+    & > li.open > a
+      &, &:hover, &:focus
+        color: #D3F2EF
+        background-color: transparent
 
 .navbar-form
   padding: 10px 15px 10px 0px;
@@ -60,7 +42,7 @@ body
   height: 100%
   padding: 50px 0 0px 15px
   position: fixed
-  background: #183635
+  background: #999999
   width: 250px
 
 @media (max-width: 992px)
@@ -88,7 +70,6 @@ body
     > ul
       list-style: none
     color: #fff
-
   .panel-body > a
     color: #fff
     &:hover
@@ -101,6 +82,7 @@ body
   bottom: 0
   position: fixed
   padding: 10px
+
 
 .my-btn
   color: #FFFFFF
