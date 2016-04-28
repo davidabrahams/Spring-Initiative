@@ -2,7 +2,7 @@ var cohortVizController = function($scope, $http, $state) {
 
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
-
+    console.log($scope.chosenTimeframe)
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
