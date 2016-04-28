@@ -11,6 +11,13 @@
       <option value="EngageAdult">Engagement with Adults</option>
     </select>
   </div>
+  <div class="form-group col-md-4">
+    <label for="sel1">Time Frame:</label>
+    <select class="form-control" id="sel1" ng-model="chosenTimeframe">
+      <option value="All">All</option>
+      <option value="TwoWeeks">Last Two Weeks</option>
+    </select>
+  </div>
 
   <div class = "viz-bkg">
     <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
