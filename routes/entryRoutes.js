@@ -126,7 +126,10 @@ routes.GETcohortEntries = function(req, res) {
   var datesList = [];
   var behaviorList = [];
   var warningList = [];
-  var engageContentList = []
+  var engageContentList = [];
+  var engagePeerList = [];
+  var engageAdultList = [];
+
 
   Student.find({program:cohort}, function(err, students){
     var studentIds = students.map(function(student){return student._id});
@@ -138,8 +141,10 @@ routes.GETcohortEntries = function(req, res) {
         datesList.push(form.date);
         warningList.push(form.warnings);
         engageContentList.push(form.engageContent)
+        engagePeerList.push(form.engagePeer)
+        engageAdultList.push(form.engageAdult)
       });
-      res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
+      res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList, engageAdultList: engageAdultList, engagePeerList: engagePeerList});
     })
   })
 }

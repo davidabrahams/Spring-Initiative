@@ -6,6 +6,9 @@
       <option value="Stars">Stars</option>
       <option value="Attendance">Attendance</option>
       <option value="Warnings">Warnings</option>
+      <option value="EngageContent">Engagement with Content</option>
+      <option value="EngagePeer">Engagement with Peers</option>
+      <option value="EngageAdult">Engagement with Adults</option>
     </select>
   </div>
 
@@ -13,6 +16,10 @@
     <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
     <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
     <nvd3 ng-if="chosenData=='Stars'" options="pieOptions" data="starData"></nvd3>
+    <nvd3 ng-if="chosenData=='EngageContent'" options="pieOptions" data="engageContentData"></nvd3>
+    <nvd3 ng-if="chosenData=='EngagePeer'" options="pieOptions" data="engagePeerData"></nvd3>
+    <nvd3 ng-if="chosenData=='EngageAdult'" options="pieOptions" data="engageAdultData"></nvd3>
+
   </div>
 </div>
 <link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">
