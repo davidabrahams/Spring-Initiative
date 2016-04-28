@@ -1,0 +1,5 @@
+<div class="student-item list-group col-sm-4" ng-repeat="student in students" ng-if="student.program==currentCohortName" ng-click="showStudent(student)">
+	<li class="list-group-item">
+	  <a ui-sref="index.student.showData" ui-sref-opts="{reload: 'index.student.showData'}">{{student.name}}</a>
+	</li>
+</div>

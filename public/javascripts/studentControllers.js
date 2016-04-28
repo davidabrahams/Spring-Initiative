@@ -136,7 +136,8 @@ var addStudentController = function($scope, $http, $location) {
 
 var studentDataController = function($scope, $http, $state) {
   $scope.thisMonth = new Date();
-
+  console.log("In student data studentController");
+  console.log($scope.currentStudent);
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
     console.log('getDataEntries for', $scope.currentStudent.name);
