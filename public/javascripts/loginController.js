@@ -37,4 +37,4 @@ var loginController = function($scope, $http, $state) {
       console.log('error: %s', response.data);
     });
   };
-};
+}

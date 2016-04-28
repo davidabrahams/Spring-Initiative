@@ -4,7 +4,7 @@ var Student = require(path.join(__dirname, '../models/student'));
 
 routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
-    res.json({allStudents:allStudents});
+    res.json(allStudents);
   });
 }
 
@@ -28,19 +28,18 @@ routes.GETstudent = function(req, res, next) {
 }
 
 routes.POSTeditstudent = function(req, res, next) {
+
   var studentName = req.body.name;
   var studentProgram = req.body.program;
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
-  var studentOverview = req.body.overview;
 
   Student.update({
     _id: studentID
   }, {
     name: studentName,
     program: studentProgram,
-    archived: studentArchived,
-    overview: studentOverview
+    archived: studentArchived
   }, function(err, record) {
     Student.find({}, function(err, allStudents) {
       if (err) {

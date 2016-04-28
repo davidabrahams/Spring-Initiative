@@ -22,13 +22,8 @@ routes.POSTchangeAdmin = userRoutes.POSTchangeAdmin;
 routes.POSTchangePassword = userRoutes.POSTchangePassword;
 routes.DELETEdelUser = userRoutes.DELETEdelUser;
 
-routes.GETstudentEntriesList = entryRoutes.GETstudentEntriesList;
-routes.POSTnewDailyEntry = entryRoutes.POSTnewDailyEntry;
-routes.POSTnewLongEntry = entryRoutes.POSTnewLongEntry;
+routes.POSTnewEntry = entryRoutes.POSTnewEntry;
 routes.GETstudentEntries = entryRoutes.GETstudentEntries;
-routes.GETallStudentEntries = entryRoutes.GETallStudentEntries;
-routes.GETcohortEntries = entryRoutes.GETcohortEntries;
-
 
 routes.POSTnewCohortEntry = cohortRoutes.POSTnewCohortEntry;
 

@@ -54,20 +54,15 @@ app.post('/api/login', index.POSTlogin);
 app.post('/api/logout', index.POSTlogout);
 app.post('/api/register', index.POSTregister);
 app.get('/api/allStudents', index.GETallStudents);
-app.get('/api/student/allEntries', index.GETallStudentEntries);
 app.get('/api/student/:_id', index.GETstudent);
 app.post('/api/student/add', index.POSTaddstudent);
 app.post('/api/student/edit/:_id', index.POSTeditstudent);
 app.get('/api/index/archive', index.GETarchive);
-app.get('/api/student/dataList/:_id', index.GETstudentEntriesList);
-app.get('/api/student/data/:_id/:dataType', index.GETstudentEntries);
-app.post('/api/student/newDailyEntry/:_id', index.POSTnewDailyEntry);
-app.post('/api/student/newLongEntry/:_id', index.POSTnewLongEntry);
+app.get('/api/student/data/:_id', index.GETstudentEntries);
+app.post('/api/student/newEntry/:_id', index.POSTnewEntry);
 app.get('/api/allUsers', index.GETallUsers);
 app.post('/api/changeAdmin/:_id', index.POSTchangeAdmin);
 app.post('/api/changePassword/:_id', index.POSTchangePassword);
-app.post('/api/cohort/newCohortEntry/:name', index.POSTnewCohortEntry);
-app.get('/api/cohort/data/:cohort', index.GETcohortEntries);
 app.delete('/api/delUser/:_id', index.DELETEdelUser);
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.

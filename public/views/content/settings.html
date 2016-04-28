@@ -6,7 +6,7 @@
       <div class="col-md-2" ng-if="username.isAdmin">Admin</div>
       <div class="col-md-2" ng-if="!username.isAdmin">Staff</div>
       <div class="col-md-3">
-        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn my-btn btn-sm" >Change Admin Status</button> 
+        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn btn-primary btn-sm" >Change Admin Status</button> 
       </div>
       <div class="col-md-3">
         <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button> 
@@ -35,7 +35,7 @@
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{passwordChangeMsg}}
         </div>
 
-        <button class='form-control btn my-btn submit-button' type='submit'>Change password</button>
+        <button class='form-control btn btn-primary submit-button' type='submit'>Change password</button>
 
       </form>
     </div>

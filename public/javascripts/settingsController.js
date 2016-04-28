@@ -43,5 +43,5 @@ var settingsController = function($scope, $http, $location) {
       $scope.passwordMatchError = "Passwords do not match";
       $scope.passwordChangeMsg = null;
     }
-  };
+  }
 };
