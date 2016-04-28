@@ -13,47 +13,40 @@
     X Excused
   </h3>
 </div>
-
 <!-- Left side info -->
 <div class="left-holder" style="float: left;">
-
   <div class="overview">
     {{currentStudent.overview}}
   </div>
-
   <div class="action-steps">
     <h2>Action steps</h2>
     <input type="checkbox"> feed
     <br><input type="checkbox"> bathe
   </div>
-
   <div class="data-chooser">
     <h2>
       <!-- Choose data type -->
       View
       <span uib-dropdown class="dropdown">
         <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
-        	{{dataTypeSelected}} <b class="caret"></b>
+        {{dataTypeSelected}} <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
-        	<div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
+          <div ng-repeat="dataType in dataTypes" style="padding-left:10px;">
             <li>
               <a ng-click="setType(dataType)">{{dataType}}</a>
             </li>
-        	</div>
-
+          </div>
         </ul>
       </span>
-
       <!-- Choose date -->
       data
       <span ng-show="isData"> for </span>
       <span ng-show="!isData"> - <b>no data available.</b></span>
-
       <!-- Year -->
       <span uib-dropdown class="dropdown" ng-show="isData">
         <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
-          {{dateSelected.date | date: 'yyyy'}} <b class="caret"></b>
+        {{dateSelected.date | date: 'yyyy'}} <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           <div ng-repeat="index in yearIndexList" style="padding-left:10px;">
@@ -63,25 +56,23 @@
           </div>
         </ul>
       </span>
-
       <!-- Month -->
       <span uib-dropdown class="dropdown" ng-show="isData">
         <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
-          {{dateSelected.date | date: 'MMMM'}} <b class="caret"></b>
+        {{dateSelected.date | date: 'MMMM'}} <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
-        	<div ng-repeat="index in monthIndexList" style="padding-left:10px;">
+          <div ng-repeat="index in monthIndexList" style="padding-left:10px;">
             <li>
               <a ng-click="setMonth(currentDateList[index])">{{currentDateList[index].date | date: 'MMMM'}}</a>
             </li>
-        	</div>
+          </div>
         </ul>
       </span>
-
       <!-- Day -->
       <span uib-dropdown class="dropdown" ng-show="isData">
         <a uib-dropdown-toggle class="dropdown-toggle" data-toggle="dropdown" id="dLabel" role="button" aria-haspopup="true" aria-expanded="false">
-          {{dateSelected.date | date: 'dd'}} <b class="caret"></b>
+        {{dateSelected.date | date: 'dd'}} <b class="caret"></b>
         </a>
         <ul uib-dropdown-menu class="dropdown-menu" aria-labelledby="dLabel">
           <div ng-repeat="index in dayIndexList" style="padding-left:10px;">
@@ -91,26 +82,24 @@
           </div>
         </ul>
       </span>
-
     </h2>
   </div>
-
   <div class="data" ng-show="isData">
-      <div>
-        <h3>
-          <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{ifEmpty(dateSelected.stars)}} |
-          <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{ifEmpty(dateSelected.warnings)}} | <span uib-tooltip="Adult Engagement" class="glyphicon glyphicon-user" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageAdult}} | <span uib-tooltip="Content Engagement" class="glyphicon glyphicon-apple" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageContent}} | <span uib-tooltip="Peer Engagement" class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engagePeer}}
-        </h3>
-      </div>
-      <br>
-      <b>Attendance</b>: {{ifEmpty(dateSelected.attendance)}}
-      <br>
-      <b>Behavior</b>: {{ifEmpty(dateSelected.behaviorText)}}
-      <br>
-      <b>Action steps</b>: {{ifEmpty(dateSelected.actionSteps)}}
-      <br>
-      <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
-      <br>
-      <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
+    <div>
+      <h3>
+        <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{ifEmpty(dateSelected.stars)}} |
+        <span uib-tooltip="Warnings" class="glyphicon glyphicon-remove" aria-hidden="true" style="float-right: true;"></span> = {{ifEmpty(dateSelected.warnings)}} | <span uib-tooltip="Adult Engagement" class="glyphicon glyphicon-user" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageAdult}} | <span uib-tooltip="Content Engagement" class="glyphicon glyphicon-apple" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engageContent}} | <span uib-tooltip="Peer Engagement" class="glyphicon glyphicon-eye-open" aria-hidden="true" style="float-right: true;"></span> x {{dateSelected.engagePeer}}
+      </h3>
+    </div>
+    <br>
+    <b>Attendance</b>: {{ifEmpty(dateSelected.attendance)}}
+    <br>
+    <b>Behavior</b>: {{ifEmpty(dateSelected.behaviorText)}}
+    <br>
+    <b>Action steps</b>: {{ifEmpty(dateSelected.actionSteps)}}
+    <br>
+    <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
+    <br>
+    <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
   </div>
 </div>
