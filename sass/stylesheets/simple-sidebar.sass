@@ -1,18 +1,24 @@
-
 #wrapper
   padding-left: 0
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  transition: all 0.5s ease
+  &.toggled
+    padding-left: 250px
 
 #sidebar-wrapper
-  z-index: 1000
   position: fixed
   left: 250px
+  width: 0
   height: 100%
   margin-left: -250px
   overflow-y: auto
-  background: #000
-
-.input-group
-  width: 100%
+  background: #183635
+  -webkit-transition: all 0.5s ease
+  -moz-transition: all 0.5s ease
+  -o-transition: all 0.5s ease
+  transition: all 0.5s ease
 
 #wrapper.toggled #sidebar-wrapper
   width: 250px
@@ -26,39 +32,43 @@
   position: absolute
   margin-right: -250px
 
-#sidebar
-  position: relative
+.sidebar-nav
+  position: absolute
   top: 0
+  width: 250px
   margin: 0
-  padding: 0
+  padding: 10px 0px
   list-style: none
   ul
     padding-left: 0px
   li
-    text-indent: 10px
-    line-height: 25px
+    padding-left: 0px
+    text-indent: 20px
+    line-height: 30px
+    list-style: none
     a, h1
+
+      padding-left: 0px
       display: block
       text-decoration: none
-      color: #fff
+      color: #ccc
       &:hover
         text-decoration: none
         color: #fff
         background: rgba(255, 255, 255, 0.2)
       &:active, &:focus
         text-decoration: none
-  .panel-title
-    color: #fff
-    &:hover
-      color: #dedede
-    &:focus
-      color: #dedede
+
+.input-group
+  width: 100%
 
 @media (min-width: 768px)
   #wrapper
     padding-left: 250px
     &.toggled
       padding-left: 0
+  #sidebar-wrapper
+    width: 250px
   #wrapper.toggled #sidebar-wrapper
     width: 0
   #page-content-wrapper
