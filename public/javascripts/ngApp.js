@@ -30,14 +30,31 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
   })
 
   /* Content views */
-  .state('index.program', {
+  .state('index.cohort', {
     views: {
       'content': {
-        templateUrl: 'views/content/program.html',
-        controller: 'programController'
+        templateUrl: 'views/content/cohort.html',
+        controller: 'cohortController'
       }
     }
   })
+  .state('index.cohort.showViz', {
+    views: {
+      'cohortView@index.cohort': {
+        templateUrl: 'views/content/cohortViz.html',
+        controller: 'cohortVizController'
+      }
+    }
+  })
+  .state('index.cohort.addEntry', {
+    views: {
+      'cohortView@index.cohort': {
+        templateUrl: 'views/content/cohortEntry.html',
+        controller: 'cohortController'
+      }
+    }
+  })
+  // Note: this state won't be viewed by itself anymore
   .state('index.student', {
     views: {
       'content': {
@@ -46,22 +63,39 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
+  .state('index.student.showData', {
+    views: {
+      'studentView@index.student': {
+        controller: 'studentDataController',
+        templateUrl: 'views/content/studentData.html'
+      }
+    }
+  })
   .state('index.student.showd3', {
     views: {
       'studentView@index.student': {
         controller: 'd3Controller',
-        templateUrl: 'views/content/d3.html'
+        templateUrl: 'views/content/studentViz.html'
       }
     }
   })
   .state('index.student.addEntry', {
     views: {
       'studentView@index.student': {
-        controller: 'addEntryController',
-        templateUrl: 'views/content/entryForm.html'
+        controller: 'addDailyEntryController',
+        templateUrl: 'views/content/dailyEntry.html'
       }
     }
   })
+  .state('index.student.addLongEntry', {
+    views: {
+      'studentView@index.student': {
+        controller: 'addLongEntryController',
+        templateUrl: 'views/content/longTermEntry.html'
+      }
+    }
+  })
+
   .state('index.student.editStudent', {
     views: {
       'studentView@index.student': {
@@ -92,15 +126,16 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
 
 springInitiative.run(function($rootScope, $state, $http) {
   $rootScope.$on('$stateChangeStart', function(event, next, current) {
-    if (next.name !== 'login') {
-      $http.get('/user').then(function(data) {
-        if (data.data.user == null) {
-          console.log('No one logged in, redirecting to /login');
-          $state.go('login');
-        }
-      }, function(err) {
-        console.log('Error: in GET \'/user\'', err);
-      });
-    }
+    $http.get('/user').then(function(data) {
+      if (data.data.user == null && next.name !== 'login') {
+        console.log('No one logged in, redirecting to /login');
+        $state.go('login');
+      } else if (data.data.user != null && next.name === 'login') {
+        console.log('Already logged in. Redirecting home.');
+        $state.go('index');
+      }
+    }, function(err) {
+      console.log('Error: in GET \'/user\'', err);
+    });
   });
 });
