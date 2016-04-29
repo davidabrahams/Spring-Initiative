@@ -139,10 +139,8 @@ var studentDataController = function($scope, $http, $state) {
 
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
-    console.log('getDataEntries for', $scope.currentStudent.name);
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
-        console.log(response.data);
         if(response.data[0] == undefined){
           $scope.dateSelected = "No data available";
           $scope.isData = false;
@@ -209,7 +207,7 @@ var studentDataController = function($scope, $http, $state) {
     for (var i = 0; i < entryList.length; i++) {
       var month = new Date(entryList[i].date).getMonth();
       // if date is not in array and is in proper year
-      if(new Date(entryList[i].date).getFullYear() === year && 
+      if(new Date(entryList[i].date).getFullYear() === year &&
           distinctMonths.indexOf(month) < 0){ // indexOf does not work in IE8
         distinctMonths.push(month);
         indexList.push(i);
@@ -226,8 +224,8 @@ var studentDataController = function($scope, $http, $state) {
     for (var i = 0; i < entryList.length; i++) {
       var day = new Date(entryList[i].date).getDate();
       // if date is not in array and is in proper year and month
-      if(new Date(entryList[i].date).getFullYear() === year && 
-          new Date(entryList[i].date).getMonth() === month && 
+      if(new Date(entryList[i].date).getFullYear() === year &&
+          new Date(entryList[i].date).getMonth() === month &&
           distinctDays.indexOf(day) < 0){ // indexOf does not work in IE8
         distinctDays.push(day);
         indexList.push(i);

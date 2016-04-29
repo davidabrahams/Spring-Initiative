@@ -2,10 +2,7 @@
   <div class="form-group col-md-4">
     <label for="sel1">Data Type:</label>
     <select class="form-control" id="sel1" ng-model="chosenData">
-      <option value="Stars">Stars</option>
-      <option value="Attendance">Attendance</option>
-      <option value="Warnings">Warnings</option>
-      <option value="EngageContent">Engagement with Content</option>
+      <option ng-repeat="c in canBeVisualized track by $index" value="{{c}}">{{canBeVisualizedDisplay[$index]}}</option>
     </select>
   </div>
 

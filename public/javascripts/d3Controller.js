@@ -1,11 +1,46 @@
 var d3Controller = function($scope, $http, $state) {
   $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
     response) {
-    $scope.attendance = response.data.attendanceList;
-    $scope.dates = response.data.datesList;
-    $scope.stars = response.data.starsList;
-    $scope.warnings = response.data.warningList;
-    $scope.engageContent = response.data.engageContentList;
+
+    // These are all the fields for which viz is available
+    $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
+    // what will be displayed in the dropdown
+    $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement'];
+    // This is a dictionary mapping from field name to values in the database
+    $scope.dataLists = {};
+    // This is a dictionary mapping from field name to type in the database
+    $scope.dataListsTypes = {};
+
+    // Initialize the first dictionary
+    $scope.canBeVisualized.forEach(function(category) {
+      $scope.dataLists[category] = [];
+    });
+
+    // iterate over the forms in the DB
+    response.data.forEach(function(entry) {
+      // iterate over the viz fields
+      $scope.canBeVisualized.forEach(function(category) {
+        // append to the corresponding list
+        $scope.dataLists[category].push(entry[category]);
+        // this is some fancy code that will ensure that dataListsTypes will
+        // contain the correct types after looping
+        if ($scope.dataListsTypes[category] === undefined &&
+            entry[category] !== undefined) {
+          $scope.dataListsTypes[category] = typeof entry[category]
+        }
+      });
+    });
+    console.log('IMPORTANT SHIT')
+    console.log($scope.dataLists)
+    console.log($scope.dataListsTypes)
+
+
+
+    // $scope.attendance = response.data.attendanceList;
+    // $scope.dates = response.data.datesList;
+    // $scope.stars = response.data.starsList;
+    // $scope.warnings = response.data.warningList;
+    // $scope.engageContent = response.data.engageContentList;
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
