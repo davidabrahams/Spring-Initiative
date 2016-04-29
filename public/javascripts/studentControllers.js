@@ -39,7 +39,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     }
   };
 
-  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
   $scope.dateMatch = -1;
   $scope.allEntries = null;
 
@@ -57,7 +57,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
       // update the document locally too
       // updateLocalEntries();
       if ($scope.dateMatch !== -1) {
@@ -209,7 +209,7 @@ var studentDataController = function($scope, $http, $state) {
     for (var i = 0; i < entryList.length; i++) {
       var month = new Date(entryList[i].date).getMonth();
       // if date is not in array and is in proper year
-      if(new Date(entryList[i].date).getFullYear() === year && 
+      if(new Date(entryList[i].date).getFullYear() === year &&
           distinctMonths.indexOf(month) < 0){ // indexOf does not work in IE8
         distinctMonths.push(month);
         indexList.push(i);
@@ -226,8 +226,8 @@ var studentDataController = function($scope, $http, $state) {
     for (var i = 0; i < entryList.length; i++) {
       var day = new Date(entryList[i].date).getDate();
       // if date is not in array and is in proper year and month
-      if(new Date(entryList[i].date).getFullYear() === year && 
-          new Date(entryList[i].date).getMonth() === month && 
+      if(new Date(entryList[i].date).getFullYear() === year &&
+          new Date(entryList[i].date).getMonth() === month &&
           distinctDays.indexOf(day) < 0){ // indexOf does not work in IE8
         distinctDays.push(day);
         indexList.push(i);
