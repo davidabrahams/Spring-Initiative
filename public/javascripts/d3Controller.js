@@ -68,10 +68,14 @@ var d3Controller = function($scope, $http, $state) {
     }
 
     var updateData = function() {
-      $scope.pieData = formatPieData($scope.dataLists['attendance']);
+      $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
     }
 
     updateData();
+
+    $scope.$watchGroup(["chosenData", "chartType"], function(newValues, oldValues) {
+      updateData();
+    });
 
     // $scope.formatPieData = formatPieData;
 
