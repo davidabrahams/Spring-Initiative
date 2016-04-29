@@ -136,10 +136,8 @@ var addStudentController = function($scope, $http, $location) {
 
 var studentDataController = function($scope, $http, $state) {
   $scope.thisMonth = new Date();
-
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
-    console.log('getDataEntries for', $scope.currentStudent.name);
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
         console.log(response.data);
