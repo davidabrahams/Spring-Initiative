@@ -142,7 +142,6 @@ var addStudentController = function($scope, $http, $location) {
 
 var studentDataController = function($scope, $http, $state) {
   $scope.thisMonth = new Date();
-
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
@@ -181,16 +180,16 @@ var studentDataController = function($scope, $http, $state) {
   $scope.setYear = function(date){
     $scope.dateSelected = date;
     $scope.monthIndexList = createMonthList($scope.currentDateList);
-  }
+  };
 
   $scope.setMonth = function(date){
     $scope.dateSelected = date;
     $scope.dayIndexList = createDayList($scope.currentDateList);
-  }
+  };
 
   $scope.setDay = function(date){
     $scope.dateSelected = date;
-  }
+  };
 
   var createYearList = function(entryList){
     var distinctYears = [];
@@ -204,7 +203,7 @@ var studentDataController = function($scope, $http, $state) {
       }
     }
     return indexList;
-  }
+  };
 
   var createMonthList = function(entryList){
     var year = new Date($scope.dateSelected.date).getFullYear();
@@ -220,7 +219,7 @@ var studentDataController = function($scope, $http, $state) {
       }
     }
     return indexList;
-  }
+  };
 
   var createDayList = function(entryList){
     var year = new Date($scope.dateSelected.date).getFullYear();
@@ -232,17 +231,18 @@ var studentDataController = function($scope, $http, $state) {
       // if date is not in array and is in proper year and month
       if(new Date(entryList[i].date).getFullYear() === year &&
           new Date(entryList[i].date).getMonth() === month &&
-          distinctDays.indexOf(day) < 0){ // indexOf does not work in IE8
+          distinctDays.indexOf(day) < 0) { // indexOf does not work in IE8
         distinctDays.push(day);
         indexList.push(i);
       }
     }
     return indexList;
-  }
+  };
 
   $scope.isData = false; // for showing 'No data available' text
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');
-}
+
+};
