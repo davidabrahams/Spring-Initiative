@@ -72,25 +72,31 @@ var d3Controller = function($scope, $http, $state) {
 
     var formatLineData = function(data, dates) {
       var contentData = [];
-      for (var j = 0; j < data.length; j++) {
-        contentData.push({x:Number(new Date(dates[j])), y: data[j]});
+      var res = [];
+      if (data !== undefined) {
+        for (var j = 0; j < data.length; j++) {
+          if (data[j] !== undefined) {
+          contentData.push({x:Number(new Date(dates[j])), y: data[j]}); }
+        }
+
+        contentData.sort(function(a, b) {
+          return parseFloat(a.x) - parseFloat(b.x);
+        });
+
+        res = [{
+          values: contentData,      //values - represents the array of {x,y} data points
+          // key: 'engageContent', //key  - the name of the series.
+          color: '#ff7f0e',  //color - optional: choose your own line color.
+          strokeWidth: 2,
+          classed: 'dashed'
+        }];
       }
-
-      contentData.sort(function(a, b) {
-        return parseFloat(a.x) - parseFloat(b.x);
-      });
-
-      $scope.contentData = [{
-        values: contentData,      //values - represents the array of {x,y} data points
-        // key: 'engageContent', //key  - the name of the series.
-        color: '#ff7f0e',  //color - optional: choose your own line color.
-        strokeWidth: 2,
-        classed: 'dashed'
-      }];
+      return res;
     };
 
     var updateData = function() {
       $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
+      $scope.lineData = formatLineData($scope.dataLists[$scope.chosenData], $scope.dates);
     };
 
     updateData();
@@ -123,7 +129,7 @@ var d3Controller = function($scope, $http, $state) {
     // //setting attendance data for plotting to angular var
     // $scope.attendanceData = attendanceDataList;
 
-    $scope.contentOptions = {
+    $scope.lineOptions = {
       chart: {
         type: 'lineChart',
         height: 450,
