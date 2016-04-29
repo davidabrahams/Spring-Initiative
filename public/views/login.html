@@ -1,11 +1,11 @@
 <form role="form" class="form-signin" ng-submit="login()">
   <h2 class="form-signin-heading">Please sign in</h2>
-  <div class="form-group" id="email-group">
+  <div ng-class="emailGroupClass" id="email-group">
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="email" autofocus required>
     <span ng-show="email_error" class="help-block">{{email_error}}</span>
   </div>
-  <div class="form-group" id="password-group">
+  <div ng-class="passwordGroupClass" id="password-group">
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" required>
     <span ng-show="password_error" class="help-block">{{password_error}}</span>
