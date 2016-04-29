@@ -1,27 +1,23 @@
 <form role="form" class="form-signin" ng-submit="login()">
   <h2 class="form-signin-heading">Please sign in</h2>
-  <div class="form-group" id="email-group">
+  <div ng-class="emailGroupClass" id="email-group">
     <label for="inputEmail" class="sr-only">Email address</label>
     <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="email" autofocus required>
     <span ng-show="email_error" class="help-block">{{email_error}}</span>
   </div>
-  <div class="form-group" id="password-group">
+  <div ng-class="passwordGroupClass" id="password-group">
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" required>
     <span ng-show="password_error" class="help-block">{{password_error}}</span>
   </div>
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
   <div class="alert alert-info" ng-show="verification_alert">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    A verification email for {{email}} is now pending admin(s) approval.
+    A verification email for {{email}} is now pending admin(s) and your approval.
   </div>
   <button style="border:none" class="btn btn-lg my-btn btn-block" type="submit">Sign in</button>
   <button style="border:none" type='button' class="btn btn-lg my-btn btn-block" ng-click="register()">Register</button>
 </form>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-<link rel="stylesheet" type="text/css" href="/stylesheets/signin.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/button.css">
