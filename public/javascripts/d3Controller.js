@@ -94,9 +94,30 @@ var d3Controller = function($scope, $http, $state) {
       return res;
     };
 
+    var formatBarData = function(data, dates) {
+      // creating a list in format for viz
+      // [[num, num], [num, num]] where first num corresponds to date and second is value
+      var contentData = [];
+      var res = [];
+      if (data !== undefined) {
+        for (var i = 0; i < data.length; i++) {
+          contentData.push([Number(new Date(dates[i])), data[i]]);
+        }
+
+        //setting this new datalist to angular var for plotting
+        res = [{
+          "key": "Quantity",
+          "bar": true,
+          "values": contentData
+        }];
+      }
+      return res;
+    };
+
     var updateData = function() {
       $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
       $scope.lineData = formatLineData($scope.dataLists[$scope.chosenData], $scope.dates);
+      $scope.barData = formatBarData($scope.dataLists[$scope.chosenData], $scope.dates);
     };
 
     updateData();
@@ -176,7 +197,7 @@ var d3Controller = function($scope, $http, $state) {
       }
     };
     //options to create time based chart
-    $scope.starOptions = {
+    $scope.barOptions = {
       chart: {
         type: 'historicalBarChart',
         height: 450,
@@ -229,37 +250,6 @@ var d3Controller = function($scope, $http, $state) {
         }
       }
     };
-
-    //creating a list in format for viz
-    //[[num, num], [num, num]] where first num corresponds to date and second is value
-    // var starData = [];
-    // for (var i = 0; i < $scope.stars.length; i++) {
-    //   starData.push([Number(new Date($scope.dates[i])), $scope.stars[i]]);
-    // }
-
-    // var contentData = [];
-    // for (var j = 0; j < $scope.engageContent.length; j++) {
-    //   contentData.push({x:Number(new Date($scope.dates[j])), y: $scope.engageContent[j]});
-    // }
-
-    // contentData.sort(function(a, b) {
-    // return parseFloat(a.x) - parseFloat(b.x);
-    // });
-
-    // $scope.contentData = [{
-    //   values: contentData,      //values - represents the array of {x,y} data points
-    //   key: 'engageContent', //key  - the name of the series.
-    //   color: '#ff7f0e',  //color - optional: choose your own line color.
-    //   strokeWidth: 2,
-    //   classed: 'dashed'
-    // }];
-
-    // //setting this new datalist to angular var for plotting
-    // $scope.starData = [{
-    //   "key": "Quantity",
-    //   "bar": true,
-    //   "values": starData
-    // }];
   }, function errorCallback(response) {
     console.log('Error: ' + response.data);
   });
