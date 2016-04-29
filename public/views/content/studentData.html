@@ -16,12 +16,16 @@
 <!-- Left side info -->
 <div class="left-holder" style="float: left;">
   <div class="overview">
+    <p> Overview: </p>
     {{currentStudent.overview}}
   </div>
-  <div class="action-steps">
-    <h2>Action steps</h2>
-    <input type="checkbox"> feed
-    <br><input type="checkbox"> bathe
+  <div>
+
+    <p>ActionSteps</p>
+      {{ifEmpty(dateSelected.actionSteps)}}
+
+      {{ifEmpty(actionSteps)}}
+
   </div>
   <div class="data-chooser">
     <h2>

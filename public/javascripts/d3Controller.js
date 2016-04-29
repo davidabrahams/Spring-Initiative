@@ -6,6 +6,7 @@ var d3Controller = function($scope, $http, $state) {
     $scope.stars = response.data.starsList;
     $scope.warnings = response.data.warningList;
     $scope.engageContent = response.data.engageContentList;
+    
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
@@ -28,6 +29,8 @@ var d3Controller = function($scope, $http, $state) {
       }
       return newList;
     }
+
+
     var attendanceList = [];
     $scope.attendanceData = formatPieData($scope.attendance, attendanceList);
 

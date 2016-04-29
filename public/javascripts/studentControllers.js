@@ -9,6 +9,8 @@ var studentController = function($scope, $http, $state) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
       $scope.studentEditMsg = response.data.msg;
+
+
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
@@ -156,6 +158,11 @@ var studentDataController = function($scope, $http, $state) {
           $scope.monthIndexList = createMonthList(response.data);
           $scope.dayIndexList = createDayList(response.data);
           $scope.isData = true;
+          $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
+            response) {
+            $scope.actionSteps = response.data.actionStepsList;
+
+
         }
       }, function errorCallback(response) {
         console.log('Error: ' + response.data);
