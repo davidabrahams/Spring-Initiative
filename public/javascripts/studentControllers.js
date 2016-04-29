@@ -26,6 +26,10 @@ var studentController = function($scope, $http, $state) {
 
 var addDailyEntryController = function($scope, $http, $location) {
 
+  var resetEntry = function() {
+    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
+  };
+
   $scope.popup1 = {
     opened: false
   };
@@ -39,7 +43,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     }
   };
 
-  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+  resetEntry();
   $scope.dateMatch = -1;
   $scope.allEntries = null;
 
@@ -57,7 +61,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+      resetEntry();
       // update the document locally too
       // updateLocalEntries();
       if ($scope.dateMatch !== -1) {
@@ -89,13 +93,15 @@ var addDailyEntryController = function($scope, $http, $location) {
       var prepopulate = window.confirm("A entry for this date already exists. Would you like to edit your existing entry?");
       if (prepopulate) {
         var currentDate = $scope.allEntries[$scope.dateMatch];
-        $scope.newDailyEntry = currentDate;
+        $scope.newDailyEntry = angular.copy(currentDate);
         $scope.newDailyEntry.date = new Date(currentDate.date);
       }
       else {
         $scope.newDailyEntry.date = null;
+        $scope.newDailyEntry._id = null;
       }
     } else {
+      if ($scope.newDailyEntry._id) { resetEntry(); }
       $scope.newDailyEntry._id = null;
     }
   };
@@ -136,7 +142,6 @@ var addStudentController = function($scope, $http, $location) {
 
 var studentDataController = function($scope, $http, $state) {
   $scope.thisMonth = new Date();
-
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
@@ -175,16 +180,16 @@ var studentDataController = function($scope, $http, $state) {
   $scope.setYear = function(date){
     $scope.dateSelected = date;
     $scope.monthIndexList = createMonthList($scope.currentDateList);
-  }
+  };
 
   $scope.setMonth = function(date){
     $scope.dateSelected = date;
     $scope.dayIndexList = createDayList($scope.currentDateList);
-  }
+  };
 
   $scope.setDay = function(date){
     $scope.dateSelected = date;
-  }
+  };
 
   var createYearList = function(entryList){
     var distinctYears = [];
@@ -198,7 +203,7 @@ var studentDataController = function($scope, $http, $state) {
       }
     }
     return indexList;
-  }
+  };
 
   var createMonthList = function(entryList){
     var year = new Date($scope.dateSelected.date).getFullYear();
@@ -214,7 +219,7 @@ var studentDataController = function($scope, $http, $state) {
       }
     }
     return indexList;
-  }
+  };
 
   var createDayList = function(entryList){
     var year = new Date($scope.dateSelected.date).getFullYear();
@@ -226,17 +231,18 @@ var studentDataController = function($scope, $http, $state) {
       // if date is not in array and is in proper year and month
       if(new Date(entryList[i].date).getFullYear() === year &&
           new Date(entryList[i].date).getMonth() === month &&
-          distinctDays.indexOf(day) < 0){ // indexOf does not work in IE8
+          distinctDays.indexOf(day) < 0) { // indexOf does not work in IE8
         distinctDays.push(day);
         indexList.push(i);
       }
     }
     return indexList;
-  }
+  };
 
   $scope.isData = false; // for showing 'No data available' text
   $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');
-}
+
+};

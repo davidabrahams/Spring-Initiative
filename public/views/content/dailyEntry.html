@@ -15,7 +15,7 @@
 
       <div class="form-group">
         <label for="sel1">Attendance:</label>
-        <select class="form-control" id="sel1" ng-model="newDailyEntry.attendance" ng-disabled="!newDailyEntry.date">
+        <select class="form-control" id="sel1" ng-model="newDailyEntry.attendance" required ng-disabled="!newDailyEntry.date">
           <option value="Present">Present</option>
           <option value="Absent">Absent</option>
           <option value="Suspended">Suspended</option>
@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label for="sel1">Warnings at Spring:</label>
-        <select class="form-control" id="sel1" ng-disabled="!newDailyEntry.date" ng-model="newDailyEntry.warnings">
+        <select class="form-control" id="sel1" ng-disabled="!newDailyEntry.date" ng-model="newDailyEntry.warnings" required>
           <option value="0 Warnings">0 Warnings</option>
           <option value="1 Warning">1 Warning</option>
           <option value="2 Warnings">2 Warnings</option>
@@ -107,7 +107,6 @@
 
   <div class="row">
     <div class="col-sm-12">
-      <button class="btn btn-default" ui-sref="^">Cancel</button>
       <button class="btn btn-default" type="submit">Submit</button>
     </div>
   </div>
