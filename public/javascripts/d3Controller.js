@@ -36,8 +36,6 @@ var d3Controller = function($scope, $http, $state) {
 
     $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
 
-
-
     // $scope.attendance = response.data.attendanceList;
     // $scope.dates = response.data.datesList;
     // $scope.stars = response.data.starsList;
@@ -54,20 +52,26 @@ var d3Controller = function($scope, $http, $state) {
     var formatPieData = function(data){
       var newList = [];
       var dataDict = {};
-      data.forEach(function(i) {
-        dataDict[i] = (dataDict[i] || 0) + 1;
-      });
-      var keys = Object.keys(dataDict);
-      for (var i = 0; i < keys.length; i++) {
-        newList.push({
-          key: keys[i],
-          y: dataDict[keys[i]]
+      if (data !== undefined) {
+        data.forEach(function(i) {
+          dataDict[i] = (dataDict[i] || 0) + 1;
         });
+        var keys = Object.keys(dataDict);
+        for (var i = 0; i < keys.length; i++) {
+          newList.push({
+            key: keys[i],
+            y: dataDict[keys[i]]
+          });
+        }
       }
       return newList;
     }
 
-    $scope.pieData = formatPieData($scope.dataLists['attendance']);
+    var updateData = function() {
+      $scope.pieData = formatPieData($scope.dataLists['attendance']);
+    }
+
+    updateData();
 
     // $scope.formatPieData = formatPieData;
 
