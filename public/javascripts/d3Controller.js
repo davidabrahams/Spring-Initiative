@@ -1,21 +1,24 @@
 var d3Controller = function($scope, $http, $state) {
+
+  // These are all the fields for which viz is available
+  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
+  // what will be displayed in the dropdown
+  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement'];
+  // This is a dictionary mapping from field name to values in the database
+  $scope.dataLists = {};
+  // This is a dictionary mapping from field name to type in the database
+  $scope.dataListsTypes = {};
+  $scope.dates = [];
+
+  // Initialize the first dictionary
+  $scope.canBeVisualized.forEach(function(category) {
+    $scope.dataLists[category] = [];
+  });
+
+  $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
+
   $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
     response) {
-
-    // These are all the fields for which viz is available
-    $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
-    // what will be displayed in the dropdown
-    $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement'];
-    // This is a dictionary mapping from field name to values in the database
-    $scope.dataLists = {};
-    // This is a dictionary mapping from field name to type in the database
-    $scope.dataListsTypes = {};
-    $scope.dates = [];
-
-    // Initialize the first dictionary
-    $scope.canBeVisualized.forEach(function(category) {
-      $scope.dataLists[category] = [];
-    });
 
     // iterate over the forms in the DB
     response.data.forEach(function(entry) {
@@ -32,18 +35,6 @@ var d3Controller = function($scope, $http, $state) {
         }
       });
     });
-    console.log('IMPORTANT SHIT')
-    console.log($scope.dataLists)
-    console.log($scope.dataListsTypes)
-    console.log($scope.dates)
-
-    $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
-
-    // $scope.attendance = response.data.attendanceList;
-    // $scope.dates = response.data.datesList;
-    // $scope.stars = response.data.starsList;
-    // $scope.warnings = response.data.warningList;
-    // $scope.engageContent = response.data.engageContentList;
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
@@ -126,13 +117,6 @@ var d3Controller = function($scope, $http, $state) {
       updateData();
     });
 
-    // $scope.formatPieData = formatPieData;
-
-    // $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
-
-    // var warningsList = [];
-    // $scope.warningData = formatPieData($scope.warnings);
-
     //options to create pie chart
     $scope.pieOptions = {
       chart: {
@@ -147,8 +131,6 @@ var d3Controller = function($scope, $http, $state) {
         legend: { margin: { top: 5, right: 35, bottom: 5, left: 0 } }
       }
     };
-    // //setting attendance data for plotting to angular var
-    // $scope.attendanceData = attendanceDataList;
 
     $scope.lineOptions = {
       chart: {
@@ -196,7 +178,7 @@ var d3Controller = function($scope, $http, $state) {
         }
       }
     };
-    //options to create time based chart
+    //options to create time based bar chart
     $scope.barOptions = {
       chart: {
         type: 'historicalBarChart',
