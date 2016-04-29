@@ -8,7 +8,6 @@
     padding-left: 250px
 
 #sidebar-wrapper
-  z-index: 1000
   position: fixed
   left: 250px
   width: 0
@@ -16,7 +15,6 @@
   margin-left: -250px
   overflow-y: auto
   background: #183635
-  // background: #000
   -webkit-transition: all 0.5s ease
   -moz-transition: all 0.5s ease
   -o-transition: all 0.5s ease
@@ -41,29 +39,25 @@
   margin: 0
   padding: 0
   list-style: none
+  ul
+    padding-left: 0px
   li
+    padding-left: 0px
     text-indent: 20px
     line-height: 25px
     list-style: none
     a, h1
+
+      padding-left: 0px
       display: block
       text-decoration: none
-      color: #999999
+      color: #ccc
       &:hover
         text-decoration: none
         color: #fff
         background: rgba(255, 255, 255, 0.2)
       &:active, &:focus
         text-decoration: none
-  > .sidebar-brand
-    height: 65px
-    font-size: 18px
-    line-height: 60px
-    a
-      color: #999999
-      &:hover
-        color: #fff
-        background: none
 
 .input-group
   padding: 0px 15px
