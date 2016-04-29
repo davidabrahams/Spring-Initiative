@@ -1,6 +1,6 @@
-var springInitiative = angular.module('springInitiativeApp', ['ui.router',
-  'nvd3', 'rzModule', 'ui.bootstrap'
-]);
+var springInitiative = angular.module('springInitiativeApp',
+                                      ['ui.router','ngAnimate', 'nvd3',
+                                      'rzModule', 'ui.bootstrap']);
 
 springInitiative.config(function($stateProvider, $urlRouterProvider,
   $locationProvider) {
