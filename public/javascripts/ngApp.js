@@ -129,7 +129,7 @@ springInitiative.run(function($rootScope, $state, $http) {
     $http.get('/user').then(function(data) {
       if (data.data.user == null && next.name !== 'login') {
         console.log('No one logged in, redirecting to /login');
-        $state.go('login');
+        // $state.go('login');
       } else if (data.data.user != null && next.name === 'login') {
         console.log('Already logged in. Redirecting home.');
         $state.go('index');

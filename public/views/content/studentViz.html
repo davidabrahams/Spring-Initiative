@@ -1,17 +1,15 @@
-<div class="viz-form">
+<div class="viz-form row">
   <div class="form-group col-md-4">
     <label for="sel1">Data Type:</label>
     <select class="form-control" id="sel1" ng-model="chosenData">
       <option ng-repeat="c in canBeVisualized track by $index" value="{{c}}">{{canBeVisualizedDisplay[$index]}}</option>
     </select>
   </div>
-
-  <div class = "viz-bkg">
-    <nvd3 ng-if="chosenData=='attendance'" options="pieOptions" data="attendanceData"></nvd3>
+</div>
+<div class="viz-bkg row">
+  <nvd3 ng-if="chosenData=='attendance'" options="pieOptions" data="attendanceData"></nvd3>
 <!--     <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
-    <nvd3 ng-if="chosenData=='Stars'" options="starOptions" data="starData"></nvd3>
-    <nvd3 ng-if="chosenData=='EngageContent'" options="contentOptions" data="contentData"></nvd3> -->
-  </div>
-
+  <nvd3 ng-if="chosenData=='Stars'" options="starOptions" data="starData"></nvd3>
+  <nvd3 ng-if="chosenData=='EngageContent'" options="contentOptions" data="contentData"></nvd3> -->
 </div>
 <link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">
