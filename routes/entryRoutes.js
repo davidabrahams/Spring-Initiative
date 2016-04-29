@@ -109,7 +109,6 @@ routes.GETstudentEntriesList = function(req, res) {
 routes.GETstudentEntries = function(req, res){
   var studentID = req.params._id;
   var dataType = req.params.dataType; // i.e., daily, weekly, monthly, etc
-  console.log(studentID, dataType);
   FormDB.find({_studentID:studentID, period: dataType}, function(err, studentData){
     studentData.sort(function(a,b){
       return new Date(b.date) - new Date(a.date);
