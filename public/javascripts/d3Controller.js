@@ -34,6 +34,8 @@ var d3Controller = function($scope, $http, $state) {
     console.log($scope.dataLists)
     console.log($scope.dataListsTypes)
 
+    $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
+
 
 
     // $scope.attendance = response.data.attendanceList;
@@ -49,7 +51,7 @@ var d3Controller = function($scope, $http, $state) {
     //creating the necessary data set up for the viz
     //[{key:, y:},{},{}], where key is "Absent" and "y" is the # of times
 
-    function formatPieData(data){
+    var formatPieData = function(data){
       var newList = [];
       var dataDict = {};
       data.forEach(function(i) {
@@ -64,7 +66,12 @@ var d3Controller = function($scope, $http, $state) {
       }
       return newList;
     }
-    $scope.attendanceData = formatPieData($scope.dataLists['attendance']);
+
+    $scope.pieData = formatPieData($scope.dataLists['attendance']);
+
+    // $scope.formatPieData = formatPieData;
+
+    // $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
 
     // var warningsList = [];
     // $scope.warningData = formatPieData($scope.warnings);
