@@ -1,20 +1,22 @@
-<div class="viz-form">
-  <div class="form-group col-md-4">
-    <label for="sel1">Data Type:</label>
-    <select class="form-control" id="sel1" ng-model="chosenData">
-      <option value="Stars">Stars</option>
-      <option value="Attendance">Attendance</option>
-      <option value="Warnings">Warnings</option>
-      <option value="EngageContent">Engagement with Content</option>
-    </select>
+<form class="form-inline row" role="form">
+  <div class="col-sm-12">
+    <div class="form-group">
+      <label for="sel1">Data Type:</label>
+      <select class="form-control" id="sel1" ng-model="chosenData">
+        <option ng-repeat="c in canBeVisualized track by $index" value="{{c}}">{{canBeVisualizedDisplay[$index]}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="sel2">Chart Type:</label>
+      <select class="form-control" id="sel2" ng-model="chartType">
+        <option ng-repeat="t in typeToViz[dataListsTypes[chosenData]]" value="{{t}}">{{t}}</option>
+      </select>
+    </div>
   </div>
-
-  <div class = "viz-bkg">
-    <nvd3 ng-if="chosenData=='Attendance'" options="pieOptions" data="attendanceData"></nvd3>
-    <nvd3 ng-if="chosenData=='Warnings'" options="pieOptions" data="warningData"></nvd3>
-    <nvd3 ng-if="chosenData=='Stars'" options="starOptions" data="starData"></nvd3>
-    <nvd3 ng-if="chosenData=='EngageContent'" options="contentOptions" data="contentData"></nvd3>
-  </div>
-
+</form>
+<div class="viz-bkg row" ng-if="chartType">
+  <nvd3 ng-if="chartType=='Pie'" options="pieOptions" data="pieData"></nvd3>
+  <nvd3 ng-if="chartType=='Line'" options="lineOptions" data="lineData"></nvd3>
+  <nvd3 ng-if="chartType=='Bar'" options="barOptions" data="barData"></nvd3>
 </div>
 <link rel="stylesheet" type="text/css" href="/stylesheets/viz.css">

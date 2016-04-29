@@ -94,22 +94,13 @@ routes.GETstudentEntriesList = function(req, res) {
   var engageContentList = []
 
   FormDB.find({_studentID:studentID}, function(err, studentData) {
-    for (var i = 0; i < studentData.length; i++){
-      attendanceList.push(studentData[i].attendance);
-      starsList.push(studentData[i].stars);
-      datesList.push(studentData[i].date);
-      behaviorList.push(studentData[i].schoolBehavior);
-      warningList.push(studentData[i].warnings);
-      engageContentList.push(studentData[i].engageContent)
-    }
-    res.json({attendanceList: attendanceList, starsList: starsList, datesList:datesList, warningList:warningList, engageContentList: engageContentList});
+    res.json(studentData);
   });
 }
 
 routes.GETstudentEntries = function(req, res){
   var studentID = req.params._id;
   var dataType = req.params.dataType; // i.e., daily, weekly, monthly, etc
-  console.log(studentID, dataType);
   FormDB.find({_studentID:studentID, period: dataType}, function(err, studentData){
     studentData.sort(function(a,b){
       return new Date(b.date) - new Date(a.date);
