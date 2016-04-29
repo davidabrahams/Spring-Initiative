@@ -26,6 +26,10 @@ var studentController = function($scope, $http, $state) {
 
 var addDailyEntryController = function($scope, $http, $location) {
 
+  var resetEntry = function() {
+    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
+  };
+
   $scope.popup1 = {
     opened: false
   };
@@ -39,7 +43,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     }
   };
 
-  $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+  resetEntry();
   $scope.dateMatch = -1;
   $scope.allEntries = null;
 
@@ -57,7 +61,7 @@ var addDailyEntryController = function($scope, $http, $location) {
     $http.post('api/student/newDailyEntry/' + student._id, $scope.newDailyEntry)
     .then(function successCallback(response) {
       $scope.entrySubmittedMsg = response.data.msg;
-      $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5};
+      resetEntry();
       // update the document locally too
       // updateLocalEntries();
       if ($scope.dateMatch !== -1) {
@@ -89,13 +93,15 @@ var addDailyEntryController = function($scope, $http, $location) {
       var prepopulate = window.confirm("A entry for this date already exists. Would you like to edit your existing entry?");
       if (prepopulate) {
         var currentDate = $scope.allEntries[$scope.dateMatch];
-        $scope.newDailyEntry = currentDate;
+        $scope.newDailyEntry = angular.copy(currentDate);
         $scope.newDailyEntry.date = new Date(currentDate.date);
       }
       else {
         $scope.newDailyEntry.date = null;
+        $scope.newDailyEntry._id = null;
       }
     } else {
+      if ($scope.newDailyEntry._id) { resetEntry(); }
       $scope.newDailyEntry._id = null;
     }
   };
@@ -140,7 +146,6 @@ var studentDataController = function($scope, $http, $state) {
     $scope.dataTypeSelected = dataType;
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
-        console.log(response.data);
         if(response.data[0] == undefined){
           $scope.dateSelected = "No data available";
           $scope.isData = false;
