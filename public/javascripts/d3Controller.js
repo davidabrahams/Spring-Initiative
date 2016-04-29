@@ -10,6 +10,7 @@ var d3Controller = function($scope, $http, $state) {
     $scope.dataLists = {};
     // This is a dictionary mapping from field name to type in the database
     $scope.dataListsTypes = {};
+    $scope.dates = [];
 
     // Initialize the first dictionary
     $scope.canBeVisualized.forEach(function(category) {
@@ -18,6 +19,7 @@ var d3Controller = function($scope, $http, $state) {
 
     // iterate over the forms in the DB
     response.data.forEach(function(entry) {
+      $scope.dates.push(entry['date']);
       // iterate over the viz fields
       $scope.canBeVisualized.forEach(function(category) {
         // append to the corresponding list
@@ -33,6 +35,7 @@ var d3Controller = function($scope, $http, $state) {
     console.log('IMPORTANT SHIT')
     console.log($scope.dataLists)
     console.log($scope.dataListsTypes)
+    console.log($scope.dates)
 
     $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
 
@@ -65,11 +68,30 @@ var d3Controller = function($scope, $http, $state) {
         }
       }
       return newList;
-    }
+    };
+
+    var formatLineData = function(data, dates) {
+      var contentData = [];
+      for (var j = 0; j < data.length; j++) {
+        contentData.push({x:Number(new Date(dates[j])), y: data[j]});
+      }
+
+      contentData.sort(function(a, b) {
+        return parseFloat(a.x) - parseFloat(b.x);
+      });
+
+      $scope.contentData = [{
+        values: contentData,      //values - represents the array of {x,y} data points
+        // key: 'engageContent', //key  - the name of the series.
+        color: '#ff7f0e',  //color - optional: choose your own line color.
+        strokeWidth: 2,
+        classed: 'dashed'
+      }];
+    };
 
     var updateData = function() {
       $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
-    }
+    };
 
     updateData();
 
