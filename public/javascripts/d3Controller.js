@@ -3,9 +3,9 @@ var d3Controller = function($scope, $http, $state) {
   $scope.timeFrame = "-1";
 
   // These are all the fields for which viz is available
-  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
+  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent', 'engagePeer', 'engageAdult'];
   // what will be displayed in the dropdown
-  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement'];
+  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement', 'Peer Engagement', 'Adult Engagement'];
   // This is a dictionary mapping from field name to values in the database
   $scope.dataLists = {};
   // This is a dictionary mapping from field name to type in the database
@@ -32,7 +32,9 @@ var d3Controller = function($scope, $http, $state) {
     var dataDict = {};
     if (data !== undefined) {
       data.forEach(function(i) {
-        dataDict[i] = (dataDict[i] || 0) + 1;
+        if (i !== undefined && i === i) {
+          dataDict[i] = (dataDict[i] || 0) + 1;
+        }
       });
       var keys = Object.keys(dataDict);
       for (var i = 0; i < keys.length; i++) {
