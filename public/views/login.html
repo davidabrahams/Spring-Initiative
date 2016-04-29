@@ -10,11 +10,6 @@
     <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" required>
     <span ng-show="password_error" class="help-block">{{password_error}}</span>
   </div>
-  <div class="checkbox">
-    <label>
-    <input type="checkbox" value="remember-me"> Remember me
-    </label>
-  </div>
   <div class="alert alert-info" ng-show="verification_alert">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     A verification email for {{email}} is now pending admin(s) approval.
@@ -24,4 +19,4 @@
 </form>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/main.css">
-<link rel="stylesheet" type="text/css" href="/stylesheets/signin.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
