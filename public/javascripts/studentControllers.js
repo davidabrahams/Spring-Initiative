@@ -108,8 +108,8 @@ var addDailyEntryController = function($scope, $http, $location) {
 };
 
 var addLongEntryController = function($scope, $http, $location) {
-  $scope.resetLong = function(){
-    $scope.newLongEntry = {timeLength = "Monthly"};
+  var resetLong = function(){
+    $scope.newLongEntry = {timeLength: "Monthly"};
   };
 
   $scope.popup1 = {
