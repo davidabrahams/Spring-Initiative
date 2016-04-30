@@ -15,7 +15,6 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
     templateUrl: 'views/login.html',
     controller: 'loginController'
   })
-
   .state('index', {
     url: '/',
     views: {
