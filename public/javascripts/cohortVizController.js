@@ -2,11 +2,13 @@ var cohortVizController = function($scope, $http, $state) {
 
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
-
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
     $scope.warnings = response.data.warningList;
+    $scope.engagePeer = response.data.engagePeerList;
+    $scope.engageContent = response.data.engageContentList;
+    $scope.engageAdult = response.data.engageAdultList;    
 
     //creating a dictionary mapping elements to their counts in a list
     //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
@@ -38,6 +40,16 @@ var cohortVizController = function($scope, $http, $state) {
 
     var starsList = [];
     $scope.starData = formatPieData($scope.stars, starsList);
+
+    var engagePeerList = [];
+    $scope.engagePeerData = formatPieData($scope.engagePeer, engagePeerList);
+
+    var engageAdultList = [];
+    $scope.engageAdultData = formatPieData($scope.engageAdult, engageAdultList);
+
+    var engageContentList = [];
+    $scope.engageContentData = formatPieData($scope.engageContent, engageContentList);
+   
     //options to create pie chart
     $scope.pieOptions = {
       chart: {
