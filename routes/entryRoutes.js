@@ -51,21 +51,19 @@ routes.POSTnewDailyEntry = function(req, res, next) {
 routes.POSTnewLongEntry = function(req, res, next) {
   // This route only handles long term
   var studentID = req.params._id;
-  var period = 'Long Term';
   var date = req.body.date.slice(0,10);
   var currentDate = Date.parse(date);
   var gradesSchool = req.body.grades;
   var timeLength = req.body.timeLength;
   var readingLevels= req.body.readingLevels;
-  var parentTeachFeedback = req.body.parentTeachFeedback;
+  var teacherParentFeedback = req.body.teacherParentFeedback;
   FormDB.create({
     _studentID: studentID,
     date: currentDate,
-    period: period,
+    period: timeLength,
     gradesSchool: gradesSchool,
-    timeLength: timeLength,
     readingLevels: readingLevels,
-    parentTeachFeedback: parentTeachFeedback
+    teacherParentFeedback: teacherParentFeedback
   }, function(err, newEntryObj) {
     if (err) {
       return res.status(500).json({msg: 'Error submitting entry'});
@@ -102,6 +100,7 @@ routes.GETstudentEntries = function(req, res){
   var studentID = req.params._id;
   var dataType = req.params.dataType; // i.e., daily, weekly, monthly, etc
   FormDB.find({_studentID:studentID, period: dataType}, function(err, studentData){
+    console.log(studentData);
     studentData.sort(function(a,b){
       return new Date(b.date) - new Date(a.date);
     });

@@ -27,7 +27,7 @@ var studentController = function($scope, $http, $state) {
 var addDailyEntryController = function($scope, $http, $location) {
 
   var resetEntry = function() {
-    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
+    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings", stars: "0"};
   };
 
   $scope.popup1 = {
@@ -108,7 +108,8 @@ var addDailyEntryController = function($scope, $http, $location) {
 };
 
 var addLongEntryController = function($scope, $http, $location) {
-
+  $scope.newLongEntry = {};
+  $scope.newLongEntry.timeLength = "Monthly";
   $scope.popup1 = {
     opened: false
   };
@@ -144,12 +145,17 @@ var studentDataController = function($scope, $http, $state) {
   $scope.thisMonth = new Date();
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
+
+    if(dataType === 'Daily') $scope.isLongterm = false;
+    else {$scope.isLongterm = true; console.log('longterm true');}
+
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
         if(response.data[0] == undefined){
           $scope.dateSelected = "No data available";
           $scope.isData = false;
         } else{
+          console.log('data', response.data);
           $scope.currentDateList = response.data;
           $scope.dateSelected = response.data[0];
           $scope.yearIndexList = createYearList(response.data);
@@ -240,7 +246,7 @@ var studentDataController = function($scope, $http, $state) {
   };
 
   $scope.isData = false; // for showing 'No data available' text
-  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
+  $scope.dataTypes = ['Daily', 'Monthly', 'Bi-monthly', '9-weeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');

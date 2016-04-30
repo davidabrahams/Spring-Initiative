@@ -13,6 +13,7 @@
     X Excused
   </h3>
 </div>
+<br>
 <!-- Left side info -->
 <div class="left-holder" style="float: left;">
   <div class="overview">
@@ -23,6 +24,8 @@
     <input type="checkbox"> feed
     <br><input type="checkbox"> bathe
   </div>
+  <br>
+  <!-- Data chooser -->
   <div class="data-chooser">
     <h2>
       <!-- Choose data type -->
@@ -84,7 +87,8 @@
       </span>
     </h2>
   </div>
-  <div class="data" ng-show="isData">
+  <!-- Daily -->
+  <div class="data" ng-show="isData && !isLongterm">
     <div>
       <h3>
         <span uib-tooltip="Stars" class="glyphicon glyphicon-star" aria-hidden="true" style="float-left: true;"></span> x {{ifEmpty(dateSelected.stars)}} |
@@ -102,4 +106,18 @@
     <br>
     <b>Teacher feedback</b>: {{ifEmpty(dateSelected.teacherFeedback)}}
   </div>
+
+  <!-- Longterm -->
+  <div class="data" ng-show="isData && isLongterm">
+    <div>
+      <h3>
+        <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl. {{ifEmpty(dateSelected.readingLevels)}}
+      </h3>
+    </div>
+    <br>
+    <b>Grades from school</b>: {{ifEmpty(dateSelected.gradesSchool)}}
+    <br>
+    <b>Teacher/parent feedback</b>: {{ifEmpty(dateSelected.teacherParentFeedback)}}
+  </div>
+
 </div>
