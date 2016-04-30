@@ -27,21 +27,26 @@ var cohortVizController = function($scope, $http, $state) {
     return [newArray, newDates];
   };
 
-  function formatPieData(data) {
+    var formatPieData = function(data){
     var newList = [];
     var dataDict = {};
-    data.forEach(function(i) {
-      dataDict[i] = (dataDict[i] || 0) + 1;
-    });
-    var keys = Object.keys(dataDict);
-    for (var i = 0; i < keys.length; i++) {
-      newList.push({
-        key: keys[i],
-        y: dataDict[keys[i]]
+    if (data !== undefined) {
+      data.forEach(function(i) {
+        if (i !== undefined && i === i || data !== null) {
+          dataDict[i] = (dataDict[i] || 0) + 1;
+        }
       });
+      var keys = Object.keys(dataDict);
+      for (var i = 0; i < keys.length; i++) {
+        newList.push({
+          key: keys[i],
+          y: dataDict[keys[i]]
+        });
+      }
     }
     return newList;
-  }
+  };
+
 
 
     var allLists = {attendance:$scope.attendance, warnings:$scope.warnings, stars:$scope.stars, engageContent: $scope.engageContent, engagePeer:$scope.engagePeer, engageAdult:$scope.engageAdult};
