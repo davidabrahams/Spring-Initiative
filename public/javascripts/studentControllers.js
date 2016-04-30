@@ -108,8 +108,10 @@ var addDailyEntryController = function($scope, $http, $location) {
 };
 
 var addLongEntryController = function($scope, $http, $location) {
-  $scope.newLongEntry = {};
-  $scope.newLongEntry.timeLength = "Monthly";
+  $scope.resetLong = function(){
+    $scope.newLongEntry = {timeLength = "Monthly"};
+  };
+
   $scope.popup1 = {
     opened: false
   };
@@ -117,13 +119,15 @@ var addLongEntryController = function($scope, $http, $location) {
   $scope.submitLongEntry = function(student) {
     $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
     .then(function successCallback(response) {
-      $scope.newLongEntry = null;
+      resetLong();
       $scope.entrySubmittedMsg = response.data.msg;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
   };
+
+  resetLong();
 };
 
 var addStudentController = function($scope, $http, $location) {
