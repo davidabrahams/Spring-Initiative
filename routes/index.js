@@ -29,7 +29,6 @@ routes.GETstudentEntries = entryRoutes.GETstudentEntries;
 routes.GETallStudentEntries = entryRoutes.GETallStudentEntries;
 routes.GETcohortEntries = entryRoutes.GETcohortEntries;
 
-
 routes.POSTnewCohortEntry = cohortRoutes.POSTnewCohortEntry;
 
 module.exports = routes;

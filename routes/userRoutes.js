@@ -32,10 +32,8 @@ routes.POSTregister = function(req, res, next) {
       email: req.body.username
     }), req.body.password,
     function(err, user) {
-      if (err) {
-        return res.status(403).send(err.message);
-      }
-
+      if (err) return res.status(403).send(err.message);
+      
       // Get admin emails
       User.find({isAdmin: true}, {email: 1, _id: 0}, function(err, admins) {
         // send email verification to admins
@@ -49,7 +47,7 @@ routes.POSTregister = function(req, res, next) {
 
         for (var i = 0; i < admins.length; i++) {
           email.addTo(admins[i].email);
-        };
+        }
 
         email.setFrom('SpringInitiative@olinjs.com');
         email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
@@ -75,7 +73,6 @@ routes.POSTregister = function(req, res, next) {
         console.log("Email verification sent");
         res.sendStatus(200);
       });
-
     });
 };
 
@@ -125,7 +122,7 @@ var checkAuth = function (user, res){
 routes.GETallUsers = function(req, res) {
   User.find({}, function(err, allUsers) {
     res.json(allUsers);
-  })
+  });
 };
 
 routes.POSTchangeAdmin = function(req, res) {

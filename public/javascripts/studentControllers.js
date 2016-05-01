@@ -27,7 +27,7 @@ var studentController = function($scope, $http, $state) {
 var addDailyEntryController = function($scope, $http, $location) {
 
   var resetEntry = function() {
-    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5, attendance: "Present", warnings: "0 Warnings"};
+    $scope.newDailyEntry = {engageContent: 3, engagePeer: 3, engageAdult: 3, attendance: "Present", warnings: "0 Warnings", stars: "0"};
   };
 
   $scope.popup1 = {
@@ -108,6 +108,9 @@ var addDailyEntryController = function($scope, $http, $location) {
 };
 
 var addLongEntryController = function($scope, $http, $location) {
+  var resetLong = function(){
+    $scope.newLongEntry = {timeLength: "Monthly"};
+  };
 
   $scope.popup1 = {
     opened: false
@@ -116,13 +119,15 @@ var addLongEntryController = function($scope, $http, $location) {
   $scope.submitLongEntry = function(student) {
     $http.post('api/student/newLongEntry/' + student._id, $scope.newLongEntry)
     .then(function successCallback(response) {
-      $scope.newLongEntry = null;
+      resetLong();
       $scope.entrySubmittedMsg = response.data.msg;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
       $scope.entrySubmittedMsg = response.data.msg;
     });
   };
+
+  resetLong();
 };
 
 var addStudentController = function($scope, $http, $location) {
@@ -141,9 +146,26 @@ var addStudentController = function($scope, $http, $location) {
 };
 
 var studentDataController = function($scope, $http, $state) {
-  $scope.thisMonth = new Date();
+  // Get latest reading level
+  $http.get('/api/student/allEntries/?studentID=' + $scope.currentStudent._id)
+    .then(function successCallback(response) {
+      $scope.readingLevel = 'No data.';
+      for (var i = 0; i < response.data.length; i++) {
+        if (response.data[i].readingLevels != undefined){
+          $scope.readingLevel = response.data[i].readingLevels;
+          break;
+        }
+      }
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+  });
+
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
+
+    if(dataType === 'Daily') $scope.isLongterm = false;
+    else $scope.isLongterm = true;
+
     $http.get('/api/student/data/' + $scope.currentStudent._id + '/' + dataType)
       .then(function successCallback(response) {
         if(response.data[0] == undefined){
@@ -240,9 +262,8 @@ var studentDataController = function($scope, $http, $state) {
   };
 
   $scope.isData = false; // for showing 'No data available' text
-  $scope.dataTypes = ['Daily', 'Monthly', 'Bimonthly', 'Nineweeks', 'Semester'];
+  $scope.dataTypes = ['Daily', 'Monthly', 'Bi-monthly', '9-weeks', 'Semester'];
   // Initial state views last daily entry
   $scope.currentDateList = [];
   $scope.setType('Daily');
-
 };
