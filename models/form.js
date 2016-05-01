@@ -12,7 +12,7 @@ var formSchema = Schema({
   engageContent: Number,
   engagePeer: Number,
   engageAdult: Number,
-  schoolBehavior: {'Write-Up': Boolean, 
+  schoolBehavior: {'Write-Up': Boolean,
                     'Detention': Boolean,
                     'In-School Suspension': Boolean,
                     'Out-of-School Suspension': Boolean},

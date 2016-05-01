@@ -12,6 +12,18 @@
         <option ng-repeat="t in typeToViz[dataListsTypes[chosenData]]" value="{{t}}">{{t}}</option>
       </select>
     </div>
+    <div class="form-group">
+      <label for="sel3">Data range</label>
+      <select class="form-control" id="sel3" ng-model="timeFrame">
+        <option value="7">Last Week</option>
+        <option value="14">2 Weeks</option>
+        <option value="30">Last Month</option>
+        <option value="90">Three Months</option>
+        <option value="180">Six Months</option>
+        <option value="-1">All entries</option>
+      </select>
+    </div>
+
   </div>
 </form>
 <div class="viz-bkg row" ng-if="chartType">

@@ -1,8 +1,11 @@
 var d3Controller = function($scope, $http, $state) {
+
+  $scope.timeFrame = "-1";
+
   // These are all the fields for which viz is available
-  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
+  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent', 'engagePeer', 'engageAdult'];
   // what will be displayed in the dropdown
-  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement'];
+  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement', 'Peer Engagement', 'Adult Engagement'];
   // This is a dictionary mapping from field name to values in the database
   $scope.dataLists = {};
   // This is a dictionary mapping from field name to type in the database
@@ -26,7 +29,9 @@ var d3Controller = function($scope, $http, $state) {
     var dataDict = {};
     if (data !== undefined) {
       data.forEach(function(i) {
-        dataDict[i] = (dataDict[i] || 0) + 1;
+        if (i !== undefined && i === i) {
+          dataDict[i] = (dataDict[i] || 0) + 1;
+        }
       });
       var keys = Object.keys(dataDict);
       for (var i = 0; i < keys.length; i++) {
@@ -44,8 +49,10 @@ var d3Controller = function($scope, $http, $state) {
     var res = [];
     if (data !== undefined) {
       for (var j = 0; j < data.length; j++) {
-        if (data[j] !== undefined) {
-        contentData.push({x:Number(new Date(dates[j])), y: data[j]}); }
+        // This deals with NaN
+        if (data[j] !== undefined && data[j] === data[j]) {
+          contentData.push({x:Number(new Date(dates[j])), y: data[j]});
+        }
       }
 
       contentData.sort(function(a, b) {
@@ -70,7 +77,9 @@ var d3Controller = function($scope, $http, $state) {
     var res = [];
     if (data !== undefined) {
       for (var i = 0; i < data.length; i++) {
-        contentData.push([Number(new Date(dates[i])), data[i]]);
+        if (data[i] !== undefined && data[i] === data[i]) {
+          contentData.push([Number(new Date(dates[i])), data[i]]);
+        }
       }
 
       //setting this new datalist to angular var for plotting
@@ -83,15 +92,32 @@ var d3Controller = function($scope, $http, $state) {
     return res;
   };
 
+  var filterOutDates = function(arr, dates, days) {
+    var newArray = [];
+    var newDates = [];
+    var thresh = new Date();
+    thresh.setDate(thresh.getDate() - days);
+    if (arr !== undefined) {
+      for (var i = 0; i < arr.length; i++) {
+        if (new Date(dates[i]) >= thresh || days === -1) {
+          newArray.push(arr[i]);
+          newDates.push(dates[i]);
+        }
+      }
+    }
+    return [newArray, newDates];
+  };
+
   var updateData = function() {
-    $scope.pieData = formatPieData($scope.dataLists[$scope.chosenData]);
-    $scope.lineData = formatLineData($scope.dataLists[$scope.chosenData], $scope.dates);
-    $scope.barData = formatBarData($scope.dataLists[$scope.chosenData], $scope.dates);
+    var filteredData = filterOutDates($scope.dataLists[$scope.chosenData], $scope.dates, Number($scope.timeFrame));
+    $scope.pieData = formatPieData(filteredData[0]);
+    $scope.lineData = formatLineData(filteredData[0], filteredData[1]);
+    $scope.barData = formatBarData(filteredData[0], filteredData[1]);
   };
 
   updateData();
 
-  $scope.$watchGroup(["chosenData", "chartType"], function(newValues, oldValues) {
+  $scope.$watchGroup(["chosenData", "chartType", "timeFrame"], function(newValues, oldValues) {
     updateData();
   });
 
@@ -216,7 +242,7 @@ var d3Controller = function($scope, $http, $state) {
 
     // iterate over the forms in the DB
     response.data.forEach(function(entry) {
-      $scope.dates.push(entry['date']);
+      $scope.dates.push(entry.date);
       // iterate over the viz fields
       $scope.canBeVisualized.forEach(function(category) {
         // append to the corresponding list
@@ -225,7 +251,7 @@ var d3Controller = function($scope, $http, $state) {
         // contain the correct types after looping
         if ($scope.dataListsTypes[category] === undefined &&
             entry[category] !== undefined) {
-          $scope.dataListsTypes[category] = typeof entry[category]
+          $scope.dataListsTypes[category] = typeof entry[category];
         }
       });
     });
