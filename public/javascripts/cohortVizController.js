@@ -2,7 +2,6 @@ var cohortVizController = function($scope, $http, $state) {
 
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
-
     $scope.timeFrame = "-1";
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
@@ -51,7 +50,6 @@ var cohortVizController = function($scope, $http, $state) {
 
 
     var allLists = {attendance:$scope.attendance, warnings:$scope.warnings, stars:$scope.stars, engageContent: $scope.engageContent, engagePeer:$scope.engagePeer, engageAdult:$scope.engageAdult};
-
     //options to create pie chart
     $scope.pieOptions = {
       chart: {
