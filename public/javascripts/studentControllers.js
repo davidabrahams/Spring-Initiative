@@ -4,12 +4,10 @@ var studentController = function($scope, $http, $state) {
 
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
-
     .then(function successCallback(response) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
       $scope.studentEditMsg = response.data.msg;
-      
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
@@ -179,11 +177,6 @@ var studentDataController = function($scope, $http, $state) {
           $scope.monthIndexList = createMonthList(response.data);
           $scope.dayIndexList = createDayList(response.data);
           $scope.isData = true;
-          
-
-
-
-
         }
       }, function errorCallback(response) {
         console.log('Error: ' + response.data);
