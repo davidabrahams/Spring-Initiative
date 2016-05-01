@@ -146,7 +146,20 @@ var addStudentController = function($scope, $http, $location) {
 };
 
 var studentDataController = function($scope, $http, $state) {
-  $scope.thisMonth = new Date();
+  // Get latest reading level
+  $http.get('/api/student/allEntries/?studentID=' + $scope.currentStudent._id)
+    .then(function successCallback(response) {
+      $scope.readingLevel = 'No data.';
+      for (var i = 0; i < response.data.length; i++) {
+        if (response.data[i].readingLevels != undefined){
+          $scope.readingLevel = response.data[i].readingLevels;
+          break;
+        }
+      }
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+  });
+
   $scope.setType = function(dataType){
     $scope.dataTypeSelected = dataType;
 

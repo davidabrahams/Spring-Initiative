@@ -69,6 +69,9 @@ routes.GETallStudentEntries = function(req, res) {
   var studentID = req.query.studentID;
   FormDB.find({_studentID:studentID}, function(err, entries) {
     if (err) res.sendStatus(500);
+    entries.sort(function(a,b){
+      return new Date(b.date) - new Date(a.date);
+    });
     res.json(entries);
   });
 };
