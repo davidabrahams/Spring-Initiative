@@ -114,7 +114,7 @@ routes.GETcohortEntries = function(req, res) {
   var engagePeerList = [];
   var engageAdultList = [];
 
-  Student.find({program:cohort}, function(err, students){
+  Student.find({program:cohort, archived: false}, function(err, students){
     var studentIds = students.map(function(student){return student._id;});
     FormDB.find({_studentID:{$in:studentIds}}, function(err, forms) {
       forms.forEach(function(form) {
