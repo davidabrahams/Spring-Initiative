@@ -2,15 +2,14 @@ var studentController = function($scope, $http, $state) {
 
   $scope.$state = $state;
 
-  //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
     $http.post('api/student/edit/' + currentStudent._id, editStudent)
+
     .then(function successCallback(response) {
       $scope.$parent.students = response.data.allStudents;
       $scope.$parent.currentStudent = response.data.currentStudent;
       $scope.studentEditMsg = response.data.msg;
-
-
+      
     }, function errorCallback(response) {
         console.log('Error: ' + response.data);
         $scope.studentEditMsg = response.data.msg;
@@ -158,9 +157,9 @@ var studentDataController = function($scope, $http, $state) {
           $scope.monthIndexList = createMonthList(response.data);
           $scope.dayIndexList = createDayList(response.data);
           $scope.isData = true;
-          $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
-            response) {
-            $scope.actionSteps = response.data.actionStepsList;
+          
+
+
 
 
         }

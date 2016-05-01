@@ -48,6 +48,13 @@
         </select>
       </div>
 
+      
+
+
+    </div>
+
+    <div class="col-sm-6">
+    
       <div class="form-group">
         <label>Issues at School:</label>
         <div class="checkbox">
@@ -67,17 +74,6 @@
             <input type="checkbox" ng-model="newDailyEntry.schoolBehavior['Out-of-School Suspension']" value="Out-of-School Suspension" ng-disabled="!newDailyEntry.date">Out-of-School Suspension</label>
         </div>
       </div>
-
-
-    </div>
-
-    <div class="col-sm-6">
-    
-      <div class="form-group">
-        <label>Action Steps:</label>
-        <input type="text" ng-model="newDailyEntry.actionSteps" placeholder="Input action steps" class="form-control" ng-disabled="!newDailyEntry.date"/>
-      </div>
-
       <div class="form-group">
         <label>Teacher Feedback:</label>
         <input type="text" ng-model="newDailyEntry.teacherFeedback" placeholder="Input any teacher feedback." class="form-control" ng-disabled="!newDailyEntry.date"/>

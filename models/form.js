@@ -16,7 +16,6 @@ var formSchema = Schema({
                     'Detention': Boolean,
                     'In-School Suspension': Boolean,
                     'Out-of-School Suspension': Boolean},
-  actionSteps: String,
   grades: String,
   teacherFeedback: String,
   readingLevels: String,

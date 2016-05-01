@@ -1,5 +1,4 @@
 var d3Controller = function($scope, $http, $state) {
-
   // These are all the fields for which viz is available
   $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent'];
   // what will be displayed in the dropdown
@@ -9,14 +8,11 @@ var d3Controller = function($scope, $http, $state) {
   // This is a dictionary mapping from field name to type in the database
   $scope.dataListsTypes = {};
   $scope.dates = [];
-
   // Initialize the first dictionary
   $scope.canBeVisualized.forEach(function(category) {
     $scope.dataLists[category] = [];
   });
-
   $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
-
 
   //creating a dictionary mapping elements to their counts in a list
   //http://stackoverflow.com/questions/19395257/how-to-count-duplicate-value-in-an-array-in-javascript
