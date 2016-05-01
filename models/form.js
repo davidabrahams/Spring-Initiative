@@ -19,9 +19,8 @@ var formSchema = Schema({
   grades: String,
   teacherFeedback: String,
   readingLevels: String,
-  timeLength: String,
   gradesSchool: String,
-  parentTeachFeedback: String
+  teacherParentFeedback: String
 });
 
 module.exports = mongoose.model('Form', formSchema);

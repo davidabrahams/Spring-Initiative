@@ -6,26 +6,22 @@ routes.GETallStudents = function(req, res) {
   Student.find({}, function(err, allStudents) {
     res.json({allStudents:allStudents});
   });
-}
+};
 
 routes.GETstudent = function(req, res, next) {
   Student.findOne({
     _id: req.params._id
   }, function(err, currentStudent) {
-    if (err) {
-      res.send(err)
-    }
+    if (err) res.send(err);
     Student.find({}, function(err, allStudents) {
-      if (err) {
-        res.send(err)
-      }
+      if (err) res.send(err);
       res.json({
         currentStudent: currentStudent,
         allStudents: allStudents
       });
-    })
-  })
-}
+    });
+  });
+};
 
 routes.POSTeditstudent = function(req, res, next) {
   var studentName = req.body.name;
@@ -46,16 +42,16 @@ routes.POSTeditstudent = function(req, res, next) {
   }, function(err, record) {
     Student.find({}, function(err, allStudents) {
       if (err) {
-        res.send(err)
+        res.send(err);
         return res.status(200).json({msg: 'Error editing student data'});
       }
       Student.findOne({_id: studentID}, function(err, currentStudent) {
-        res.json({allStudents:allStudents, currentStudent: currentStudent, msg: 'Student data edited successfully!'})
-      })
-    })
-  })
+        res.json({allStudents:allStudents, currentStudent: currentStudent, msg: 'Student data edited successfully!'});
+      });
+    });
+  });
 
-}
+};
 
 routes.POSTaddstudent = function(req, res, next) {
   var studentName = req.body.name;
@@ -68,7 +64,7 @@ routes.POSTaddstudent = function(req, res, next) {
     archived: studentArchived
   }, function(err, newStudent) {
     if (err) {
-      res.send(err)
+      res.send(err);
       return res.status(500).json({msg: 'Error adding student'});
     }
     Student.find({}, function(err, allStudents) {
@@ -76,18 +72,17 @@ routes.POSTaddstudent = function(req, res, next) {
         allStudents: allStudents,
         newStudent: newStudent,
         msg: 'Student added successfully!',
-
       });
-    })
+    });
   });
-}
+};
 
 routes.GETarchive = function(req, res, next) {
   Student.find({
     archived: true
   }, function(err, archivedStudents) {
     res.json(archivedStudents);
-  })
-}
+  });
+};
 
 module.exports = routes;
