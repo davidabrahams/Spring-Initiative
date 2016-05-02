@@ -83,6 +83,48 @@ var d3Controller = function($scope, $http, $state) {
         }
       }
 
+      contentData.sort(function(a, b) {
+        return parseFloat(a[0]) - parseFloat(b[0]);
+      });
+
+      if (contentData.length > 0)
+      {
+        var newIterator = new Date(contentData[0][0]);
+        var lastDate = new Date(contentData[contentData.length - 1][0]);
+        var year1 = newIterator.getFullYear();
+        var month1 = newIterator.getMonth();
+        var day1 = newIterator.getDate();
+        var year2 = lastDate.getFullYear();
+        var month2 = lastDate.getMonth();
+        var day2 = lastDate.getDate();
+        while (!(year1 == year2 && month1 == month2 && day1 == day2) && stopGap >= 0) {
+          console.log(newIterator);
+          var foundMatch = false;
+          contentData.forEach(function(pair){
+            var tempDate = new Date(pair[0]);
+            var year3 = tempDate.getFullYear();
+            var month3 = tempDate.getMonth();
+            var day3 = tempDate.getDate();
+            if (year1 == year3 && month1 == month3 && day1 == day3) {
+              foundMatch = true;
+            }
+          });
+          if (!foundMatch) {
+            contentData.push([Number(newIterator), null]);
+          }
+          newIterator = new Date(newIterator);
+          newIterator.setDate(newIterator.getDate() + 1);
+          year1 = newIterator.getFullYear();
+          month1 = newIterator.getMonth();
+          day1 = newIterator.getDate();
+        }
+      }
+
+      contentData.sort(function(a, b) {
+        return parseFloat(a[0]) - parseFloat(b[0]);
+      });
+
+
       //setting this new datalist to angular var for plotting
       res = [{
         "key": "Quantity",
