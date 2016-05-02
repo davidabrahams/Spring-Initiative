@@ -1,12 +1,11 @@
 <div class="row">
   <div id="content-title" class="content">
-    <h1>{{currentStudent.name}}</h1>
-    <h5>{{currentStudent.program}}</h5>
+    <h1 style="display: inline;">{{currentStudent.name}}</h1> <h2 style="color: #999999; display: inline; padding-left: 30px">{{currentStudent.program}}</h2>
 
   </div>
   <div>
     <div ng-if="currentStudent.actionSteps" class="alert alert-info" ng-show="currentStudent.actionSteps" style="background-color: #D3F2EF; color:#183635">
-     Action Steps:  {{currentStudent.actionSteps}}
+     <b>Action Steps</b>:  {{currentStudent.actionSteps}}
     </div>
 
   </div>
