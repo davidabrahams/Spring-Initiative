@@ -122,6 +122,7 @@ routes.GETcohortEntries = function(req, res) {
         starsList.push(form.stars);
         datesList.push(form.date);
         warningList.push(form.warnings);
+
         engageContentList.push(form.engageContent);
         engagePeerList.push(form.engagePeer);
         engageAdultList.push(form.engageAdult);
@@ -133,5 +134,4 @@ routes.GETcohortEntries = function(req, res) {
     });
   });
 };
-
 module.exports = routes;

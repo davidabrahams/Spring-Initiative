@@ -7,12 +7,11 @@
 <!-- Left side info -->
 <div class="holder">
   <div class="overview">
+    <p> Overview: </p>
     {{currentStudent.overview}}
   </div>
-  <div class="action-steps">
-    <h2>Action steps</h2>
-    <input type="checkbox"> feed
-    <br><input type="checkbox"> bathe
+  <div>
+
   </div>
   <br>
   <!-- Data chooser -->
@@ -89,8 +88,6 @@
     <b>Attendance</b>: {{ifEmpty(dateSelected.attendance)}}
     <br>
     <b>Behavior</b>: {{ifEmpty(dateSelected.behaviorText)}}
-    <br>
-    <b>Action steps</b>: {{ifEmpty(dateSelected.actionSteps)}}
     <br>
     <b>Issues at school</b>: {{showIssues(dateSelected.schoolBehavior)}}
     <br>

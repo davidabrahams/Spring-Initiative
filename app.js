@@ -66,7 +66,6 @@ app.post('/api/student/newLongEntry/:_id', index.POSTnewLongEntry);
 app.get('/api/allUsers', index.GETallUsers);
 app.post('/api/changeAdmin/:_id', index.POSTchangeAdmin);
 app.post('/api/changePassword/:_id', index.POSTchangePassword);
-app.post('/api/cohort/newCohortEntry/:name', index.POSTnewCohortEntry);
 app.get('/api/cohort/data/:cohort', index.GETcohortEntries);
 app.delete('/api/delUser/:_id', index.DELETEdelUser);
 app.use(function(req, res) {
