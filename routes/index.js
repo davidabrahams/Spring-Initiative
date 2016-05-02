@@ -5,6 +5,10 @@ var userRoutes = require(path.join(__dirname, './userRoutes'));
 var studentRoutes = require(path.join(__dirname, './studentRoutes'));
 var entryRoutes = require(path.join(__dirname, './entryRoutes'));
 var cohortRoutes = require(path.join(__dirname, './cohortRoutes'));
+var overviewRoutes = require(path.join(__dirname, './overviewRoutes'));
+
+routes.GEToverview = overviewRoutes.GEToverview;
+routes.POSTeditOverview = overviewRoutes.POSTeditOverview;
 
 routes.GETallStudents = studentRoutes.GETallStudents;
 routes.GETstudent = studentRoutes.GETstudent;

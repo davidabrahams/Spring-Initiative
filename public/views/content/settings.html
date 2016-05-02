@@ -6,19 +6,20 @@
       <div class="col-md-2" ng-if="username.isAdmin">Admin</div>
       <div class="col-md-2" ng-if="!username.isAdmin">Staff</div>
       <div class="col-md-3">
-        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn my-btn btn-sm" >Change Admin Status</button> 
+        <button ng-disabled="user.email == username.email" ng-click="toggleAdmin(username)" class="btn my-btn btn-sm" >Change Admin Status</button>
       </div>
       <div class="col-md-3">
-        <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button> 
+        <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button>
       </div>
     </div>
   </div>
 
+  <br>
   <h2>Change Password</h2>
   <div class="change-password row">
     <div class="col-sm-4">
       <form role="form" name="form_change_password" class="form_change_password" ng-submit="changePassword(user)">
-        
+
         <div class='form-group'>
           <label for="chngPassword1">New password</label>
           <input type="password" ng-model="currentPassword1" id="chngPassword1" class='form-control' required>
@@ -40,6 +41,13 @@
       </form>
     </div>
   </div>
+
+  <br>
+  <div class="change-overview" ng-if="user.isAdmin">
+    <h2>Change overview text</h2><button class="btn my-btn submit-button" ng-click="changeOverview()" style="position: relative; top: 240px;">Submit</button>
+    <textarea type="text" class="form-control" ng-model="newOverview" style="position: relative; height: 200px; bottom: 20px; resize: none;"/><br><br>
+  </div>
+
 </div>
 
 <link rel="stylesheet" type="text/css" href="/stylesheets/change-password.css">
