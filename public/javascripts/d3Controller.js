@@ -100,7 +100,7 @@ var d3Controller = function($scope, $http, $state) {
         var year2 = lastDate.getFullYear();
         var month2 = lastDate.getMonth();
         var day2 = lastDate.getDate();
-        while (!(year1 == year2 && month1 == month2 && day1 == day2) && stopGap >= 0) {
+        while (!(year1 == year2 && month1 == month2 && day1 == day2)) {
           console.log(newIterator);
           var foundMatch = false;
           contentData.forEach(function(pair){
