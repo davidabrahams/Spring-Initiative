@@ -1,4 +1,4 @@
-
+//Controller to set inital cohort information
 var cohortController = function($scope,  $http, $state) {
 
   $scope.cohortName = $scope.$parent.currentCohortName;

@@ -1,3 +1,4 @@
+//setting up angular module and ui-router information for ui-sref functions
 var springInitiative = angular.module('springInitiativeApp',
                                       ['ui.router','ngAnimate', 'nvd3',
                                       'rzModule', 'ui.bootstrap']);

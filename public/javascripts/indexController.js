@@ -1,3 +1,4 @@
+//controller to set inital variables for students, cohorts, and users
 var indexController = function($scope, $http, $location, $state) {
 
   $scope.students = [];

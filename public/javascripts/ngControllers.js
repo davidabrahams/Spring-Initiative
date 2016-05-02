@@ -1,3 +1,4 @@
+//directing controller based on app made in ngApps.js
 springInitiative.controller('loginController', loginController);
 springInitiative.controller('indexController', indexController);
 springInitiative.controller('d3Controller', d3Controller);

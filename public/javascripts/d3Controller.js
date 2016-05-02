@@ -1,3 +1,4 @@
+//Controller to show and create vizs based on data on a specific student
 var d3Controller = function($scope, $http, $state) {
 
   $scope.timeFrame = "-1";
