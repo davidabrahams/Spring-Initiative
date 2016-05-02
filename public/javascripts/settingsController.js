@@ -31,6 +31,7 @@ var settingsController = function($scope, $http, $location) {
       newData: $scope.$$childHead.newOverview
      }).then(function successCallback(response) {
       console.log(response);
+      $scope.overviewChangeMsg = "Overview information updated.";
       $scope.overview = response.data.overview;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
