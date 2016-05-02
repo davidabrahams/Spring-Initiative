@@ -1,3 +1,4 @@
+//controller to deal with current student functions such as deleting, adding entries, etc.
 var studentController = function($scope, $http, $state) {
 
   // $scope.$state = $state;
@@ -40,10 +41,12 @@ var studentController = function($scope, $http, $state) {
 var addDailyEntryController = function($scope, $http, $location) {
 
   var resetEntry = function() {
-    $scope.newDailyEntry = {engageContent: 3, engagePeer: 3, engageAdult: 3,
+
+    $scope.newDailyEntry = {engageContent: 5, engagePeer: 5, engageAdult: 5,
       attendance: "Present", warnings: "0 Warnings", stars: "0",
       "schoolBehavior": {'Write-Up': false, 'Detention': false,
       'In-School Suspension': false, 'Out-of-School Suspension': false}};
+
   };
 
   $scope.popup1 = {

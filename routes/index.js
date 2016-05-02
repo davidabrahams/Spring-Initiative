@@ -1,3 +1,5 @@
+/*ROUTES INDEX:  hooks up all routes divided up into other files.*/
+
 var path = require('path');
 var routes = {};
 

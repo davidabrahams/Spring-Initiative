@@ -1,3 +1,4 @@
+//contoller to deal with verifying and logging people on inital page
 var loginController = function($scope, $http, $state) {
 
   $scope.emailGroupClass = {'form-group': true};

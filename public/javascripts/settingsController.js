@@ -1,3 +1,4 @@
+//contoller to deal with settings page- including admin changes, main page message, and changing passwords
 var settingsController = function($scope, $http, $location) {
   $scope.newOverview = angular.extend($scope.overview.overview);
 
@@ -24,13 +25,10 @@ var settingsController = function($scope, $http, $location) {
   };
 
   $scope.changeOverview = function(){
-    console.log('normal',$scope.newOverview);
-    console.log('childhead',$scope.$$childHead.newOverview);
     // Yes, $$childHead is necessary to access the updated overview. Why, I do not know
     $http.post('api/editOverview/?_id=' + $scope.overview._id, {
       newData: $scope.$$childHead.newOverview
      }).then(function successCallback(response) {
-      console.log(response);
       $scope.overviewChangeMsg = "Overview information updated.";
       $scope.overview = response.data.overview;
     }, function errorCallback(response) {
