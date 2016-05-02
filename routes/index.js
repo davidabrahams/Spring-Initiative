@@ -13,6 +13,7 @@ routes.POSTeditOverview = overviewRoutes.POSTeditOverview;
 routes.GETallStudents = studentRoutes.GETallStudents;
 routes.GETstudent = studentRoutes.GETstudent;
 routes.POSTeditstudent = studentRoutes.POSTeditstudent;
+routes.DELETEstudent = studentRoutes.DELETEstudent;
 routes.POSTaddstudent = studentRoutes.POSTaddstudent;
 routes.GETarchive = studentRoutes.GETarchive;
 routes.GETstudentEntries = studentRoutes.GETstudentEntries;

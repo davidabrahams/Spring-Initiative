@@ -42,8 +42,7 @@ routes.POSTeditstudent = function(req, res, next) {
   }, function(err, record) {
     Student.find({}, function(err, allStudents) {
       if (err) {
-        res.send(err);
-        return res.status(200).json({msg: 'Error editing student data'});
+        return res.status(500).json({msg: 'Error editing student data'});
       }
       Student.findOne({_id: studentID}, function(err, currentStudent) {
         res.json({allStudents:allStudents, currentStudent: currentStudent, msg: 'Student data edited successfully!'});
@@ -51,6 +50,18 @@ routes.POSTeditstudent = function(req, res, next) {
     });
   });
 
+};
+
+routes.DELETEstudent = function(req, res, next) {
+  var studentID = req.params._id;
+  Student.findByIdAndRemove(studentID, function(error, doc, result) {
+    if (error) {
+      return res.status(500).json({msg: 'Error deleting student'});
+    }
+    Student.find({}, function(err, allStudents) {
+      res.json(allStudents);
+    });
+  });
 };
 
 routes.POSTaddstudent = function(req, res, next) {
