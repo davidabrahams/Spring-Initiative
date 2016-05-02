@@ -6,7 +6,12 @@ var indexController = function($scope, $http, $location, $state) {
   $http.get('/user').then(function(data) {
     $scope.user = data.data.user;
     console.log("Current user: " + $scope.user.email);
+  });
 
+  $http.get('/api/overview').then(function(data) {
+    $scope.overview = data.data.overviewData;
+  }, function(err) {
+    console.log('Error: in GET \'/overview\'', err);
   });
 
   $scope.logout = function(){

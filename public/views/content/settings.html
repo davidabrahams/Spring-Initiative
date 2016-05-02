@@ -14,6 +14,14 @@
     </div>
   </div>
 
+    <br>
+  <div class="change-overview" ng-if="user.isAdmin">
+    <h2>Change overview text</h2>
+    <input type="text" class="form-control" ng-model="newOverview"/><br>
+    <button class="btn my-btn submit-button" ng-click="changeOverview()">Submit</button>
+  </div>
+
+  <br>
   <h2>Change Password</h2>
   <div class="change-password row">
     <div class="col-sm-4">

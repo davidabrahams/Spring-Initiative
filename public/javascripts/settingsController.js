@@ -1,4 +1,5 @@
 var settingsController = function($scope, $http, $location) {
+  $scope.newOverview = angular.extend($scope.overview.overview);
 
   $http.get('api/allUsers').then(function successCallback(response) {
     $scope.allUsers = response.data;
@@ -17,6 +18,18 @@ var settingsController = function($scope, $http, $location) {
   $scope.delUser = function(username, userArray, delUserIdx) {
     $http.delete('api/delUser/'+username._id).then(function successCallback(response) {
       userArray.splice(delUserIdx, 1);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response.data);
+    });
+  };
+
+  $scope.changeOverview = function(){
+    // Yes, $$childHead is necessary to access the updated overview. Why, I do not know
+    $http.post('api/editOverview/?_id=' + $scope.overview._id, {
+      newData: $scope.$$childHead.newOverview
+     }).then(function successCallback(response) {
+      console.log(response);
+      $scope.overview = response.data.overview;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
     });
