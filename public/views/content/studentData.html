@@ -1,13 +1,13 @@
 <!-- Right side info -->
 <div class="listing" style="float: right;">
   <h3>
-    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span> Lvl {{readingLevel}}
+    <span tooltip-placement="left" uib-tooltip="Current reading level" class="glyphicon glyphicon-book" aria-hidden="true"></span>: {{readingLevel}}
 </div>
 <br>
 <!-- Left side info -->
 <div class="holder">
   <div class="overview">
-    <p> Overview: </p>
+    <h2>Overview:</h2>
     {{currentStudent.overview}}
   </div>
   <div>
@@ -98,7 +98,7 @@
   <div class="data" ng-show="isData && isLongterm">
     <div>
       <h3>
-        <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span> Lvl {{ifEmpty(dateSelected.readingLevels)}}
+        <span uib-tooltip="Stars" class="glyphicon glyphicon-book" aria-hidden="true" style="float-left: true;"></span>: {{ifEmpty(dateSelected.readingLevels)}}
       </h3>
     </div>
     <br>
