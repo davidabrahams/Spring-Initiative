@@ -1,8 +1,8 @@
 
 var cohortController = function($scope,  $http, $state) {
 
-  $scope.cohortName = $scope.$parent.currentCohortName;
-  $scope.cohortInfo = $scope.$parent.currentCohortInfo;
+  $scope.newCohortEntry = {};
+  $scope.newCohortEntry.cohortName = $scope.currentCohortName;
 
   $scope.submitNewCohortEntry = function(cohortName) {
 
