@@ -43,6 +43,9 @@
   </div>
 
   <br>
+  <div class="alert alert-info form-group" ng-show="overviewChangeMsg">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> {{overviewChangeMsg}}
+  </div>
   <div class="change-overview" ng-if="user.isAdmin">
     <h2>Change overview text</h2><button class="btn my-btn submit-button" ng-click="changeOverview()" style="position: relative; top: 240px;">Submit</button>
     <textarea type="text" class="form-control" ng-model="newOverview" style="position: relative; height: 200px; bottom: 20px; resize: none;"/><br><br>

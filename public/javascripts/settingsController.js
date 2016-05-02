@@ -29,6 +29,7 @@ var settingsController = function($scope, $http, $location) {
     $http.post('api/editOverview/?_id=' + $scope.overview._id, {
       newData: $scope.$$childHead.newOverview
      }).then(function successCallback(response) {
+      $scope.overviewChangeMsg = "Overview information updated.";
       $scope.overview = response.data.overview;
     }, function errorCallback(response) {
       console.log('Error: ' + response.data);
