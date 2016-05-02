@@ -82,6 +82,9 @@ var d3Controller = function($scope, $http, $state) {
           contentData.push([Number(new Date(dates[i])), data[i]]);
         }
       }
+      contentData.sort(function(a, b) {
+        return parseFloat(a[0]) - parseFloat(b[0]);
+      });
 
       //setting this new datalist to angular var for plotting
       res = [{
@@ -175,7 +178,7 @@ var d3Controller = function($scope, $http, $state) {
     //options to create time based bar chart
     $scope.barOptions = {
       chart: {
-        type: 'historicalBarChart',
+        type: 'discreteBarChart',
         height: 450,
         margin: {
           top: 20,
@@ -183,6 +186,7 @@ var d3Controller = function($scope, $http, $state) {
           bottom: 65,
           left: 50
         },
+        color:['#ff7f0e'],
         forceY: [0, 2.5],
         x: function(d) {
           return d[0];
