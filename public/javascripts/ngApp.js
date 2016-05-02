@@ -45,14 +45,6 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
       }
     }
   })
-  .state('index.cohort.addEntry', {
-    views: {
-      'cohortView@index.cohort': {
-        templateUrl: 'views/content/cohortEntry.html',
-        controller: 'cohortController'
-      }
-    }
-  })
   .state('index.cohort.showStudents', {
     views: {
       'cohortView@index.cohort': {
