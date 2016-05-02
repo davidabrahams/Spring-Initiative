@@ -27,6 +27,7 @@
   </div>
 </form>
 <div class="viz-bkg row" ng-if="chartType">
+  <center><h3 class="chart-title">{{currentStudent.name}}'s {{chosenData}}</h3></center>
   <nvd3 ng-if="chartType=='Pie'" options="pieOptions" data="pieData"></nvd3>
   <nvd3 ng-if="chartType=='Line'" options="lineOptions" data="lineData"></nvd3>
   <nvd3 ng-if="chartType=='Bar'" options="barOptions" data="barData"></nvd3>
