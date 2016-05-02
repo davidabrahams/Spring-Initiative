@@ -1,3 +1,4 @@
+//controller to deal with current student functions such as deleting, adding entries, etc.
 var studentController = function($scope, $http, $state) {
 
   // $scope.$state = $state;

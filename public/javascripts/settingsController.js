@@ -1,3 +1,4 @@
+//contoller to deal with settings page- including admin changes, main page message, and changing passwords
 var settingsController = function($scope, $http, $location) {
   $scope.newOverview = angular.extend($scope.overview.overview);
 

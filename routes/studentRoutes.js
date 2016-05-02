@@ -1,3 +1,7 @@
+/*ROUTES: Routes related to students
+This file contains routes for geting all student data, getting data for an individual student,
+editing a student's information, deleting a student, adding a student, and viewing archived students*/
+
 var path = require('path');
 var routes = {};
 var Student = require(path.join(__dirname, '../models/student'));

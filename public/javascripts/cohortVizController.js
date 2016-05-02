@@ -1,3 +1,4 @@
+//Controller to show and create vizs based on data across a specific cohort
 var cohortVizController = function($scope, $http, $state) {
 
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
