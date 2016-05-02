@@ -1,3 +1,7 @@
+/*ROUTES: All Routes related to users 
+This file containts routes for login, logout, registration, email verification,
+deleting users, changing admin status, changing password, etc.*/
+
 var routes = {};
 var path = require('path');
 var passport = require('passport');

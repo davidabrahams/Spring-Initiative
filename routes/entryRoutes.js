@@ -1,3 +1,6 @@
+/*ROUTES: All routes related to student entries
+This file contains routes for posting a new dialy entry, posting a new long-term entry, 
+getting student entries, and getting entries by cohort*/
 var path = require('path');
 var routes = {};
 
