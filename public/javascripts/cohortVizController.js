@@ -9,7 +9,7 @@ var cohortVizController = function($scope, $http, $state) {
     $scope.warnings = response.data.warningList;
     $scope.engagePeer = response.data.engagePeerList;
     $scope.engageContent = response.data.engageContentList;
-    $scope.engageAdult = response.data.engageAdultList;    
+    $scope.engageAdult = response.data.engageAdultList;
 
     var filterOutDates = function(arr, dates, days) {
     var newArray = [];
@@ -70,7 +70,6 @@ var cohortVizController = function($scope, $http, $state) {
     var updateData = function() {
       var filteredData = filterOutDates(allLists[$scope.chosenData], $scope.dates, Number($scope.timeFrame));
       $scope.pieData = formatPieData(filteredData[0]);
-      console.log($scope.pieData)
     };
 
     updateData();
