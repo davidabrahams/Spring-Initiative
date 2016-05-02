@@ -26,7 +26,8 @@
   </div>
 </form>
 
-<div class="viz-bkg row">
+<div class="viz-bkg row" ng-if="chosenData">
+  <center><h3 class="chart-title">{{currentCohortName}}'s {{chosenData}}</h3></center>
   <nvd3 options="pieOptions" data="pieData"></nvd3>
 </div>
 
