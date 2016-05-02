@@ -24,6 +24,8 @@ var settingsController = function($scope, $http, $location) {
   };
 
   $scope.changeOverview = function(){
+    console.log('normal',$scope.newOverview);
+    console.log('childhead',$scope.$$childHead.newOverview);
     // Yes, $$childHead is necessary to access the updated overview. Why, I do not know
     $http.post('api/editOverview/?_id=' + $scope.overview._id, {
       newData: $scope.$$childHead.newOverview

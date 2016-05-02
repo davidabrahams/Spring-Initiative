@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/change-password.css">
 <div class="user-settings">
   <h2>Change Admin Settings</h2>
   <div class="user-item" ng-if="user.isAdmin" ng-repeat="username in allUsers">
@@ -12,13 +13,6 @@
         <button ng-disabled="username.isAdmin" ng-click="delUser(username, allUsers, $index)" class="btn btn-danger btn-sm" >Delete User</button> 
       </div>
     </div>
-  </div>
-
-    <br>
-  <div class="change-overview" ng-if="user.isAdmin">
-    <h2>Change overview text</h2>
-    <input type="text" class="form-control" ng-model="newOverview"/><br>
-    <button class="btn my-btn submit-button" ng-click="changeOverview()">Submit</button>
   </div>
 
   <br>
@@ -48,6 +42,11 @@
       </form>
     </div>
   </div>
-</div>
 
-<link rel="stylesheet" type="text/css" href="/stylesheets/change-password.css">
+  <br>
+  <div class="change-overview" ng-if="user.isAdmin">
+    <h2>Change overview text</h2><button class="btn my-btn submit-button" ng-click="changeOverview()" style="position: relative; top: 240px;">Submit</button>
+    <textarea type="text" class="form-control" ng-model="newOverview" style="position: relative; height: 200px; bottom: 20px;"/><br><br>
+  </div>
+
+</div>
