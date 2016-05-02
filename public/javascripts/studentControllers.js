@@ -27,7 +27,9 @@ var addDailyEntryController = function($scope, $http, $location) {
 
   var resetEntry = function() {
     $scope.newDailyEntry = {engageContent: 3, engagePeer: 3, engageAdult: 3,
-      attendance: "Present", warnings: "0 Warnings", stars: "0"};
+      attendance: "Present", warnings: "0 Warnings", stars: "0",
+      "schoolBehavior": {'Write-Up': false, 'Detention': false,
+      'In-School Suspension': false, 'Out-of-School Suspension': false}};
   };
 
   $scope.popup1 = {
