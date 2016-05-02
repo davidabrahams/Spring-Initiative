@@ -1,6 +1,6 @@
 var studentController = function($scope, $http, $state) {
 
-  $scope.$state = $state;
+  // $scope.$state = $state;
 
   //TODO: check these and make sure they work
   $scope.submitEditStudent = function(editStudent, currentStudent) {
