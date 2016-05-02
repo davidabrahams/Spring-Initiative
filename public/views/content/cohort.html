@@ -1,16 +1,13 @@
 <div id="content-title" class="content" >
   <h3>{{currentCohortName}}</h3>
 </div>
-<div id="content-text" class="content" >
-  Info: {{currentCohortInfo}}
-</div>
+    <div ng-if="cohortEntryActionSteps" class="alert alert-info" ng-show="cohortEntryActionSteps" style="background-color: #D3F2EF; color:#183635">
+     Action Steps:  {{cohortEntryActionSteps}}
+    </div>
 
 <div id="exTab3" class="container">
   <ul class="nav nav-pills">
     <li ui-sref-active="active" class="tab active">
-      <a ui-sref=".addEntry">Daily Entry</a>
-    </li>
-    <li ui-sref-active="active" class="tab">
       <a ui-sref=".showViz">Show Viz</a>
     </li>
     <li ui-sref-active="active" class="tab">

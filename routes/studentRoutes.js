@@ -29,6 +29,7 @@ routes.POSTeditstudent = function(req, res, next) {
   var studentArchived = req.body.archived;
   var studentID = req.params._id;
   var studentOverview = req.body.overview;
+  var studentActionSteps = req.body.actionSteps;
 
   Student.update({
     _id: studentID
@@ -36,7 +37,8 @@ routes.POSTeditstudent = function(req, res, next) {
     name: studentName,
     program: studentProgram,
     archived: studentArchived,
-    overview: studentOverview
+    overview: studentOverview,
+    actionSteps: studentActionSteps
   }, function(err, record) {
     Student.find({}, function(err, allStudents) {
       if (err) {
