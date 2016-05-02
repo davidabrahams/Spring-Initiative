@@ -101,7 +101,6 @@ var d3Controller = function($scope, $http, $state) {
         var month2 = lastDate.getMonth();
         var day2 = lastDate.getDate();
         while (!(year1 == year2 && month1 == month2 && day1 == day2)) {
-          console.log(newIterator);
           var foundMatch = false;
           contentData.forEach(function(pair){
             var tempDate = new Date(pair[0]);
@@ -220,7 +219,7 @@ var d3Controller = function($scope, $http, $state) {
     //options to create time based bar chart
     $scope.barOptions = {
       chart: {
-        type: 'discreteBarChart',
+        type: 'historicalBarChart',
         height: 450,
         margin: {
           top: 20,
