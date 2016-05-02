@@ -3,9 +3,9 @@ var d3Controller = function($scope, $http, $state) {
   $scope.timeFrame = "-1";
 
   // These are all the fields for which viz is available
-  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent', 'engagePeer', 'engageAdult'];
+  $scope.canBeVisualized = ['attendance', 'stars', 'warnings', 'engageContent', 'engagePeer', 'engageAdult', 'Write-Up', 'Detention', 'In-School Suspension', 'Out-of-School Suspension'];
   // what will be displayed in the dropdown
-  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement', 'Peer Engagement', 'Adult Engagement'];
+  $scope.canBeVisualizedDisplay = ['Attendance', 'Stars', 'Warnings', 'Content Engagement', 'Peer Engagement', 'Adult Engagement', 'Write-Up', 'Detention', 'In-School Suspension', 'Out-of-School Suspension'];
   // This is a dictionary mapping from field name to values in the database
   $scope.dataLists = {};
   // This is a dictionary mapping from field name to type in the database
@@ -17,7 +17,7 @@ var d3Controller = function($scope, $http, $state) {
     $scope.dataLists[category] = [];
   });
 
-  $scope.typeToViz = {"string": ["Pie"], "number": ["Pie", "Bar", "Line"]};
+  $scope.typeToViz = {"string": ["Pie"], "boolean": ["Pie", "Bar"], "number": ["Pie", "Bar", "Line"]};
 
 
   //creating a dictionary mapping elements to their counts in a list
@@ -111,19 +111,6 @@ var d3Controller = function($scope, $http, $state) {
     return [newArray, newDates];
   };
 
-  var updateData = function() {
-    var filteredData = filterOutDates($scope.dataLists[$scope.chosenData], $scope.dates, Number($scope.timeFrame));
-    $scope.pieData = formatPieData(filteredData[0]);
-    $scope.lineData = formatLineData(filteredData[0], filteredData[1]);
-    $scope.barData = formatBarData(filteredData[0], filteredData[1]);
-  };
-
-  updateData();
-
-  $scope.$watchGroup(["chosenData", "chartType", "timeFrame"], function(newValues, oldValues) {
-    updateData();
-  });
-
   //options to create pie chart
   $scope.pieOptions = {
     chart: {
@@ -185,60 +172,75 @@ var d3Controller = function($scope, $http, $state) {
       }
     }
   };
-  //options to create time based bar chart
-  $scope.barOptions = {
-    chart: {
-      type: 'historicalBarChart',
-      height: 450,
-      margin: {
-        top: 20,
-        right: 20,
-        bottom: 65,
-        left: 50
-      },
-      forceY: [0, 2.5],
-      x: function(d) {
-        return d[0];
-      },
-      y: function(d) {
-        return d[1];
-      },
-      showValues: true,
-      valueFormat: function(d) {
-        return d3.format(',.1f')(d);
-      },
-      duration: 100,
-      xAxis: {
-        axisLabel: 'Dates',
-        tickFormat: function(d) {
-          return d3.time.format('%x')(new Date(d));
+
+  var setBarOptions = function() {
+    //options to create time based bar chart
+    $scope.barOptions = {
+      chart: {
+        type: 'historicalBarChart',
+        height: 450,
+        margin: {
+          top: 20,
+          right: 20,
+          bottom: 65,
+          left: 50
         },
-        rotateLabels: 30,
-        showMaxMin: false
-      },
-      yAxis: {
-        axisLabel: 'Stars Achived',
-        axisLabelDistance: -10,
-        tickFormat: function(d) {
+        forceY: [0, 2.5],
+        x: function(d) {
+          return d[0];
+        },
+        y: function(d) {
+          return d[1];
+        },
+        showValues: true,
+        valueFormat: function(d) {
           return d3.format(',.1f')(d);
+        },
+        duration: 100,
+        xAxis: {
+          axisLabel: 'Dates',
+          tickFormat: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          },
+          rotateLabels: 30,
+          showMaxMin: false
+        },
+        yAxis: {
+          axisLabel: $scope.canBeVisualizedDisplay[$scope.canBeVisualized.indexOf($scope.chosenData)],
+          axisLabelDistance: -10,
+          tickFormat: function(d) {
+            return d3.format(',.1f')(d);
+          }
+        },
+        tooltip: {
+          keyFormatter: function(d) {
+            return d3.time.format('%x')(new Date(d));
+          }
+        },
+        zoom: {
+          enabled: true,
+          scaleExtent: [1, 10],
+          useFixedDomain: false,
+          useNiceScale: false,
+          horizontalOff: false,
+          verticalOff: true,
+          unzoomEventType: 'dblclick.zoom'
         }
-      },
-      tooltip: {
-        keyFormatter: function(d) {
-          return d3.time.format('%x')(new Date(d));
-        }
-      },
-      zoom: {
-        enabled: true,
-        scaleExtent: [1, 10],
-        useFixedDomain: false,
-        useNiceScale: false,
-        horizontalOff: false,
-        verticalOff: true,
-        unzoomEventType: 'dblclick.zoom'
       }
-    }
+    };
   };
+
+  var updateData = function() {
+    var filteredData = filterOutDates($scope.dataLists[$scope.chosenData], $scope.dates, Number($scope.timeFrame));
+    $scope.pieData = formatPieData(filteredData[0]);
+    $scope.lineData = formatLineData(filteredData[0], filteredData[1]);
+    $scope.barData = formatBarData(filteredData[0], filteredData[1]);
+    setBarOptions();
+  };
+
+  $scope.$watchGroup(["chosenData", "chartType", "timeFrame"], function(newValues, oldValues) {
+    updateData();
+  });
 
   $http.get('/api/student/dataList/' + $scope.currentStudent._id).then(function successCallback(
     response) {
@@ -246,6 +248,12 @@ var d3Controller = function($scope, $http, $state) {
     // iterate over the forms in the DB
     response.data.forEach(function(entry) {
       $scope.dates.push(entry.date);
+      // put school behavior in the current dictionary
+      for (var key in entry['schoolBehavior']) {
+        if (entry['schoolBehavior'].hasOwnProperty(key)) {
+          entry[key] = entry['schoolBehavior'][key]
+        }
+      }
       // iterate over the viz fields
       $scope.canBeVisualized.forEach(function(category) {
         // append to the corresponding list

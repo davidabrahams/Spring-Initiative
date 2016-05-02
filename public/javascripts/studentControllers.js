@@ -27,7 +27,8 @@ var studentController = function($scope, $http, $state) {
 var addDailyEntryController = function($scope, $http, $location) {
 
   var resetEntry = function() {
-    $scope.newDailyEntry = {engageContent: 3, engagePeer: 3, engageAdult: 3, attendance: "Present", warnings: "0 Warnings", stars: "0"};
+    $scope.newDailyEntry = {engageContent: 3, engagePeer: 3, engageAdult: 3,
+      attendance: "Present", warnings: "0 Warnings", stars: "0"};
   };
 
   $scope.popup1 = {
