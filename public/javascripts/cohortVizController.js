@@ -27,12 +27,12 @@ var cohortVizController = function($scope, $http, $state) {
     return [newArray, newDates];
   };
 
-    var formatPieData = function(data){
+  var formatPieData = function(data){
     var newList = [];
     var dataDict = {};
     if (data !== undefined) {
       data.forEach(function(i) {
-        if (i !== undefined && i === i || data !== null) {
+        if (i !== undefined && i === i && i!== null) {
           dataDict[i] = (dataDict[i] || 0) + 1;
         }
       });
