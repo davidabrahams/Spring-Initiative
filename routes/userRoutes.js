@@ -10,6 +10,7 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME,
 
 var User = require(path.join(__dirname, '../models/user'));
 
+// Is the password being encrypted appropriately here? bcrypt-nodejs and scrypf (verifyKdfSync etc.) not a bad library to accompish this
 routes.POSTlogin = function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err)
