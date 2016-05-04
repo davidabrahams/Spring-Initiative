@@ -39,6 +39,7 @@ routes.POSTregister = function(req, res, next) {
       if (err) return res.status(403).send(err.message);
       
       // Get admin emails
+      // I really like the use of smart mongoose syntax in filtering
       User.find({isAdmin: true}, {email: 1, _id: 0}, function(err, admins) {
         // send email verification to admins
         var half = user.authToken.length / 2;
@@ -53,6 +54,7 @@ routes.POSTregister = function(req, res, next) {
           email.addTo(admins[i].email);
         }
 
+        // That was sweet. Sendgrid looks super interesting and easy touse
         email.setFrom('SpringInitiative@olinjs.com');
         email.setSubject(user.email + ' wants to register for Spring Initiative\'s website.');
         email.setHtml('<a target=_blank href=\"' + authenticationURL +

@@ -7,7 +7,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
   $locationProvider) {
 
   $urlRouterProvider.otherwise('/');
-
+  // I love state provider
   $stateProvider
 
   /* Page views */
@@ -124,6 +124,7 @@ springInitiative.config(function($stateProvider, $urlRouterProvider,
 
 });
 
+// Include commenting please here
 springInitiative.run(function($rootScope, $state, $http) {
   $rootScope.$on('$stateChangeStart', function(event, next, current) {
     $http.get('/user').then(function(data) {
