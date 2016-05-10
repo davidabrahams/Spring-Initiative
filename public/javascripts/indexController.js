@@ -16,6 +16,7 @@ var indexController = function($scope, $http, $location, $state) {
   });
 
   $scope.logout = function(){
+    // if you guys are curious you should look in the the official promise spec, which is different and in my opinion way cleaner than the q bullshit that angular uses
     $http.post("/api/logout").then(function successCallback(response) {
       $state.go('login');
     }, function errorCallback(response) {
