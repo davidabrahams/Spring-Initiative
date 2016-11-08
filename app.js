@@ -20,6 +20,7 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// lol, could probably get rid of this or get a favicon :P
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -50,6 +51,7 @@ app.get('/verify', index.GETemailver);
 app.get('/user', function(req, res, next) {
   res.json({user: req.user});
 })
+// I might add a few organizational comments and line breaks here
 app.post('/api/login', index.POSTlogin);
 app.post('/api/logout', index.POSTlogout);
 app.post('/api/register', index.POSTregister);
@@ -72,6 +74,11 @@ app.delete('/api/delUser/:_id', index.DELETEdelUser);
 app.post('/api/editOverview/', index.POSTeditOverview);
 app.get('/api/overview', index.GEToverview);
 
+//kinda weird to do this as the end of the middleware chain. I would probably do
+//  app.get('/', function(req, res){
+//    res.sendFile('main.html', { root: path.join(__dirname, 'views') });
+//  })
+//  that what it only sends the file if they go to '/' and not to any request that is unrecognized. 
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
   res.sendFile('main.html', { root: path.join(__dirname, 'views') });

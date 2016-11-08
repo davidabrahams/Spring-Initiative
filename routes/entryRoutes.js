@@ -23,6 +23,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
   var engageContent = parseInt(req.body.engageContent);
   var engagePeer = parseInt(req.body.engagePeer);
   var engageAdult = parseInt(req.body.engageAdult);
+  //oooof ^ looks like it was a pain to write
   var querry = {
     _studentID: studentID,
     date: currentDate,
@@ -38,6 +39,7 @@ routes.POSTnewDailyEntry = function(req, res, next) {
     engagePeer: engagePeer,
     engageAdult:engageAdult
   };
+  // why define the callback here instead of in line? Not bad just curious
   var callback = function(err, newEntryObj) {
     if (err) return res.status(500).json({msg: 'Error submitting entry'});
     res.json({newEntryObj:newEntryObj, msg: 'Entry submitted successfully!'});

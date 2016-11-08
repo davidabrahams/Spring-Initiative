@@ -4,6 +4,9 @@ var cohortVizController = function($scope, $http, $state) {
   $http.get('/api/cohort/data/' + $scope.currentCohortName).then(function successCallback(
     response) {
     $scope.timeFrame = "-1";
+    // oh man, this is a bit late, but there are some really cool ways to do shit like this in es6/7/8, if you are interested look into object destructuring and spread
+    // it would be $scope = {...$scope, ...response.data};
+    // or Object.assign($scope, response.data);
     $scope.attendance = response.data.attendanceList;
     $scope.dates = response.data.datesList;
     $scope.stars = response.data.starsList;
@@ -18,6 +21,7 @@ var cohortVizController = function($scope, $http, $state) {
     var thresh = new Date();
     thresh.setDate(thresh.getDate() - days);
     if (arr !== undefined) {
+      // this would have been a great place for a dates.filter()
       for (var i = 0; i < arr.length; i++) {
         if (new Date(dates[i]) >= thresh || days === -1) {
           newArray.push(arr[i]);
@@ -30,13 +34,21 @@ var cohortVizController = function($scope, $http, $state) {
 
   var formatPieData = function(data){
     var newList = [];
+    // no dicts in JS, objects have some important differences
     var dataDict = {};
+    // probably not the clearest way to format this
     if (data !== undefined) {
       data.forEach(function(i) {
         if (i !== undefined && i === i && i!== null) {
           dataDict[i] = (dataDict[i] || 0) + 1;
         }
       });
+      // would have probably gone with
+      // return Object.keys.map(function (key){
+      //    return {key:key, y:dataDict[key]}
+      //})
+      //or with new syntax
+      // return Object.keys,map(key => ({key, y:dataDict[key]}))
       var keys = Object.keys(dataDict);
       for (var i = 0; i < keys.length; i++) {
         newList.push({
