@@ -1,3 +1,5 @@
+// General comments that apply to the whole tree of docs pertains to logging. Remove all 
+// log statements in both server and frontend
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -80,6 +82,7 @@ app.use(function(req, res) {
 var mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI);
 
+// What happens for local deployment? Do you handle that -- getting a mongo connect error on local testing
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {

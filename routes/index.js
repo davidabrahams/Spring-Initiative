@@ -3,6 +3,9 @@
 var path = require('path');
 var routes = {};
 
+// As a general note: each method in your API routes files should have documentation as to what it does
+// and are the relevant requests and responces.
+
 var userRoutes = require(path.join(__dirname, './userRoutes'));
 var studentRoutes = require(path.join(__dirname, './studentRoutes'));
 var entryRoutes = require(path.join(__dirname, './entryRoutes'));

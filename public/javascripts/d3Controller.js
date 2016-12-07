@@ -1,3 +1,5 @@
+// Very nice work on the d3 vizualizations
+
 //Controller to show and create vizs based on data on a specific student
 var d3Controller = function($scope, $http, $state) {
 

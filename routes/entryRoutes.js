@@ -116,7 +116,8 @@ routes.GETcohortEntries = function(req, res) {
   var engageContentList = [];
   var engagePeerList = [];
   var engageAdultList = [];
-
+  
+  // What's the purpose of archived here?
   Student.find({program:cohort, archived: false}, function(err, students){
     var studentIds = students.map(function(student){return student._id;});
     FormDB.find({_studentID:{$in:studentIds}}, function(err, forms) {
